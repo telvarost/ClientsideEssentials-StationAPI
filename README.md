@@ -13,7 +13,7 @@ Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17
 ## Graphical Additions
 
 - Ability to change FOV in options
-  - Added keybind to zoom in on things quickly
+  - Added LCtrl to zoom in on things quickly
 - Ability to change cloud height in options
 - Ability to show/hide clouds in options
 - Ability to change fog density in options
