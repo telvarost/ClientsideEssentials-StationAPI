@@ -1,0 +1,35 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.telvarost.clientsideessentials.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "server": [
+  ],
+  "client": [
+    "options.GameOptionsMixin",
+    "options.OptionMixin",
+    "options.OptionsScreenMixin",
+    "options.VideoSettingsMixin",
+    "AbstractClientPlayerMixin",
+    "BipedRendererMixin",
+    "BlockBaseMixin",
+    "BowItemMixin",
+    "ContainerScreenMixin",
+    "DeathScreenMixin",
+    "GameRendererMixin",
+    "ItemInstanceMixin",
+    "LivingEntityRendererMixin",
+    "LivingMixin",
+    "MinecartMixin",
+    "MinecraftMixin",
+    "OverlayMixin",
+    "PlayerRendererMixin",
+    "SkeletonModelMixin",
+    "WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

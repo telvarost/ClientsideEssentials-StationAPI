@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "clientsideessentials",
+  "version": "${version}",
+
+  "name": "ClientsideEssentials",
+  "description": "Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17.",
+  "authors": [
+    "Telvarost",
+    "Dany"
+  ],
+  "contact": {
+    "issues": "https://github.com/telvarost/ClientsideEssentials-StationAPI/issues",
+    "homepage": "https://github.com/telvarost/ClientsideEssentials-StationAPI/",
+    "sources": "https://github.com/telvarost/ClientsideEssentials-StationAPI/"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/clientsideessentials/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "stationapi:event_bus": [
+    ],
+    "stationapi:event_bus_client": [
+      "com.github.telvarost.clientsideessentials.events.init.ClientInitListener"
+    ],
+    "stationapi:event_bus_server": [
+    ],
+    "gcapi": [
+      "com.github.telvarost.clientsideessentials.Config"
+    ]
+  },
+  "mixins": [
+    "clientsideessentials.mixins.json"
+  ],
+
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3"
+  },
+
+  "breaks": {
+    "finalbeta": "*",
+    "unitweaks": "*"
+  },
+
+  "custom": {
+    "modmenu:clientsideOnly": true
+  }
+}
