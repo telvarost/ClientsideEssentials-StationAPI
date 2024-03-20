@@ -1,6 +1,8 @@
 # ClientsideEssentials StationAPI Edition for Minecraft Beta 1.7.3
 
 Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17.
+- Incompatible with UniTweaks (does the same thing and more)
+- Incompatible with FinalBeta (does the same thing and less)
 
 ## Graphical Fixes
 
