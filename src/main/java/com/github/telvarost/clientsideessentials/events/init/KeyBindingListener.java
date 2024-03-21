@@ -30,7 +30,9 @@ public class KeyBindingListener {
 
     @EventListener
     public void registerKeyBindings(KeyBindingRegisterEvent event) {
-        if (FabricLoader.getInstance().isModLoaded("mojangfixstationapi")) {
+        if (  FabricLoader.getInstance().isModLoaded("mojangfixstationapi")
+           || FabricLoader.getInstance().isModLoaded("mojangfix")
+        ) {
             event.keyBindings.add(hideHUD = new KeyBinding("Hide HUD", Keyboard.KEY_F1));
             event.keyBindings.add(takeScreenshot = new KeyBinding("Take Screenshot", Keyboard.KEY_F2));
             event.keyBindings.add(debugHud = new KeyBinding("Debug HUD", Keyboard.KEY_F3));
