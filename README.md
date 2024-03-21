@@ -1,8 +1,17 @@
 # ClientsideEssentials StationAPI Edition for Minecraft Beta 1.7.3
 
-Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17.
+A b1.7.3 mod with StationAPI that fixes some common graphical issues, adds some missing sounds, adds a basic score mechanic, and adds extra keybindings if MojangFixStationAPI is installed.
+All changes are configurable with GCAPI.
 - Incompatible with UniTweaks (does the same thing and more)
 - Incompatible with FinalBeta (does the same thing and less)
+
+## Changes to Score
+
+Score is disused in Beta Minecraft this mod adds the ability to get score from:
+- Placing blocks (+1 for each placed)
+- Removing blocks (+1 for each removed)
+- Killing mobs (+1 for each kill)
+- Killing passive entities (+1 for each kill)
 
 ## Graphical Fixes
 
@@ -37,13 +46,25 @@ Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17
 - Add sheep shear sound
 - Add minecart rolling sound
 
-## Changes to Score
-
-Score is disused in Beta Minecraft this mod adds the ability to get score from:
-- Placing blocks
-- Removing blocks
-- Killing mobs
-- Killing passive entities
+## Keybinding Additions
+Additional keybindings are only added if MojangFixStationAPI is installed.
+- Keybinding for hiding player HUD (default: F1)
+- Keybinding for taking a screenshot (default: F2)
+- Keybinding for toggling debug HUD (default: 3)
+- Keybinding for togglien third-person mode (default: F5)
+- Keybinding for toggling cinematic camera mode (default: F6)
+- Keybinding for toggling fullscreen mode (default: F11)
+- Keybinding for dismounting a vehicle (default: LShift)
+- Keybinding for zooming in/out (default: LCtrl)
+- Keybinding for hotbar slot 1
+- Keybinding for hotbar slot 2
+- Keybinding for hotbar slot 3
+- Keybinding for hotbar slot 4
+- Keybinding for hotbar slot 5
+- Keybinding for hotbar slot 6
+- Keybinding for hotbar slot 7
+- Keybinding for hotbar slot 8
+- Keybinding for hotbar slot 9
 
 ## Installation using Prism Launcher
 

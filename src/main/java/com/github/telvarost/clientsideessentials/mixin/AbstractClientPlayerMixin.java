@@ -2,6 +2,8 @@ package com.github.telvarost.clientsideessentials.mixin;
 
 import com.github.telvarost.clientsideessentials.Config;
 
+import com.github.telvarost.clientsideessentials.events.init.KeyBindingListener;
+import com.github.telvarost.clientsideessentials.ModHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -38,13 +40,23 @@ public class AbstractClientPlayerMixin extends PlayerBase {
     public void clientsideEssentials_method_136(int key, boolean state, CallbackInfo ci) {
         PlayerBase player = (PlayerBase) (Object) this;
 
-        if (  (Config.config.SHIFT_EXIT_VEHICLES)
-           && (player.vehicle != null)
-           && (state)
-           && (key == Keyboard.KEY_LSHIFT)
-        ) {
-            player.startRiding(null);
-        }
+		if (ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED) {
+			if (  (Config.config.SHIFT_EXIT_VEHICLES)
+			   && (player.vehicle != null)
+			   && (state)
+			   && (key == KeyBindingListener.dismount.key)
+			) {
+				player.startRiding(null);
+			}
+		} else {
+			if (  (Config.config.SHIFT_EXIT_VEHICLES)
+			   && (player.vehicle != null)
+			   && (state)
+			   && (key == Keyboard.KEY_LSHIFT)
+			) {
+				player.startRiding(null);
+			}
+		}
     }
 
     @Inject(method = "openChestScreen", at = @At("TAIL"))

@@ -3,8 +3,6 @@ package com.github.telvarost.clientsideessentials.mixin;
 import com.github.telvarost.clientsideessentials.Config;
 
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 
@@ -12,7 +10,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -28,8 +25,6 @@ public class MinecraftMixin {
 
 	@Shadow public int actualHeight;
 
-	@Unique private int updateDurationCounter = 0;
-
 	@Inject(method = "loadSoundFromDir", at = @At("HEAD"))
 	public void clientsideEssentials_loadSoundFromDir(String string, File file, CallbackInfo ci) {
 		Minecraft mc = (Minecraft) (Object) this;
@@ -43,76 +38,28 @@ public class MinecraftMixin {
 		}
 	}
 
-	@Redirect(method = "run", at = @At(value = "INVOKE", target = "Ljava/awt/Canvas;getWidth()I"), remap = false)
+	@Redirect(method = "run", at = @At(value = "INVOKE", target = "Ljava/awt/Canvas;getWidth()I", ordinal = 1), remap = false)
 	public int fixWidth(Canvas canvas){
 		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING){
 			AffineTransform transform = canvas.getGraphicsConfiguration().getDefaultTransform();
-			int fixedWidth = (int) Math.ceil(canvas.getParent().getWidth() * transform.getScaleX());
-			if (0 < updateDurationCounter) {
-				canvas.setSize(fixedWidth, this.actualHeight);
-				updateDurationCounter--;
-			}
-			return fixedWidth;
+			return (int) Math.ceil(canvas.getParent().getWidth() * transform.getScaleX());
 		}
 		return canvas.getWidth();
 	}
 
-	@Redirect(method = "run", at = @At(value = "INVOKE", target = "Ljava/awt/Canvas;getHeight()I"), remap = false)
+	@Redirect(method = "run", at = @At(value = "INVOKE", target = "Ljava/awt/Canvas;getHeight()I", ordinal = 1), remap = false)
 	public int fixHeight(Canvas canvas){
 		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING){
 			AffineTransform transform = canvas.getGraphicsConfiguration().getDefaultTransform();
-			int fixedHeight = (int) Math.ceil(canvas.getParent().getHeight() * transform.getScaleY());
-			if (0 < updateDurationCounter) {
-				canvas.setSize(this.actualWidth, fixedHeight);
-				updateDurationCounter--;
-			}
-			return fixedHeight;
+			return (int) Math.ceil(canvas.getParent().getHeight() * transform.getScaleY());
 		}
 		return canvas.getHeight();
 	}
 
-	@Inject(method = "init", at = @At("TAIL"), cancellable = true)
-	public void init(CallbackInfo ci) {
-		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING) {
-			AffineTransform transform = this.canvas.getParent().getGraphicsConfiguration().getDefaultTransform();
-			double scaleX = transform.getScaleX();
-			double scaleY = transform.getScaleY();
-
-			Rectangle curRec = this.canvas.getParent().getBounds();
-			curRec.width = (int) (curRec.width * scaleX);
-			curRec.height = (int) (curRec.height * scaleY);
-			canvas.setBounds(curRec);
-
-			Dimension curDim = this.canvas.getParent().getSize();
-			curDim.width = (int) (curDim.width * scaleX);
-			curDim.height = (int) (curDim.height * scaleY);
-			canvas.setSize(curDim);
-
-			this.canvas.getParent().addComponentListener(new ComponentAdapter() {
-				public void componentResized(ComponentEvent evt) {
-					if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING) {
-						Component c = (Component) evt.getSource();
-						AffineTransform transform = c.getGraphicsConfiguration().getDefaultTransform();
-						double scaleX = transform.getScaleX();
-						double scaleY = transform.getScaleY();
-
-						Rectangle curRec = c.getBounds();
-						curRec.width = (int) (curRec.width * scaleX);
-						curRec.height = (int) (curRec.height * scaleY);
-						canvas.setBounds(curRec);
-
-						Dimension curDim = c.getSize();
-						curDim.width = (int) (curDim.width * scaleX);
-						curDim.height = (int) (curDim.height * scaleY);
-						canvas.setMinimumSize(curDim);
-						canvas.setPreferredSize(curDim);
-						canvas.setMaximumSize(curDim);
-						canvas.setSize(curDim);
-
-						updateDurationCounter = 100;
-					}
-				}
-			});
-		}
-	}
+    @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;updateScreenResolution(II)V"))
+    public void fixCanvasSize(CallbackInfo ci){
+        if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING){
+            this.canvas.setBounds(0,0, this.actualWidth, this.actualHeight);
+        }
+    }
 }
