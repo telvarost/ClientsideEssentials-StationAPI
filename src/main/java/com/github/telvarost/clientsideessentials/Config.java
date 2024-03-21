@@ -19,7 +19,7 @@ public class Config {
         @ConfigCategory("Sound Config")
         public SoundConfig SOUND_CONFIG = new SoundConfig();
 
-        @ConfigName("Use \"Shift\" To Exit Vehicles")
+        @ConfigName("Use Dismount Keybinding To Exit Vehicles")
         public Boolean SHIFT_EXIT_VEHICLES = true;
     }
 

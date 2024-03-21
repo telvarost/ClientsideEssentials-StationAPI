@@ -26,7 +26,8 @@ Score is disused in Beta Minecraft this mod adds the ability to get score from:
 
 - Ability to change FPS limit in options
 - Ability to change FOV in options
-  - Added keybinding (default: LCtrl) to zoom in on things quickly
+  - Added LCtrl to zoom in on things quickly
+  - Install MojangFixStationAPI/MojangFix to change this keybinding
 - Ability to change cloud height in options
 - Ability to show/hide clouds in options
 - Ability to change fog density in options
@@ -47,24 +48,25 @@ Score is disused in Beta Minecraft this mod adds the ability to get score from:
 - Add minecart rolling sound
 
 ## Keybinding Additions
-Additional keybindings are only added if MojangFixStationAPI is installed.
-- Keybinding for hiding player HUD (default: F1)
-- Keybinding for taking a screenshot (default: F2)
-- Keybinding for toggling debug HUD (default: 3)
-- Keybinding for togglien third-person mode (default: F5)
-- Keybinding for toggling cinematic camera mode (default: F6)
-- Keybinding for toggling fullscreen mode (default: F11)
-- Keybinding for dismounting a vehicle (default: LShift)
-- Keybinding for zooming in/out (default: LCtrl)
-- Keybinding for hotbar slot 1
-- Keybinding for hotbar slot 2
-- Keybinding for hotbar slot 3
-- Keybinding for hotbar slot 4
-- Keybinding for hotbar slot 5
-- Keybinding for hotbar slot 6
-- Keybinding for hotbar slot 7
-- Keybinding for hotbar slot 8
-- Keybinding for hotbar slot 9
+- Add keybinding for dismounting a vehicle (default: LShift)
+
+All other additional keybindings are only added if MojangFixStationAPI/MojangFix is installed.
+- Add keybinding for hiding player HUD (default: F1)
+- Add keybinding for taking a screenshot (default: F2)
+- Add keybinding for toggling debug HUD (default: 3)
+- Add keybinding for togglien third-person mode (default: F5)
+- Add keybinding for toggling cinematic camera mode (default: F6)
+- Add keybinding for toggling fullscreen mode (default: F11)
+- Add keybinding for zooming in/out (default: LCtrl)
+- Add keybinding for hotbar slot 1
+- Add keybinding for hotbar slot 2
+- Add keybinding for hotbar slot 3
+- Add keybinding for hotbar slot 4
+- Add keybinding for hotbar slot 5
+- Add keybinding for hotbar slot 6
+- Add keybinding for hotbar slot 7
+- Add keybinding for hotbar slot 8
+- Add keybinding for hotbar slot 9
 
 ## Installation using Prism Launcher
 

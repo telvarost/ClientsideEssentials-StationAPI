@@ -40,22 +40,12 @@ public class AbstractClientPlayerMixin extends PlayerBase {
     public void clientsideEssentials_method_136(int key, boolean state, CallbackInfo ci) {
         PlayerBase player = (PlayerBase) (Object) this;
 
-		if (ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED) {
-			if (  (Config.config.SHIFT_EXIT_VEHICLES)
-			   && (player.vehicle != null)
-			   && (state)
-			   && (key == KeyBindingListener.dismount.key)
-			) {
-				player.startRiding(null);
-			}
-		} else {
-			if (  (Config.config.SHIFT_EXIT_VEHICLES)
-			   && (player.vehicle != null)
-			   && (state)
-			   && (key == Keyboard.KEY_LSHIFT)
-			) {
-				player.startRiding(null);
-			}
+		if (  (Config.config.SHIFT_EXIT_VEHICLES)
+		   && (player.vehicle != null)
+		   && (state)
+		   && (key == KeyBindingListener.dismount.key)
+		) {
+			player.startRiding(null);
 		}
     }
 

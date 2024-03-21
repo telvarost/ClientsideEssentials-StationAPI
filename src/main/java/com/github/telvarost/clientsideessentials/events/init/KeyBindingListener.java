@@ -30,6 +30,8 @@ public class KeyBindingListener {
 
     @EventListener
     public void registerKeyBindings(KeyBindingRegisterEvent event) {
+        event.keyBindings.add(dismount = new KeyBinding("Dismount", Keyboard.KEY_LSHIFT));
+
         if (  FabricLoader.getInstance().isModLoaded("mojangfixstationapi")
            || FabricLoader.getInstance().isModLoaded("mojangfix")
         ) {
@@ -39,7 +41,6 @@ public class KeyBindingListener {
             event.keyBindings.add(thirdPerson = new KeyBinding("Third Person", Keyboard.KEY_F5));
             event.keyBindings.add(cinematicCamera = new KeyBinding("Cinematic Camera", Keyboard.KEY_F6));
             event.keyBindings.add(toggleFullscreen = new KeyBinding("Toggle Fullscreen", Keyboard.KEY_F11));
-            event.keyBindings.add(dismount = new KeyBinding("Dismount", Keyboard.KEY_LSHIFT));
             event.keyBindings.add(zoom = new KeyBinding("Zoom", Keyboard.KEY_LCONTROL));
             event.keyBindings.add(hotbar1 = new KeyBinding("Hotbar 1", Keyboard.KEY_1));
             event.keyBindings.add(hotbar2 = new KeyBinding("Hotbar 2", Keyboard.KEY_2));
