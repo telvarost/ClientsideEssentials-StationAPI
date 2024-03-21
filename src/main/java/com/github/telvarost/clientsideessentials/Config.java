@@ -73,8 +73,17 @@ public class Config {
         @ConfigName("Add sound: Chest Close")
         public Boolean ADD_CHEST_CLOSE_SOUND = true;
 
+        @ConfigName("Add sound: Food Eat")
+        public Boolean ADD_FOOD_EAT_SOUND = true;
+
+        @ConfigName("Add sound: Food Burp")
+        public Boolean ADD_FOOD_BURP_SOUND = true;
+
         @ConfigName("Add sound: Item Breaking")
         public Boolean ADD_ITEM_BREAK_SOUND = true;
+
+        @ConfigName("Add sound: Sheep Shear")
+        public Boolean ADD_SHEEP_SHEAR_SOUND = true;
 
         @ConfigName("Add sound: Minecart Rolling")
         public Boolean ADD_MINECART_ROLLING_SOUND = true;

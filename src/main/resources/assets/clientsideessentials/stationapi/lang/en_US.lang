@@ -1,1 +1,3 @@
 options.clouds=Clouds
+options.fps_limit=FPS Limit
+options.fps_limit_max=Unlimited

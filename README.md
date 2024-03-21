@@ -14,6 +14,7 @@ Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17
 
 ## Graphical Additions
 
+- Ability to change FPS limit in options
 - Ability to change FOV in options
   - Added LCtrl to zoom in on things quickly
 - Ability to change cloud height in options
@@ -26,9 +27,13 @@ Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17
 
 ## Sound Additions
 
-- Add minecart rolling sound
-- Add chest open/close sounds
+- Add chest open sound
+- Add chest close sound
+- Add food eat sound
+- Add food burp sound
 - Add item break sound
+- Add sheep shear sound
+- Add minecart rolling sound
 
 ## Changes to Score
 

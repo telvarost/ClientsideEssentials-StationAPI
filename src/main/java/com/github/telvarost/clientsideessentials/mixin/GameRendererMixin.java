@@ -6,17 +6,17 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.entity.Living;
 import net.minecraft.sortme.GameRenderer;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /** - All credit for the code in this class goes to Dany and his mod UniTweaks
@@ -80,5 +80,25 @@ public class GameRendererMixin {
         GL11.glLoadIdentity();
         GLU.gluPerspective(getFovMultiplier(f, true), (float) minecraft.actualWidth / (float) minecraft.actualHeight, 0.05F, field_2350 * 2.0F);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
+    }
+
+    @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 200))
+    public int modifyPerformanceTargetFps(int constant){
+        return ModOptions.getFpsLimitValue();
+    }
+
+    @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 120))
+    public int modifyBalancedTargetFps(int constant){
+        return ModOptions.getFpsLimitValue();
+    }
+
+    @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 40))
+    public int modifyPowerSaverTargetFps(int constant){
+        return ModOptions.getFpsLimitValue();
+    }
+
+    @Redirect(method = "method_1844", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/client/options/GameOptions;fpsLimit:I"))
+    public int overridePerformanceLevel(GameOptions instance){
+        return ModOptions.getPerformanceLevel();
     }
 }

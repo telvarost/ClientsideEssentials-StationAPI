@@ -18,6 +18,7 @@
     "BowItemMixin",
     "ContainerScreenMixin",
     "DeathScreenMixin",
+    "FoodBaseMixin",
     "GameRendererMixin",
     "ItemInstanceMixin",
     "LivingEntityRendererMixin",
@@ -26,6 +27,7 @@
     "MinecraftMixin",
     "OverlayMixin",
     "PlayerRendererMixin",
+    "SheepMixin",
     "SkeletonModelMixin",
     "WorldRendererMixin"
   ],

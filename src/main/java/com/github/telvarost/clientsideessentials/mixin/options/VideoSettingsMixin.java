@@ -37,6 +37,7 @@ public class VideoSettingsMixin extends ScreenBase {
 		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 3] = ModOptions.fogDensityOption;
 		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 2] = ModOptions.cloudsOption;
 		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 1] = ModOptions.cloudHeightOption;
+		VideoSettingsMixin.OPTIONS[3] = ModOptions.fpsLimitOption;
 	}
 
 	@Inject(method = "buttonClicked", at = @At("HEAD"), cancellable = true)

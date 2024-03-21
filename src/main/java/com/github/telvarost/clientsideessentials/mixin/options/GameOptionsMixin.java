@@ -39,6 +39,10 @@ public abstract class GameOptionsMixin {
         if (option == ModOptions.cloudHeightOption) {
             ModOptions.cloudHeight = value;
         }
+
+        if (option == ModOptions.fpsLimitOption) {
+            ModOptions.fpsLimit = value;
+        }
     }
 
     @Inject(method = "changeOption", at = @At(value = "HEAD"))
@@ -100,6 +104,15 @@ public abstract class GameOptionsMixin {
             }
         }
 
+        if (option == ModOptions.fpsLimitOption) {
+            float value = ModOptions.getFpsLimitValue();
+            if (value >= 300) {
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fps_limit") + ": " + translations.translate("options.clientsideessentials:fps_limit_max"));
+            } else {
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fps_limit") + ": " + value);
+            }
+        }
+
         if (option == ModOptions.cloudHeightOption) {
             float value = ModOptions.cloudHeight;
             String optionName = "Cloud Height : " + ModOptions.getCloudHeight();
@@ -131,6 +144,10 @@ public abstract class GameOptionsMixin {
         if (stringArray[0].equals("cloud_height")) {
             ModOptions.cloudHeight = this.parseFloat(stringArray[1]);
         }
+
+        if (stringArray[0].equals("fps_limit")) {
+            ModOptions.fpsLimit = this.parseFloat(stringArray[1]);
+        }
     }
 
     @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
@@ -139,5 +156,6 @@ public abstract class GameOptionsMixin {
         printWriter.println("fog_density:" + ModOptions.fogDensity);
         printWriter.println("clouds:" + ModOptions.clouds);
         printWriter.println("cloud_height:" + ModOptions.cloudHeight);
+        printWriter.println("fps_limit: " + ModOptions.fpsLimit);
     }
 }
