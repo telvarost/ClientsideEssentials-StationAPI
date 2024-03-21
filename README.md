@@ -1,6 +1,6 @@
 # ClientsideEssentials StationAPI Edition for Minecraft Beta 1.7.3
 
-A b1.7.3 mod with StationAPI that fixes some common graphical issues, adds some missing sounds, adds a basic score mechanic, and adds extra keybindings if MojangFixStationAPI is installed.
+A b1.7.3 mod with StationAPI that fixes some common graphical issues, adds some missing sounds, adds a basic score mechanic, and adds extra keybindings if MojangFixStationAPI/MojangFix is installed.
 All changes are configurable with [GlassConfigAPI](https://modrinth.com/mod/glass-config-api).
 - Incompatible with UniTweaks (UniTweaks does the same thing and more than this mod)
 - Incompatible with FinalBeta (FinalBeta does the same thing and less than this mod, speaking of clientside only here, checkout GameplayEssentials for what's lacking in this mod)
