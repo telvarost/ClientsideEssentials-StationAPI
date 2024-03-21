@@ -63,7 +63,7 @@ public class MinecraftMixin {
             this.canvas.setBounds(0,0, this.actualWidth, this.actualHeight);
         }
     }
-	
+
 	@Inject(method = "openScreen", at = @At("RETURN"))
 	public void openScreen(ScreenBase par1, CallbackInfo ci) {
 		AffineTransform transform = this.canvas.getGraphicsConfiguration().getDefaultTransform();

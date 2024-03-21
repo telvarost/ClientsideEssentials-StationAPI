@@ -26,7 +26,7 @@ Score is disused in Beta Minecraft this mod adds the ability to get score from:
 
 - Ability to change FPS limit in options
 - Ability to change FOV in options
-  - Added LCtrl to zoom in on things quickly
+  - Added keybinding (default: LCtrl) to zoom in on things quickly
 - Ability to change cloud height in options
 - Ability to show/hide clouds in options
 - Ability to change fog density in options
