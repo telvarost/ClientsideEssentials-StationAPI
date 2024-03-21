@@ -8,6 +8,7 @@ import java.io.File;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.screen.ScreenBase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -62,4 +63,12 @@ public class MinecraftMixin {
             this.canvas.setBounds(0,0, this.actualWidth, this.actualHeight);
         }
     }
+	
+	@Inject(method = "openScreen", at = @At("RETURN"))
+	public void openScreen(ScreenBase par1, CallbackInfo ci) {
+		AffineTransform transform = this.canvas.getGraphicsConfiguration().getDefaultTransform();
+		int fixedWidth = (int) Math.ceil(this.canvas.getParent().getWidth() * transform.getScaleX());
+		int fixedHeight = (int) Math.ceil(this.canvas.getParent().getHeight() * transform.getScaleY());
+		this.canvas.setBounds(0,0, fixedWidth, fixedHeight);
+	}
 }
