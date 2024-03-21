@@ -2,8 +2,8 @@
 
 A b1.7.3 mod with StationAPI that fixes some common graphical issues, adds some missing sounds, adds a basic score mechanic, and adds extra keybindings if MojangFixStationAPI is installed.
 All changes are configurable with [GlassConfigAPI](https://modrinth.com/mod/glass-config-api).
-- Incompatible with UniTweaks (does the same thing and more)
-- Incompatible with FinalBeta (does the same thing and less)
+- Incompatible with UniTweaks (UniTweaks does the same thing and more than this mod)
+- Incompatible with FinalBeta (FinalBeta does the same thing and less than this mod, speaking of clientside only here, checkout GameplayEssentials for what's lacking in this mod)
 
 ## Changes to Score
 
