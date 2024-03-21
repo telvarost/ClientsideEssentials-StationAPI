@@ -73,42 +73,46 @@ public class MinecraftMixin {
 
 	@Inject(method = "init", at = @At("TAIL"), cancellable = true)
 	public void init(CallbackInfo ci) {
-		AffineTransform transform = this.canvas.getParent().getGraphicsConfiguration().getDefaultTransform();
-		double scaleX = transform.getScaleX();
-		double scaleY = transform.getScaleY();
+		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING) {
+			AffineTransform transform = this.canvas.getParent().getGraphicsConfiguration().getDefaultTransform();
+			double scaleX = transform.getScaleX();
+			double scaleY = transform.getScaleY();
 
-		Rectangle curRec = this.canvas.getParent().getBounds();
-		curRec.width = (int) (curRec.width * scaleX);
-		curRec.height = (int) (curRec.height * scaleY);
-		canvas.setBounds(curRec);
+			Rectangle curRec = this.canvas.getParent().getBounds();
+			curRec.width = (int) (curRec.width * scaleX);
+			curRec.height = (int) (curRec.height * scaleY);
+			canvas.setBounds(curRec);
 
-		Dimension curDim = this.canvas.getParent().getSize();
-		curDim.width = (int) (curDim.width * scaleX);
-		curDim.height = (int) (curDim.height * scaleY);
-		canvas.setSize(curDim);
+			Dimension curDim = this.canvas.getParent().getSize();
+			curDim.width = (int) (curDim.width * scaleX);
+			curDim.height = (int) (curDim.height * scaleY);
+			canvas.setSize(curDim);
 
-		this.canvas.getParent().addComponentListener(new ComponentAdapter() {
-			public void componentResized(ComponentEvent evt) {
-				Component c = (Component)evt.getSource();
-				AffineTransform transform = c.getGraphicsConfiguration().getDefaultTransform();
-				double scaleX = transform.getScaleX();
-				double scaleY = transform.getScaleY();
+			this.canvas.getParent().addComponentListener(new ComponentAdapter() {
+				public void componentResized(ComponentEvent evt) {
+					if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING) {
+						Component c = (Component) evt.getSource();
+						AffineTransform transform = c.getGraphicsConfiguration().getDefaultTransform();
+						double scaleX = transform.getScaleX();
+						double scaleY = transform.getScaleY();
 
-				Rectangle curRec = c.getBounds();
-				curRec.width = (int) (curRec.width * scaleX);
-				curRec.height = (int) (curRec.height * scaleY);
-				canvas.setBounds(curRec);
+						Rectangle curRec = c.getBounds();
+						curRec.width = (int) (curRec.width * scaleX);
+						curRec.height = (int) (curRec.height * scaleY);
+						canvas.setBounds(curRec);
 
-				Dimension curDim = c.getSize();
-				curDim.width = (int) (curDim.width * scaleX);
-				curDim.height = (int) (curDim.height * scaleY);
-				canvas.setMinimumSize(curDim);
-				canvas.setPreferredSize(curDim);
-				canvas.setMaximumSize(curDim);
-				canvas.setSize(curDim);
+						Dimension curDim = c.getSize();
+						curDim.width = (int) (curDim.width * scaleX);
+						curDim.height = (int) (curDim.height * scaleY);
+						canvas.setMinimumSize(curDim);
+						canvas.setPreferredSize(curDim);
+						canvas.setMaximumSize(curDim);
+						canvas.setSize(curDim);
 
-				updateDurationCounter = 100;
-			}
-		});
+						updateDurationCounter = 100;
+					}
+				}
+			});
+		}
 	}
 }
