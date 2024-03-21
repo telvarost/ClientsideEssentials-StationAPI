@@ -26,7 +26,7 @@ Score is disused in Beta Minecraft this mod adds the ability to get score from:
 
 - Ability to change FPS limit in options
 - Ability to change FOV in options
-  - Added LCtrl to zoom in on things quickly
+  - Added `LCtrl` to zoom in on things quickly
   - Install MojangFixStationAPI/MojangFix to change this keybinding
 - Ability to change cloud height in options
 - Ability to show/hide clouds in options
