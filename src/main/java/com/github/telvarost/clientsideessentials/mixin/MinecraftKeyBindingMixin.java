@@ -1,0 +1,58 @@
+package com.github.telvarost.clientsideessentials.mixin;
+
+import com.github.telvarost.clientsideessentials.events.init.KeyBindingListener;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerInventory;
+import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+@Environment(EnvType.CLIENT)
+@Mixin(Minecraft.class)
+public class MinecraftKeyBindingMixin {
+    @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedHotbarSlot:I", opcode = Opcodes.PUTFIELD))
+    public void cancelSelectSlot(PlayerInventory playerInventory, int selected){
+        /** - Do Nothing */
+    }
+
+    // F1
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 59))
+    public int modifyHideHudKeybind(int constant){
+        return KeyBindingListener.hideHUD.key;
+    }
+
+    // F2
+    @ModifyConstant(method = "checkTakingScreenshot", constant = @Constant(intValue = 60))
+    public int modifyTakeScreenshotKeybind(int constant){
+        return KeyBindingListener.takeScreenshot.key;
+    }
+
+    // F3
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 61))
+    public int modifyDebugHudKeybind(int constant){
+        return KeyBindingListener.debugHud.key;
+    }
+
+    // F5
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 63))
+    public int modifyThirdPersonKeybind(int constant){
+        return KeyBindingListener.thirdPerson.key;
+    }
+
+    // F6
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 66))
+    public int modifyCinematicCameraKeybind(int constant){
+        return KeyBindingListener.cinematicCamera.key;
+    }
+
+    // F11
+    @ModifyConstant(method = "tick", constant = @Constant(intValue = 87))
+    public int modifyToggleFullscreenKeybind(int constant){
+        return KeyBindingListener.toggleFullscreen.key;
+    }
+}

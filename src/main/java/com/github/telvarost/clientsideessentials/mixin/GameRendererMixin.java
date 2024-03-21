@@ -1,5 +1,6 @@
 package com.github.telvarost.clientsideessentials.mixin;
 
+import com.github.telvarost.clientsideessentials.events.init.KeyBindingListener;
 import com.github.telvarost.clientsideessentials.ModHelper;
 import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
@@ -48,12 +49,20 @@ public class GameRendererMixin {
             fov *= 60.0F / 70.0F;
         }
 
-        // Change to keybind
-        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-            fov /= 4F;
-            minecraft.options.cinematicMode = true;
+        if (ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED) {
+            if (Keyboard.isKeyDown(KeyBindingListener.zoom.key)) {
+                fov /= 4F;
+                minecraft.options.cinematicMode = true;
+            } else {
+                minecraft.options.cinematicMode = false;
+            }
         } else {
-            minecraft.options.cinematicMode = false;
+            if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+                fov /= 4F;
+                minecraft.options.cinematicMode = true;
+            } else {
+                minecraft.options.cinematicMode = false;
+            }
         }
 
         if (entity.health <= 0) {

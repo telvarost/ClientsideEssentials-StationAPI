@@ -23,7 +23,9 @@
     "stationapi:event_bus": [
     ],
     "stationapi:event_bus_client": [
-      "com.github.telvarost.clientsideessentials.events.init.ClientInitListener"
+      "com.github.telvarost.clientsideessentials.events.init.ClientInitListener",
+      "com.github.telvarost.clientsideessentials.events.init.KeyBindingListener",
+      "com.github.telvarost.clientsideessentials.events.KeyPressedListener"
     ],
     "stationapi:event_bus_server": [
     ],
