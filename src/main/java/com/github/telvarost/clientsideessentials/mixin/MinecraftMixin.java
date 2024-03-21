@@ -3,6 +3,8 @@ package com.github.telvarost.clientsideessentials.mixin;
 import com.github.telvarost.clientsideessentials.Config;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 
@@ -10,9 +12,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.Minecraft;
@@ -26,6 +27,8 @@ public class MinecraftMixin {
 	@Shadow public int actualWidth;
 
 	@Shadow public int actualHeight;
+
+	@Unique private int updateDurationCounter = 0;
 
 	@Inject(method = "loadSoundFromDir", at = @At("HEAD"))
 	public void clientsideEssentials_loadSoundFromDir(String string, File file, CallbackInfo ci) {
@@ -44,7 +47,12 @@ public class MinecraftMixin {
 	public int fixWidth(Canvas canvas){
 		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING){
 			AffineTransform transform = canvas.getGraphicsConfiguration().getDefaultTransform();
-			return (int) Math.ceil(canvas.getParent().getWidth() * transform.getScaleX());
+			int fixedWidth = (int) Math.ceil(canvas.getParent().getWidth() * transform.getScaleX());
+			if (0 < updateDurationCounter) {
+				canvas.setSize(fixedWidth, this.actualHeight);
+				updateDurationCounter--;
+			}
+			return fixedWidth;
 		}
 		return canvas.getWidth();
 	}
@@ -53,15 +61,54 @@ public class MinecraftMixin {
 	public int fixHeight(Canvas canvas){
 		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING){
 			AffineTransform transform = canvas.getGraphicsConfiguration().getDefaultTransform();
-			return (int) Math.ceil(canvas.getParent().getHeight() * transform.getScaleY());
+			int fixedHeight = (int) Math.ceil(canvas.getParent().getHeight() * transform.getScaleY());
+			if (0 < updateDurationCounter) {
+				canvas.setSize(this.actualWidth, fixedHeight);
+				updateDurationCounter--;
+			}
+			return fixedHeight;
 		}
 		return canvas.getHeight();
 	}
 
-	@Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;updateScreenResolution(II)V"))
-	public void fixCanvasSize(CallbackInfo ci){
-		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING){
-			this.canvas.setBounds(0,0, this.actualWidth, this.actualHeight);
-		}
+	@Inject(method = "init", at = @At("TAIL"), cancellable = true)
+	public void init(CallbackInfo ci) {
+		AffineTransform transform = this.canvas.getParent().getGraphicsConfiguration().getDefaultTransform();
+		double scaleX = transform.getScaleX();
+		double scaleY = transform.getScaleY();
+
+		Rectangle curRec = this.canvas.getParent().getBounds();
+		curRec.width = (int) (curRec.width * scaleX);
+		curRec.height = (int) (curRec.height * scaleY);
+		canvas.setBounds(curRec);
+
+		Dimension curDim = this.canvas.getParent().getSize();
+		curDim.width = (int) (curDim.width * scaleX);
+		curDim.height = (int) (curDim.height * scaleY);
+		canvas.setSize(curDim);
+
+		this.canvas.getParent().addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent evt) {
+				Component c = (Component)evt.getSource();
+				AffineTransform transform = c.getGraphicsConfiguration().getDefaultTransform();
+				double scaleX = transform.getScaleX();
+				double scaleY = transform.getScaleY();
+
+				Rectangle curRec = c.getBounds();
+				curRec.width = (int) (curRec.width * scaleX);
+				curRec.height = (int) (curRec.height * scaleY);
+				canvas.setBounds(curRec);
+
+				Dimension curDim = c.getSize();
+				curDim.width = (int) (curDim.width * scaleX);
+				curDim.height = (int) (curDim.height * scaleY);
+				canvas.setMinimumSize(curDim);
+				canvas.setPreferredSize(curDim);
+				canvas.setMaximumSize(curDim);
+				canvas.setSize(curDim);
+
+				updateDurationCounter = 100;
+			}
+		});
 	}
 }
