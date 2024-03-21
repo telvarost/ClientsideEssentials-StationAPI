@@ -31,6 +31,7 @@ Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17
 - Add chest close sound
 - Add food eat sound
 - Add food burp sound
+  - Plays when a food heals you above max health
 - Add item break sound
 - Add sheep shear sound
 - Add minecart rolling sound
