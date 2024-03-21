@@ -7,11 +7,11 @@ All changes are configurable with [GlassConfigAPI](https://modrinth.com/mod/glas
 
 ## Changes to Score
 
-Score is disused in Beta Minecraft this mod adds the ability to get score from:
+Score is disused in Beta Minecraft. This mod adds the ability to get score from:
 - Placing blocks (+1 for each placed)
 - Removing blocks (+1 for each removed)
-- Killing mobs (+1 for each kill)
-- Killing passive entities (+1 for each kill)
+- Killing monster mobs (+1 for each kill)
+- Killing passive mobs (+1 for each kill)
 
 ## Graphical Fixes
 
@@ -48,25 +48,25 @@ Score is disused in Beta Minecraft this mod adds the ability to get score from:
 - Add minecart rolling sound
 
 ## Keybinding Additions
-- Add keybinding for dismounting a vehicle (default: LShift)
+- Add keybinding for dismounting a vehicle (default: `LShift`)
 
 All other additional keybindings are only added if MojangFixStationAPI/MojangFix is installed.
-- Add keybinding for hiding player HUD (default: F1)
-- Add keybinding for taking a screenshot (default: F2)
-- Add keybinding for toggling debug HUD (default: 3)
-- Add keybinding for togglien third-person mode (default: F5)
-- Add keybinding for toggling cinematic camera mode (default: F6)
-- Add keybinding for toggling fullscreen mode (default: F11)
-- Add keybinding for zooming in/out (default: LCtrl)
-- Add keybinding for hotbar slot 1
-- Add keybinding for hotbar slot 2
-- Add keybinding for hotbar slot 3
-- Add keybinding for hotbar slot 4
-- Add keybinding for hotbar slot 5
-- Add keybinding for hotbar slot 6
-- Add keybinding for hotbar slot 7
-- Add keybinding for hotbar slot 8
-- Add keybinding for hotbar slot 9
+- Add keybinding for hiding player HUD (default: `F1`)
+- Add keybinding for taking a screenshot (default: `F2`)
+- Add keybinding for toggling debug HUD (default: `F3`)
+- Add keybinding for togglien third-person mode (default: `F5`)
+- Add keybinding for toggling cinematic camera mode (default: `F6`)
+- Add keybinding for toggling fullscreen mode (default: `F11`)
+- Add keybinding for zooming in/out (default: `LCtrl`)
+- Add keybinding for hotbar slot 1 (default: `1`)
+- Add keybinding for hotbar slot 2 (default: `2`)
+- Add keybinding for hotbar slot 3 (default: `3`)
+- Add keybinding for hotbar slot 4 (default: `4`)
+- Add keybinding for hotbar slot 5 (default: `5`)
+- Add keybinding for hotbar slot 6 (default: `6`)
+- Add keybinding for hotbar slot 7 (default: `7`)
+- Add keybinding for hotbar slot 8 (default: `8`)
+- Add keybinding for hotbar slot 9 (default: `9`)
 
 ## Installation using Prism Launcher
 
@@ -84,6 +84,6 @@ Got any suggestions on what should be added next? Feel free to share it by [crea
 
 ## Contributing
 
-Thanks for considering contributing! To get started fork this repository, make your changes, and create a PR. 
+Thanks for considering contributing! To get started fork this repository, make your changes, and create a PR.
 
 If you are new to StationAPI consider watching the following videos on Babric/StationAPI Minecraft modding: https://www.youtube.com/watch?v=9-sVGjnGJ5s&list=PLa2JWzyvH63wGcj5-i0P12VkJG7PDyo9T
