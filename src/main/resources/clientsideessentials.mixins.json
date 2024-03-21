@@ -29,6 +29,7 @@
     "PlayerRendererMixin",
     "SheepMixin",
     "SkeletonModelMixin",
+    "StoneSlabItemMixin",
     "WorldRendererMixin"
   ],
   "injectors": {

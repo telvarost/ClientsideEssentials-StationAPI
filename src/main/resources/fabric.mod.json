@@ -15,7 +15,7 @@
     "sources": "https://github.com/telvarost/ClientsideEssentials-StationAPI/"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/clientsideessentials/icon.png",
 
   "environment": "client",

@@ -11,6 +11,7 @@ Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17
 - Fix death screen displaying &e0 instead of coloring score as yellow
 - Fix minecart flickering when riding on rails
 - Fix leg armor rendering in vehicles
+- Fix un-named slabs crashing the game
 
 ## Graphical Additions
 
