@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "ClientsideEssentials",
-  "description": "Fixes common graphical issues with b1.7.3 in general and StationAPI with Java 17.",
+  "description": "Fixes some common graphical issues, adds some missing sounds, and adds a basic score mechanic. Special thanks to Dany for helping with many of the changes and fixes.",
   "authors": [
     "Telvarost",
     "Dany"

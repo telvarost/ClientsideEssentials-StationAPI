@@ -19,73 +19,73 @@ public class Config {
         @ConfigCategory("Sound Config")
         public SoundConfig SOUND_CONFIG = new SoundConfig();
 
-        @ConfigName("Use \"Shift\" to exit vehicles")
+        @ConfigName("Use \"Shift\" To Exit Vehicles")
         public Boolean SHIFT_EXIT_VEHICLES = true;
     }
 
     public static class GraphicsConfig {
 
-        @ConfigName("Add day counter to F3 overlay")
+        @ConfigName("Add Day Counter To F3 Overlay")
         public Boolean ADD_DAY_COUNTER = true;
 
-        @ConfigName("Disable id tags")
+        @ConfigName("Disable ID Tags")
         public Boolean DISABLE_ID_TAGS = true;
 
-        @ConfigName("Fix bow models")
+        @ConfigName("Fix Bow Models")
         public Boolean FIX_BOW_MODEL = true;
 
-        @ConfigName("Fix container label rendering")
+        @ConfigName("Fix Container Label Rendering")
         public Boolean FIX_CONTAINER_LABEL_RENDERING = true;
 
-        @ConfigName("Fix death screen text")
+        @ConfigName("Fix Death Screen Text")
         public Boolean FIX_DEATH_SCREEN_TEXT = true;
 
-        @ConfigName("Fix leg armor on vehicles")
+        @ConfigName("Fix Leg Armor On Vehicles")
         public Boolean FIX_LEG_ARMOR_ON_VEHICLES = true;
 
-        @ConfigName("Fix minecart flickering")
+        @ConfigName("Fix Minecart Flickering")
         public Boolean FIX_MINECART_FLICKERING = true;
 
-        @ConfigName("Fix screen scaling")
+        @ConfigName("Fix Screen Scaling")
         public Boolean FIX_SCREEN_SCALING = true;
     }
 
     public static class ScoreConfig {
 
-        @ConfigName("Each block placed adds +1 to score")
+        @ConfigName("Each Block Placed Adds +1 To Score")
         public Boolean ADD_SCORE_ON_BLOCK_PLACED = true;
 
-        @ConfigName("Each block removed adds +1 to score")
+        @ConfigName("Each Block Removed Adds +1 To Score")
         public Boolean ADD_SCORE_ON_BLOCK_REMOVED = true;
 
-        @ConfigName("Each monster mob killed adds +1 to score")
+        @ConfigName("Each Monster Mob Killed Adds +1 To Score")
         public Boolean ADD_SCORE_ON_MONSTER_KILLED = true;
 
-        @ConfigName("Each passive mob killed adds +1 to score")
+        @ConfigName("Each Passive Mob Killed Adds +1 To Score")
         public Boolean ADD_SCORE_ON_PASSIVE_KILLED = true;
     }
 
     public static class SoundConfig {
 
-        @ConfigName("Add sound: Chest Open")
+        @ConfigName("Add Sound: Chest Open")
         public Boolean ADD_CHEST_OPEN_SOUND = true;
 
-        @ConfigName("Add sound: Chest Close")
+        @ConfigName("Add Sound: Chest Close")
         public Boolean ADD_CHEST_CLOSE_SOUND = true;
 
-        @ConfigName("Add sound: Food Eat")
+        @ConfigName("Add Sound: Food Eat")
         public Boolean ADD_FOOD_EAT_SOUND = true;
 
-        @ConfigName("Add sound: Food Burp")
+        @ConfigName("Add Sound: Food Burp")
         public Boolean ADD_FOOD_BURP_SOUND = true;
 
-        @ConfigName("Add sound: Item Breaking")
+        @ConfigName("Add Sound: Item Breaking")
         public Boolean ADD_ITEM_BREAK_SOUND = true;
 
-        @ConfigName("Add sound: Sheep Shear")
+        @ConfigName("Add Sound: Sheep Shear")
         public Boolean ADD_SHEEP_SHEAR_SOUND = true;
 
-        @ConfigName("Add sound: Minecart Rolling")
+        @ConfigName("Add Sound: Minecart Rolling")
         public Boolean ADD_MINECART_ROLLING_SOUND = true;
     }
 }
