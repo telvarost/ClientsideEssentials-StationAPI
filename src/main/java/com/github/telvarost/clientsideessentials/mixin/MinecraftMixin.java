@@ -66,9 +66,11 @@ public class MinecraftMixin {
 
 	@Inject(method = "openScreen", at = @At("RETURN"))
 	public void openScreen(ScreenBase par1, CallbackInfo ci) {
-		AffineTransform transform = this.canvas.getGraphicsConfiguration().getDefaultTransform();
-		int fixedWidth = (int) Math.ceil(this.canvas.getParent().getWidth() * transform.getScaleX());
-		int fixedHeight = (int) Math.ceil(this.canvas.getParent().getHeight() * transform.getScaleY());
-		this.canvas.setBounds(0,0, fixedWidth, fixedHeight);
+		if(Config.config.GRAPHICS_CONFIG.FIX_SCREEN_SCALING) {
+			AffineTransform transform = this.canvas.getGraphicsConfiguration().getDefaultTransform();
+			int fixedWidth = (int) Math.ceil(this.canvas.getParent().getWidth() * transform.getScaleX());
+			int fixedHeight = (int) Math.ceil(this.canvas.getParent().getHeight() * transform.getScaleY());
+			this.canvas.setBounds(0, 0, fixedWidth, fixedHeight);
+		}
 	}
 }
