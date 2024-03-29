@@ -7,14 +7,8 @@ All changes are configurable with [GlassConfigAPI](https://modrinth.com/mod/glas
 
 ## Changes to Score
 
-(Will eventually remove changes to score and put them into their own scoring mod)
+Moved to new Scoring/Achievement mod below:
 - https://github.com/telvarost/WhatAreYouScoring-StationAPI
-
-Score is disused in Beta Minecraft. This mod adds the ability to get score from:
-- Placing blocks (+1 for each placed)
-- Removing blocks (+1 for each removed)
-- Killing monster mobs (+1 for each kill)
-- Killing passive mobs (+1 for each kill)
 
 ## Graphical Fixes
 
