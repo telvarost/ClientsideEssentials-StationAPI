@@ -13,9 +13,6 @@ public class Config {
         @ConfigCategory("Graphics Config")
         public GraphicsConfig GRAPHICS_CONFIG = new GraphicsConfig();
 
-        @ConfigCategory("Score Config")
-        public ScoreConfig SCORE_CONFIG = new ScoreConfig();
-
         @ConfigCategory("Sound Config")
         public SoundConfig SOUND_CONFIG = new SoundConfig();
 
@@ -48,21 +45,6 @@ public class Config {
 
         @ConfigName("Fix Screen Scaling")
         public Boolean FIX_SCREEN_SCALING = true;
-    }
-
-    public static class ScoreConfig {
-
-        @ConfigName("Each Block Placed Adds +1 To Score")
-        public Boolean ADD_SCORE_ON_BLOCK_PLACED = true;
-
-        @ConfigName("Each Block Removed Adds +1 To Score")
-        public Boolean ADD_SCORE_ON_BLOCK_REMOVED = true;
-
-        @ConfigName("Each Monster Mob Killed Adds +1 To Score")
-        public Boolean ADD_SCORE_ON_MONSTER_KILLED = true;
-
-        @ConfigName("Each Passive Mob Killed Adds +1 To Score")
-        public Boolean ADD_SCORE_ON_PASSIVE_KILLED = true;
     }
 
     public static class SoundConfig {

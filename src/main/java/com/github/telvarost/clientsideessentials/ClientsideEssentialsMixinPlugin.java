@@ -13,7 +13,12 @@ public final class ClientsideEssentialsMixinPlugin implements IMixinConfigPlugin
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 
-        if (mixinClassName.equals("com.github.telvarost.clientsideessentials.mixin.MinecraftKeyBindingMixin")) {
+        if (mixinClassName.equals("com.github.telvarost.clientsideessentials.mixin.DeathScreenMixin")) {
+            ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED = (  FabricLoader.getInstance().isModLoaded("mojangfixstationapi")
+                                                            || FabricLoader.getInstance().isModLoaded("mojangfix")
+                                                            );
+            return (false == ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED);
+        } else if (mixinClassName.equals("com.github.telvarost.clientsideessentials.mixin.MinecraftKeyBindingMixin")) {
             ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED = (  FabricLoader.getInstance().isModLoaded("mojangfixstationapi")
                                                             || FabricLoader.getInstance().isModLoaded("mojangfix")
                                                             );

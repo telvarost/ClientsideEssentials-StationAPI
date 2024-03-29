@@ -24,7 +24,7 @@ public class FoodBaseMixin {
     private static final Random random = new Random();
 
     @Inject(method = "use", at = @At(value = "HEAD"))
-    public void burpOnEat(ItemInstance stack, Level level, PlayerBase user, CallbackInfoReturnable<ItemInstance> cir){
+    public void clientsideEssentials_burpOnEat(ItemInstance stack, Level level, PlayerBase user, CallbackInfoReturnable<ItemInstance> cir){
         if(Config.config.SOUND_CONFIG.ADD_FOOD_EAT_SOUND){
             level.playSound(user, "random.eat", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
         }
