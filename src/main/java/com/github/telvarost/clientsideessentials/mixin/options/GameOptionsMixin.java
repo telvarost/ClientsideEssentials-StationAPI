@@ -28,6 +28,10 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "method_1228", at = @At(value = "HEAD"))
     public void clientsideEssentials_setFloat(Option option, float value, CallbackInfo ci) {
+        if (option == ModOptions.gammaOption) {
+            ModOptions.gamma = value;
+        }
+
         if (option == ModOptions.fovOption) {
             ModOptions.fov = value;
         }
@@ -55,6 +59,10 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "getFloatValue", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getFloat(Option option, CallbackInfoReturnable<Float> cir) {
+        if (option == ModOptions.gammaOption) {
+            cir.setReturnValue(ModOptions.gamma);
+        }
+
         if (option == ModOptions.fovOption) {
             cir.setReturnValue(ModOptions.fov);
         }
@@ -79,6 +87,19 @@ public abstract class GameOptionsMixin {
     @Inject(method = "getTranslatedValue", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getTranslatedValue(Option option, CallbackInfoReturnable<String> cir) {
         TranslationStorage translations = TranslationStorage.getInstance();
+
+        if (option == ModOptions.gammaOption) {
+            float value = ModOptions.gamma;
+            if (value == 0.0f) {
+                cir.setReturnValue("Gamma: Dark");
+            } else if (value == 0.5f) {
+                cir.setReturnValue("Gamma: Normal");
+            } else if (value == 1.0f) {
+                cir.setReturnValue("Gamma: Bright");
+            } else {
+                cir.setReturnValue("Gamma: " + ModOptions.getGamma() * 2F + "x");
+            }
+        }
 
         if (option == ModOptions.fovOption) {
             float value = ModOptions.fov;
@@ -129,6 +150,10 @@ public abstract class GameOptionsMixin {
     private void clientsideEssentials_load(CallbackInfo ci, BufferedReader bufferedReader, String string) {
         String[] stringArray = string.split(":");
 
+        if (stringArray[0].equals("gamma")) {
+            ModOptions.gamma = this.parseFloat(stringArray[1]);
+        }
+
         if (stringArray[0].equals("fov")) {
             ModOptions.fov = this.parseFloat(stringArray[1]);
         }
@@ -152,6 +177,7 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
+        printWriter.println("gamma:" + ModOptions.gamma);
         printWriter.println("fov:" + ModOptions.fov);
         printWriter.println("fog_density:" + ModOptions.fogDensity);
         printWriter.println("clouds:" + ModOptions.clouds);

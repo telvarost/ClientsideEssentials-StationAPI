@@ -13,7 +13,6 @@ public class ModHelper {
     }
 
     public static class ModHelperFields {
-        public static Integer IS_LAVA_BUCKET_CONSUMED = 0;
         public static Boolean IS_MOJANGFIX_LOADED = false;
     }
 }
