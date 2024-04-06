@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
-
+	// RenderGlobal.java
 	@Inject(method = "method_1552", at = @At("HEAD"), cancellable = true)
 	public void clientsideEssentials_cloudRenderer(float f, CallbackInfo ci) {
 		if(!ModOptions.clouds) {

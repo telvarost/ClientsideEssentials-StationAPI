@@ -3,8 +3,10 @@ package com.github.telvarost.clientsideessentials.mixin.options;
 import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
+import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.resource.language.TranslationStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,9 +28,16 @@ public abstract class GameOptionsMixin {
     @Shadow
     protected abstract float parseFloat(String string);
 
+    @Shadow protected Minecraft minecraft;
+
     @Inject(method = "method_1228", at = @At(value = "HEAD"))
     public void clientsideEssentials_setFloat(Option option, float value, CallbackInfo ci) {
         if (option == ModOptions.gammaOption) {
+            //this.minecraft.textureManager.reloadTexturesFromTexturePack();
+            this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
+            if(this.minecraft.level != null) {
+                this.minecraft.worldRenderer.method_1148();
+            }
             ModOptions.gamma = value;
         }
 

@@ -24,7 +24,7 @@ import java.time.Duration;
 @Environment(EnvType.CLIENT)
 @Mixin(InGame.class)
 public class OverlayMixin extends DrawableHelper {
-
+	// GuiInGame.java
 	@Shadow
 	private Minecraft minecraft;
 

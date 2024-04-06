@@ -44,7 +44,7 @@ public class ModOptions {
     }
 
     // Gamma
-    public static float gamma;
+    public static float gamma = 0.5F;
 
     public static float getGamma() {
         return (float) Math.round(gamma * 20) / 20;

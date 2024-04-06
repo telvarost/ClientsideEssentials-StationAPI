@@ -20,6 +20,7 @@
     "DeathScreenMixin",
     "FoodBaseMixin",
     "GameRendererMixin",
+    "gamma.GL11Mixin",
     "ItemInstanceMixin",
     "LivingEntityRendererMixin",
     "MinecartMixin",
@@ -27,9 +28,11 @@
     "MinecraftMixin",
     "OverlayMixin",
     "PlayerRendererMixin",
+    "gamma.RenderHelperMixin",
     "SheepMixin",
     "SkeletonModelMixin",
     "StoneSlabItemMixin",
+    "gamma.TessellatorMixin",
     "WorldRendererMixin"
   ],
   "injectors": {
