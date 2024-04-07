@@ -8,8 +8,11 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.resource.language.TranslationStorage;
+import net.minecraft.entity.player.PlayerBase;
+import net.modificationstation.stationapi.api.entity.player.PlayerHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,20 +28,25 @@ import java.io.PrintWriter;
 @Environment(EnvType.CLIENT)
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin {
+    @Unique
+    protected Float lastGamma;
+
     @Shadow
     protected abstract float parseFloat(String string);
 
-    @Shadow protected Minecraft minecraft;
+    @Shadow
+    protected Minecraft minecraft;
 
     @Inject(method = "method_1228", at = @At(value = "HEAD"))
     public void clientsideEssentials_setFloat(Option option, float value, CallbackInfo ci) {
         if (option == ModOptions.gammaOption) {
             //this.minecraft.textureManager.reloadTexturesFromTexturePack();
-            this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
-            if(this.minecraft.level != null) {
-                this.minecraft.worldRenderer.method_1148();
-            }
+//            if(this.minecraft.level != null) {
+//                this.minecraft.worldRenderer.method_1148();
+//            }
             ModOptions.gamma = value;
+            this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
+
         }
 
         if (option == ModOptions.fovOption) {
@@ -161,6 +169,7 @@ public abstract class GameOptionsMixin {
 
         if (stringArray[0].equals("gamma")) {
             ModOptions.gamma = this.parseFloat(stringArray[1]);
+            lastGamma = ModOptions.gamma;
         }
 
         if (stringArray[0].equals("fov")) {
@@ -186,6 +195,15 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
+        if (lastGamma != ModOptions.gamma) {
+            lastGamma = ModOptions.gamma;
+            //PlayerBase player = PlayerHelper.getPlayerFromGame();
+            this.minecraft.worldRenderer.method_1537();
+//            this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
+//            if(this.minecraft.level != null) {
+//                this.minecraft.worldRenderer.method_1148();
+//            }
+        }
         printWriter.println("gamma:" + ModOptions.gamma);
         printWriter.println("fov:" + ModOptions.fov);
         printWriter.println("fog_density:" + ModOptions.fogDensity);
