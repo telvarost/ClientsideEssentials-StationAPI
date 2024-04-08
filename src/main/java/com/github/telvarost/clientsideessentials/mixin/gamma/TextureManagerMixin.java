@@ -1,6 +1,7 @@
-package com.github.telvarost.clientsideessentials.mixin.gamma.unused;
+package com.github.telvarost.clientsideessentials.mixin.gamma;
 
 import com.github.telvarost.clientsideessentials.PostProcess;
+import net.minecraft.client.TexturePackManager;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.texture.TextureManager;
 import org.lwjgl.opengl.GL11;
@@ -11,7 +12,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
 
 @Mixin(TextureManager.class)
 public abstract class TextureManagerMixin {
@@ -34,7 +38,7 @@ public abstract class TextureManagerMixin {
             remap = false,
             cancellable = true
     )
-    public void bindImageToId(BufferedImage bufferedImage, int i, CallbackInfo ci) {
+    public void clientsideEssentials_bindImageToId(BufferedImage bufferedImage, int i, CallbackInfo ci) {
         int n;
         int n2;
         int n3;
@@ -117,5 +121,68 @@ public abstract class TextureManagerMixin {
             }
         }
         ci.cancel();
+    }
+
+//    @Unique
+//    public void reloadTextures() {
+
+    @Inject(
+            method = "bindImageToId([IIII)V",
+            at = @At("HEAD"),
+            remap = false,
+            cancellable = true
+    )
+    public void clientsideEssentials_bindImageToId(int[] is, int i, int j, int k, CallbackInfo ci) {
+        GL11.glBindTexture(3553, k);
+        if (field_1245) {
+            GL11.glTexParameteri(3553, 10241, 9986);
+            GL11.glTexParameteri(3553, 10240, 9728);
+        } else {
+            GL11.glTexParameteri(3553, 10241, 9728);
+            GL11.glTexParameteri(3553, 10240, 9728);
+        }
+        if (this.isBlurTexture) {
+            GL11.glTexParameteri(3553, 10241, 9729);
+            GL11.glTexParameteri(3553, 10240, 9729);
+        }
+        if (this.isClampTexture) {
+            GL11.glTexParameteri(3553, 10242, 10496);
+            GL11.glTexParameteri(3553, 10243, 10496);
+        } else {
+            GL11.glTexParameteri(3553, 10242, 10497);
+            GL11.glTexParameteri(3553, 10243, 10497);
+        }
+        byte[] byArray = new byte[i * j * 4];
+        PostProcess pp = PostProcess.instance;
+        for (int i2 = 0; i2 < is.length; ++i2) {
+            int n = is[i2] >> 24 & 0xFF;
+            int n2 = is[i2] >> 16 & 0xFF;
+            int n3 = is[i2] >> 8 & 0xFF;
+            int n4 = is[i2] & 0xFF;
+            if (this.gameOptions != null && this.gameOptions.anaglyph3d) {
+                int n5 = (n2 * 30 + n3 * 59 + n4 * 11) / 100;
+                int n6 = (n2 * 30 + n3 * 70) / 100;
+                int n7 = (n2 * 30 + n4 * 70) / 100;
+                n2 = n5;
+                n3 = n6;
+                n4 = n7;
+            }
+            if (pp != null) {
+                int n5 = pp.red(n2, n3, n4);
+                int n6 = pp.green(n2, n3, n4);
+                int n7 = pp.blue(n2, n3, n4);
+                n2 = n5;
+                n3 = n6;
+                n4 = n7;
+            }
+            byArray[i2 * 4 + 0] = (byte)n2;
+            byArray[i2 * 4 + 1] = (byte)n3;
+            byArray[i2 * 4 + 2] = (byte)n4;
+            byArray[i2 * 4 + 3] = (byte)n;
+        }
+        this.currentImageBuffer.clear();
+        this.currentImageBuffer.put(byArray);
+        this.currentImageBuffer.position(0).limit(byArray.length);
+        GL11.glTexSubImage2D(3553, 0, 0, 0, i, j, 6408, 5121, this.currentImageBuffer);
     }
 }

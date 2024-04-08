@@ -8,8 +8,6 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.resource.language.TranslationStorage;
-import net.minecraft.entity.player.PlayerBase;
-import net.modificationstation.stationapi.api.entity.player.PlayerHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -197,12 +195,8 @@ public abstract class GameOptionsMixin {
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
         if (lastGamma != ModOptions.gamma) {
             lastGamma = ModOptions.gamma;
-            //PlayerBase player = PlayerHelper.getPlayerFromGame();
             this.minecraft.worldRenderer.method_1537();
-//            this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
-//            if(this.minecraft.level != null) {
-//                this.minecraft.worldRenderer.method_1148();
-//            }
+            this.minecraft.textureManager.reloadTexturesFromTexturePack();
         }
         printWriter.println("gamma:" + ModOptions.gamma);
         printWriter.println("fov:" + ModOptions.fov);

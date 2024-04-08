@@ -33,6 +33,8 @@
     "SkeletonModelMixin",
     "StoneSlabItemMixin",
     "gamma.TessellatorMixin",
+    "gamma.TextureManagerAccessor",
+    "gamma.TextureManagerMixin",
     "WorldRendererMixin"
   ],
   "injectors": {
