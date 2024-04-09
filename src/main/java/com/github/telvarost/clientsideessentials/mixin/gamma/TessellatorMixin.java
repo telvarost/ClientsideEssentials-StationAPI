@@ -18,7 +18,6 @@ public class TessellatorMixin {
 
     @Shadow private boolean disableColour;
 
-    // Tessellator.java
     @Inject(
             method = "colour(IIII)V",
             at = @At("HEAD"),

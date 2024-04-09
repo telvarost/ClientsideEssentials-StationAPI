@@ -1,7 +1,6 @@
 package com.github.telvarost.clientsideessentials.mixin.gamma;
 
 import com.github.telvarost.clientsideessentials.PostProcess;
-import net.minecraft.client.TexturePackManager;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.texture.TextureManager;
 import org.lwjgl.opengl.GL11;
@@ -12,10 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
 
 @Mixin(TextureManager.class)
 public abstract class TextureManagerMixin {

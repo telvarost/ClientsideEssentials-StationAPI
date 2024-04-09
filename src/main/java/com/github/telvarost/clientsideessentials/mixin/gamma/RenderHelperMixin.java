@@ -15,7 +15,6 @@ import java.nio.FloatBuffer;
 public class RenderHelperMixin {
     @Shadow private static FloatBuffer floatBuffer;
 
-    // RenderHelper
     @Inject(
             method = "method_1929",
             at = @At("HEAD"),
