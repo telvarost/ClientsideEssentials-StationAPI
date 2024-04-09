@@ -93,6 +93,10 @@ public abstract class GameOptionsMixin {
         if (option == ModOptions.cloudHeightOption) {
             cir.setReturnValue(ModOptions.cloudHeight);
         }
+
+        if (option == ModOptions.fpsLimitOption) {
+            cir.setReturnValue(ModOptions.fpsLimit);
+        }
     }
 
     @Inject(method = "getBooleanValue", at = @At(value = "HEAD"), cancellable = true)
