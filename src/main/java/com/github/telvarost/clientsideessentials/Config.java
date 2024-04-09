@@ -28,6 +28,9 @@ public class Config {
         @ConfigName("Disable ID Tags")
         public Boolean DISABLE_ID_TAGS = true;
 
+        @ConfigName("Enable Gamma Slider")
+        public Boolean ENABLE_GAMMA_SLIDER = true;
+
         @ConfigName("Fix Bow Models")
         public Boolean FIX_BOW_MODEL = true;
 

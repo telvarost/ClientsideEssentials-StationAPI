@@ -1,5 +1,6 @@
 package com.github.telvarost.clientsideessentials.mixin.gamma;
 
+import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.PostProcess;
 import net.minecraft.client.render.RenderHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,13 +22,15 @@ public class RenderHelperMixin {
             cancellable = true
     )
     private static void method_1929(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
-        if (i != 0) {
-            PostProcess pp = PostProcess.instance;
-            floatBuffer.clear();
-            floatBuffer.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
-            floatBuffer.flip();
-            cir.setReturnValue(floatBuffer);
-            cir.cancel();
+        if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER) {
+            if (i != 0) {
+                PostProcess pp = PostProcess.instance;
+                floatBuffer.clear();
+                floatBuffer.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
+                floatBuffer.flip();
+                cir.setReturnValue(floatBuffer);
+                cir.cancel();
+            }
         }
     }
 }

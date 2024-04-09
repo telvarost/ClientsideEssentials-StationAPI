@@ -1,5 +1,6 @@
 package com.github.telvarost.clientsideessentials.mixin;
 
+import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.PostProcess;
 import com.github.telvarost.clientsideessentials.events.init.KeyBindingListener;
 import com.github.telvarost.clientsideessentials.ModHelper;
@@ -138,7 +139,7 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void method_1852(float f, CallbackInfo ci) {
-        if (ModOptions.clouds) {
+        if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER) {
             Level level = this.minecraft.level;
             Living living = this.minecraft.viewEntity;
             PostProcess pp = PostProcess.instance;
@@ -185,13 +186,13 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void clientsideEssentials_method_1839(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
-        if (ModOptions.clouds) {
+        if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER) {
             PostProcess pp = PostProcess.instance;
             this.field_2345.clear();
             this.field_2345.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
             this.field_2345.flip();
             cir.setReturnValue(this.field_2345);
-            cir.cancel();
+            //cir.cancel();
         }
     }
 }
