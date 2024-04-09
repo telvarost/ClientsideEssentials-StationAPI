@@ -18,21 +18,21 @@ public abstract class GL11Mixin {
     static void nglColor3f(float red, float green, float blue, long function_pointer) {
     }
 
-    @Shadow static void nglClearColor(float red, float green, float blue, float alpha, long function_pointer) {
-    }
-
-    @Redirect(
-            method = "glClearColor",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lorg/lwjgl/opengl/GL11;nglClearColor(FFFFJ)V"
-            ),
-            remap = false
-    )
-    private static void glClearColor(float red, float green, float blue, float alpha, long l) {
-        PostProcess pp = PostProcess.instance;
-        nglClearColor(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), alpha, l);
-    }
+//    @Shadow static void nglClearColor(float red, float green, float blue, float alpha, long function_pointer) {
+//    }
+//
+//    @Redirect(
+//            method = "glClearColor",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lorg/lwjgl/opengl/GL11;nglClearColor(FFFFJ)V"
+//            ),
+//            remap = false
+//    )
+//    private static void glClearColor(float red, float green, float blue, float alpha, long l) {
+//        PostProcess pp = PostProcess.instance;
+//        nglClearColor(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), alpha, l);
+//    }
 
     @Redirect(
             method = "glColor3f",

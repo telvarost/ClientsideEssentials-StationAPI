@@ -15,7 +15,6 @@ import net.minecraft.sortme.GameRenderer;
 import net.minecraft.util.maths.Vec3f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.GLU;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -59,7 +58,7 @@ public abstract class GameRendererMixin {
     }
 
     @Unique
-    public float getFovMultiplier(float f, boolean isHand) {
+    public float clientsideEssentials_getFovMultiplier(float f, boolean isHand) {
         Living entity = this.minecraft.viewEntity;
         float fov = ModOptions.getFovInDegrees();
 
@@ -96,43 +95,42 @@ public abstract class GameRendererMixin {
     }
 
     @Unique
-    public float getFovMultiplier(float f) {
-        return getFovMultiplier(f, false);
+    public float clientsideEssentials_getFovMultiplier(float f) {
+        return clientsideEssentials_getFovMultiplier(f, false);
     }
 
     @Redirect(method = "method_1840", at = @At(value = "INVOKE", target = "Lnet/minecraft/sortme/GameRenderer;method_1848(F)F"))
     public float clientsideEssentials_redirectToCustomFov(GameRenderer instance, float value) {
-        return getFovMultiplier(value);
+        return clientsideEssentials_getFovMultiplier(value);
     }
 
     @Inject(method = "method_1845", at = @At(value = "HEAD"))
     public void clientsideEssentials_adjustHandFov(float f, int i, CallbackInfo ci) {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GLU.gluPerspective(getFovMultiplier(f, true), (float) minecraft.actualWidth / (float) minecraft.actualHeight, 0.05F, field_2350 * 2.0F);
+        GLU.gluPerspective(clientsideEssentials_getFovMultiplier(f, true), (float) minecraft.actualWidth / (float) minecraft.actualHeight, 0.05F, field_2350 * 2.0F);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
     }
 
     @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 200))
-    public int modifyPerformanceTargetFps(int constant){
+    public int clientsideEssentials_modifyPerformanceTargetFps(int constant){
         return ModOptions.getFpsLimitValue();
     }
 
     @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 120))
-    public int modifyBalancedTargetFps(int constant){
+    public int clientsideEssentials_modifyBalancedTargetFps(int constant){
         return ModOptions.getFpsLimitValue();
     }
 
     @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 40))
-    public int modifyPowerSaverTargetFps(int constant){
+    public int clientsideEssentials_modifyPowerSaverTargetFps(int constant){
         return ModOptions.getFpsLimitValue();
     }
 
     @Redirect(method = "method_1844", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/client/options/GameOptions;fpsLimit:I"))
-    public int overridePerformanceLevel(GameOptions instance){
+    public int clientsideEssentials_overridePerformanceLevel(GameOptions instance){
         return ModOptions.getPerformanceLevel();
     }
-
 
     @Inject(
             method = "method_1852",
@@ -140,64 +138,19 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void method_1852(float f, CallbackInfo ci) {
-        float f2;
-        float f3;
         Level level = this.minecraft.level;
         Living living = this.minecraft.viewEntity;
-        float f4 = 1.0f / (float)(4 - this.minecraft.options.viewDistance);
-        f4 = 1.0f - (float)Math.pow(f4, 0.25);
+        PostProcess pp = PostProcess.instance;
         Vec3f vec3f = level.method_279(this.minecraft.viewEntity, f);
-        float f5 = (float)vec3f.x;
-        float f6 = (float)vec3f.y;
-        float f7 = (float)vec3f.z;
-        Vec3f vec3f2 = level.method_284(f);
-        this.field_2346 = (float)vec3f2.x;
-        this.field_2347 = (float)vec3f2.y;
-        this.field_2348 = 0.0f;//(float)vec3f2.z;
-        this.field_2346 += (f5 - this.field_2346) * f4;
-        this.field_2347 += (f6 - this.field_2347) * f4;
-        this.field_2348 += (f7 - this.field_2348) * 0.0f;
-        float f8 = level.getRainGradient(f);
-        if (f8 > 0.0f) {
-            f3 = 1.0f - f8 * 0.5f;
-            f2 = 1.0f - f8 * 0.4f;
-            this.field_2346 *= f3;
-            this.field_2347 *= f3;
-            this.field_2348 *= f2;
+        float red = (float)vec3f.x;
+        float green = (float)vec3f.y;
+        float blue = (float)vec3f.z;
+        if (0.0F != ModOptions.fogDensity) {
+            red = this.field_2346;
+            green = this.field_2347;
+            blue = this.field_2348;
         }
-        if ((f3 = level.getThunderGradient(f)) > 0.0f) {
-            f2 = 1.0f - f3 * 0.5f;
-            this.field_2346 *= f2;
-            this.field_2347 *= f2;
-            this.field_2348 *= f2;
-        }
-        if (this.field_2330) {
-            Vec3f vec3f3 = level.method_282(f);
-            this.field_2346 = (float)vec3f3.x;
-            this.field_2347 = (float)vec3f3.y;
-            this.field_2348 = (float)vec3f3.z;
-        } else if (living.isInFluid(Material.WATER)) {
-            this.field_2346 = 0.02f;
-            this.field_2347 = 0.02f;
-            this.field_2348 = 0.2f;
-        } else if (living.isInFluid(Material.LAVA)) {
-            this.field_2346 = 0.6f;
-            this.field_2347 = 0.1f;
-            this.field_2348 = 0.0f;
-        }
-        float f9 = this.field_2338 + (this.field_2339 - this.field_2338) * f;
-        this.field_2346 *= f9;
-        this.field_2347 *= f9;
-        this.field_2348 *= f9;
-        if (this.minecraft.options.anaglyph3d) {
-            float f10 = (this.field_2346 * 30.0f + this.field_2347 * 59.0f + this.field_2348 * 11.0f) / 100.0f;
-            float f11 = (this.field_2346 * 30.0f + this.field_2347 * 70.0f) / 100.0f;
-            float f12 = (this.field_2346 * 30.0f + this.field_2348 * 70.0f) / 100.0f;
-            this.field_2346 = f10;
-            this.field_2347 = f11;
-            this.field_2348 = f12;
-        }
-        GL11.glClearColor(this.field_2346, this.field_2347, this.field_2348, 0.0f);
+        GL11.glClearColor(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), 0.0f);
         ci.cancel();
     }
 
