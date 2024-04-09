@@ -22,7 +22,6 @@ public class TessellatorMixin {
     @Inject(
             method = "colour(IIII)V",
             at = @At("HEAD"),
-            remap = false,
             cancellable = true
     )
     public void colour(int i, int j, int k, int l, CallbackInfo ci) {

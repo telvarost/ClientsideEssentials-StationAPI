@@ -8,6 +8,7 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.resource.language.TranslationStorage;
+import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -26,8 +27,8 @@ import java.io.PrintWriter;
 @Environment(EnvType.CLIENT)
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin {
-    @Unique
-    protected Float lastGamma;
+//    @Unique
+//    protected Float lastGamma;
 
     @Shadow
     protected abstract float parseFloat(String string);
@@ -44,7 +45,10 @@ public abstract class GameOptionsMixin {
 //            }
             ModOptions.gamma = value;
             this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
-
+            if (false == Mouse.isButtonDown(0)) {
+                this.minecraft.worldRenderer.method_1537();
+                this.minecraft.textureManager.reloadTexturesFromTexturePack();
+            }
         }
 
         if (option == ModOptions.fovOption) {
@@ -167,7 +171,7 @@ public abstract class GameOptionsMixin {
 
         if (stringArray[0].equals("gamma")) {
             ModOptions.gamma = this.parseFloat(stringArray[1]);
-            lastGamma = ModOptions.gamma;
+            //lastGamma = ModOptions.gamma;
         }
 
         if (stringArray[0].equals("fov")) {
@@ -193,11 +197,11 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
-        if (lastGamma != ModOptions.gamma) {
-            lastGamma = ModOptions.gamma;
-            this.minecraft.worldRenderer.method_1537();
-            this.minecraft.textureManager.reloadTexturesFromTexturePack();
-        }
+//        if (lastGamma != ModOptions.gamma) {
+//            lastGamma = ModOptions.gamma;
+//            this.minecraft.worldRenderer.method_1537();
+//            this.minecraft.textureManager.reloadTexturesFromTexturePack();
+//        }
         printWriter.println("gamma:" + ModOptions.gamma);
         printWriter.println("fov:" + ModOptions.fov);
         printWriter.println("fog_density:" + ModOptions.fogDensity);

@@ -35,7 +35,6 @@ public abstract class TextureManagerMixin {
     @Inject(
             method = "bindImageToId(Ljava/awt/image/BufferedImage;I)V",
             at = @At("HEAD"),
-            remap = false,
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(BufferedImage bufferedImage, int i, CallbackInfo ci) {
@@ -129,7 +128,6 @@ public abstract class TextureManagerMixin {
     @Inject(
             method = "bindImageToId([IIII)V",
             at = @At("HEAD"),
-            remap = false,
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(int[] is, int i, int j, int k, CallbackInfo ci) {

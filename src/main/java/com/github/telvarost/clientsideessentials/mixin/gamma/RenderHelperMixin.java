@@ -19,7 +19,6 @@ public class RenderHelperMixin {
     @Inject(
             method = "method_1929",
             at = @At("HEAD"),
-            remap = false,
             cancellable = true
     )
     private static void method_1929(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
