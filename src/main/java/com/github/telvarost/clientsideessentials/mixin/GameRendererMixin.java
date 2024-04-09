@@ -138,20 +138,45 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void method_1852(float f, CallbackInfo ci) {
-        Level level = this.minecraft.level;
-        Living living = this.minecraft.viewEntity;
-        PostProcess pp = PostProcess.instance;
-        Vec3f vec3f = level.method_279(this.minecraft.viewEntity, f);
-        float red = (float)vec3f.x;
-        float green = (float)vec3f.y;
-        float blue = (float)vec3f.z;
-        if (0.0F != ModOptions.fogDensity) {
-            red = this.field_2346;
-            green = this.field_2347;
-            blue = this.field_2348;
+        if (ModOptions.clouds) {
+            Level level = this.minecraft.level;
+            Living living = this.minecraft.viewEntity;
+            PostProcess pp = PostProcess.instance;
+            Vec3f vec3f = level.method_279(this.minecraft.viewEntity, f);
+            float red = (float) vec3f.x;
+            float green = (float) vec3f.y;
+            float blue = (float) vec3f.z;
+            if (this.field_2330) {
+                Vec3f vec3f3 = level.method_282(f);
+                this.field_2346 = (float) vec3f3.x;
+                this.field_2347 = (float) vec3f3.y;
+                this.field_2348 = (float) vec3f3.z;
+                red = this.field_2346;
+                green = this.field_2347;
+                blue = this.field_2348;
+            } else if (living.isInFluid(Material.WATER)) {
+                this.field_2346 = 0.02f;
+                this.field_2347 = 0.02f;
+                this.field_2348 = 0.2f;
+                red = this.field_2346;
+                green = this.field_2347;
+                blue = this.field_2348;
+            } else if (living.isInFluid(Material.LAVA)) {
+                this.field_2346 = 0.6f;
+                this.field_2347 = 0.1f;
+                this.field_2348 = 0.0f;
+                red = this.field_2346;
+                green = this.field_2347;
+                blue = this.field_2348;
+            }
+            if (0.0F != ModOptions.fogDensity) {
+                red = this.field_2346;
+                green = this.field_2347;
+                blue = this.field_2348;
+            }
+            GL11.glClearColor(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), 0.0f);
+            ci.cancel();
         }
-        GL11.glClearColor(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), 0.0f);
-        ci.cancel();
     }
 
     @Inject(
@@ -160,11 +185,13 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void clientsideEssentials_method_1839(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
-        PostProcess pp = PostProcess.instance;
-        this.field_2345.clear();
-        this.field_2345.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
-        this.field_2345.flip();
-        cir.setReturnValue(this.field_2345);
-        cir.cancel();
+        if (ModOptions.clouds) {
+            PostProcess pp = PostProcess.instance;
+            this.field_2345.clear();
+            this.field_2345.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
+            this.field_2345.flip();
+            cir.setReturnValue(this.field_2345);
+            cir.cancel();
+        }
     }
 }
