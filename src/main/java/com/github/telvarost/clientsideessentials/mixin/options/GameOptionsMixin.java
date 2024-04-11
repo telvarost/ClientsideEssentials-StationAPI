@@ -36,8 +36,8 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "method_1228", at = @At(value = "HEAD"))
     public void clientsideEssentials_setFloat(Option option, float value, CallbackInfo ci) {
-        if (option == ModOptions.gammaOption) {
-            ModOptions.gamma = value;
+        if (option == ModOptions.brightnessOption) {
+            ModOptions.brightness = value;
 
             if (false == Mouse.isButtonDown(0)) {
                 this.minecraft.worldRenderer.method_1537();
@@ -75,8 +75,8 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "getFloatValue", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getFloat(Option option, CallbackInfoReturnable<Float> cir) {
-        if (option == ModOptions.gammaOption) {
-            cir.setReturnValue(ModOptions.gamma);
+        if (option == ModOptions.brightnessOption) {
+            cir.setReturnValue(ModOptions.brightness);
         }
 
         if (option == ModOptions.fovOption) {
@@ -108,7 +108,7 @@ public abstract class GameOptionsMixin {
     public void clientsideEssentials_getTranslatedValue(Option option, CallbackInfoReturnable<String> cir) {
         TranslationStorage translations = TranslationStorage.getInstance();
 
-        if (option == ModOptions.gammaOption) {
+        if (option == ModOptions.brightnessOption) {
             if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
                 float value = ModOptions.getGamma();
                 if (value == 0.0f) {
@@ -174,8 +174,8 @@ public abstract class GameOptionsMixin {
     private void clientsideEssentials_load(CallbackInfo ci, BufferedReader bufferedReader, String string) {
         String[] stringArray = string.split(":");
 
-        if (stringArray[0].equals("gamma")) {
-            ModOptions.gamma = this.parseFloat(stringArray[1]);
+        if (stringArray[0].equals("brightness")) {
+            ModOptions.brightness = this.parseFloat(stringArray[1]);
         }
 
         if (stringArray[0].equals("fov")) {
@@ -201,7 +201,7 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
-        printWriter.println("gamma:" + ModOptions.gamma);
+        printWriter.println("brightness:" + ModOptions.brightness);
         printWriter.println("fov:" + ModOptions.fov);
         printWriter.println("fog_density:" + ModOptions.fogDensity);
         printWriter.println("clouds:" + ModOptions.clouds);

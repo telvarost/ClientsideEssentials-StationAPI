@@ -35,7 +35,7 @@ public class Config {
         public Boolean ENABLE_BRIGHTNESS_FOG = true;
 
         @ConfigName("Slider Affects GUI Elements")
-        @Comment("Textures will reload on gamma change")
+        @Comment("Textures will reload on brightness change")
         public Boolean ENABLE_BRIGHTNESS_GUI = false;
     }
 

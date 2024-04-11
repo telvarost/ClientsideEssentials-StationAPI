@@ -38,7 +38,7 @@ public abstract class OptionMixin {
         Option last = options.get(options.size() - 1);
 
         Option BRIGHTNESS;
-        ModOptions.gammaOption = BRIGHTNESS = OptionMixin.newOption("BRIGHTNESS", last.ordinal(), "options.gamma", true, false);
+        ModOptions.brightnessOption = BRIGHTNESS = OptionMixin.newOption("BRIGHTNESS", last.ordinal(), "options.brightness", true, false);
         options.add(BRIGHTNESS);
 
         Option FOV;

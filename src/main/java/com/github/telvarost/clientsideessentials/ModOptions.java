@@ -9,7 +9,7 @@ public class ModOptions {
     public static Option fogDensityOption;
     public static Option cloudsOption;
     public static Option fovOption;
-    public static Option gammaOption;
+    public static Option brightnessOption;
     public static Option cloudHeightOption;
     public static Option fpsLimitOption;
 
@@ -44,10 +44,10 @@ public class ModOptions {
     }
 
     // Gamma
-    public static float gamma = 0.5F;
+    public static float brightness = 0.5F;
 
     public static float getGamma() {
-        return (float) Math.round(gamma * 20) / 20;
+        return (float) Math.round(brightness * 20) / 20;
     }
 
     // Fog Density

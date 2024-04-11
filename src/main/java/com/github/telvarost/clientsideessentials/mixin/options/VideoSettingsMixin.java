@@ -34,7 +34,7 @@ public class VideoSettingsMixin extends ScreenBase {
 
 	static {
 		OPTIONS = Arrays.copyOf(OPTIONS, OPTIONS.length + 4);
-		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 4] = ModOptions.gammaOption;
+		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 4] = ModOptions.brightnessOption;
 		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 3] = ModOptions.fogDensityOption;
 		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 2] = ModOptions.cloudsOption;
 		VideoSettingsMixin.OPTIONS[VideoSettingsMixin.OPTIONS.length - 1] = ModOptions.cloudHeightOption;

@@ -21,7 +21,7 @@ Moved to new Scoring/Achievement mod below:
 
 ## Graphical Additions
 
-- (In progress) Ability to change gamma light levels in options
+- Ability to change brightness (AKA gamma) in options
 - Ability to change FPS limit in options
 - Ability to change FOV in options
   - Added `LCtrl` to zoom in on things quickly

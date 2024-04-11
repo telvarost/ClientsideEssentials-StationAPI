@@ -18,13 +18,13 @@ public class PostProcess {
 
 	private float getCalcGamma() {
 		if (BrightnessRangeEnum.SMALL == Config.config.BRIGHTNESS_CONFIG.BRIGHTNESS_RANGE) {
-			return ((1.0F - ModOptions.gamma) * 1.2F) + 1.6F;
+			return ((1.0F - ModOptions.brightness) * 1.2F) + 1.6F;
 		} else if (BrightnessRangeEnum.EXTRA_LARGE == Config.config.BRIGHTNESS_CONFIG.BRIGHTNESS_RANGE) {
-			return ((1.0F - ModOptions.gamma) * 4.2F) + 0.1F;
+			return ((1.0F - ModOptions.brightness) * 4.2F) + 0.1F;
 		} else {
-			return ((1.0F - ModOptions.gamma) * 2.4F) + 1.0F;
+			return ((1.0F - ModOptions.brightness) * 2.4F) + 1.0F;
 		}
-		//return (ModOptions.gamma * 5F); // 0.0F and 5.0F currently
+		//return (ModOptions.brightness * 5F); // 0.0F and 5.0F currently
 	}
 
 	public void set(GameOptions options) {
@@ -44,7 +44,7 @@ public class PostProcess {
 				try {
 					String[] split = line.split(":");
 					if(split[0].equals("postprocessGamma")) {
-						ModOptions.gamma = this.readFloat(split[1]);
+						ModOptions.brightness = this.readFloat(split[1]);
 					}
 
 					if(split[0].equals("anaglyph3d")) {
