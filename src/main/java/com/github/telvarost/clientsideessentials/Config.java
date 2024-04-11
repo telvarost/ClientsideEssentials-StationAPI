@@ -31,6 +31,9 @@ public class Config {
         @ConfigName("Enable Gamma Slider")
         public Boolean ENABLE_GAMMA_SLIDER = true;
 
+        @ConfigName("Enable Gamma Fog")
+        public Boolean ENABLE_GAMMA_FOG = false;
+
         @ConfigName("Fix Bow Models")
         public Boolean FIX_BOW_MODEL = true;
 

@@ -43,11 +43,12 @@ public abstract class GameOptionsMixin {
 //            if(this.minecraft.level != null) {
 //                this.minecraft.worldRenderer.method_1148();
 //            }
+            System.out.println("gamma: " + value);
             ModOptions.gamma = value;
-            this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
             if (false == Mouse.isButtonDown(0)) {
                 this.minecraft.worldRenderer.method_1537();
-                this.minecraft.textureManager.reloadTexturesFromTexturePack();
+                this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
+                //this.minecraft.textureManager.reloadTexturesFromTexturePack();
             }
         }
 
@@ -112,7 +113,7 @@ public abstract class GameOptionsMixin {
         TranslationStorage translations = TranslationStorage.getInstance();
 
         if (option == ModOptions.gammaOption) {
-            float value = ModOptions.gamma;
+            float value = ModOptions.getGamma();
             if (value == 0.0f) {
                 cir.setReturnValue("Gamma: Dark");
             } else if (value == 0.5f) {
@@ -120,7 +121,7 @@ public abstract class GameOptionsMixin {
             } else if (value == 1.0f) {
                 cir.setReturnValue("Gamma: Bright");
             } else {
-                cir.setReturnValue("Gamma: " + ModOptions.getGamma() * 2F + "x");
+                cir.setReturnValue("Gamma: " + (value * 2F) + "x");
             }
         }
 

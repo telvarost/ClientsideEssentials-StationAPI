@@ -21,6 +21,11 @@ public class PostProcess {
 		this.load(new File(Minecraft.getGameDirectory(), "options.txt"));
 	}
 
+	private float getCalcGamma() {
+		return (ModOptions.gamma * 5F);
+		//return (ModOptions.gamma * 5F); // 0.0F and 5.0F currently
+	}
+
 	public void set(GameOptions options) {
 		this.anaglyph3d = options.anaglyph3d;
 		//ModOptions.gamma = (double)ModOptions.gamma;
@@ -63,8 +68,8 @@ public class PostProcess {
 	}
 
 	public int red(int r, int g, int b) {
-		if((ModOptions.gamma * 5F) != DEFAULT_GAMMA_D) {
-			r = (int)(Math.pow(Math.pow((double)r / 255.0D, (ModOptions.gamma * 5F)), DEFAULT_GAMMA_INV) * 255.0D);
+		if(getCalcGamma() != DEFAULT_GAMMA_D) {
+			r = (int)(Math.pow(Math.pow((double)r / 255.0D, getCalcGamma()), DEFAULT_GAMMA_INV) * 255.0D);
 		}
 
 		if(this.anaglyph3d) {
@@ -75,8 +80,8 @@ public class PostProcess {
 	}
 
 	public int green(int r, int g, int b) {
-		if((ModOptions.gamma * 5F) != DEFAULT_GAMMA_D) {
-			g = (int)(Math.pow(Math.pow((double)g / 255.0D, (ModOptions.gamma * 5F)), DEFAULT_GAMMA_INV) * 255.0D);
+		if(getCalcGamma() != DEFAULT_GAMMA_D) {
+			g = (int)(Math.pow(Math.pow((double)g / 255.0D, getCalcGamma()), DEFAULT_GAMMA_INV) * 255.0D);
 		}
 
 		if(this.anaglyph3d) {
@@ -87,8 +92,8 @@ public class PostProcess {
 	}
 
 	public int blue(int r, int g, int b) {
-		if((ModOptions.gamma * 5F) != DEFAULT_GAMMA_D) {
-			b = (int)(Math.pow(Math.pow((double)b / 255.0D, (ModOptions.gamma * 5F)), DEFAULT_GAMMA_INV) * 255.0D);
+		if(getCalcGamma() != DEFAULT_GAMMA_D) {
+			b = (int)(Math.pow(Math.pow((double)b / 255.0D, getCalcGamma()), DEFAULT_GAMMA_INV) * 255.0D);
 		}
 
 		if(this.anaglyph3d) {
@@ -100,8 +105,8 @@ public class PostProcess {
 
 	public float red(float r, float g, float b) {
 		if (r != 0) {
-			if((ModOptions.gamma * 5F) != DEFAULT_GAMMA_D) {
-				r = (float)Math.pow(Math.pow((double)r, (ModOptions.gamma * 5F)), DEFAULT_GAMMA_INV);
+			if(getCalcGamma() != DEFAULT_GAMMA_D) {
+				r = (float)Math.pow(Math.pow((double)r, getCalcGamma()), DEFAULT_GAMMA_INV);
 			}
 
 			if(this.anaglyph3d) {
@@ -114,8 +119,8 @@ public class PostProcess {
 
 	public float green(float r, float g, float b) {
 		if (g != 0) {
-			if ((ModOptions.gamma * 5F) != DEFAULT_GAMMA_D) {
-				g = (float) Math.pow(Math.pow((double) g, (ModOptions.gamma * 5F)), DEFAULT_GAMMA_INV);
+			if (getCalcGamma() != DEFAULT_GAMMA_D) {
+				g = (float) Math.pow(Math.pow((double) g, getCalcGamma()), DEFAULT_GAMMA_INV);
 			}
 
 			if (this.anaglyph3d) {
@@ -128,8 +133,8 @@ public class PostProcess {
 
 	public float blue(float r, float g, float b) {
 		if (b != 0) {
-			if ((ModOptions.gamma * 5F) != DEFAULT_GAMMA_D) {
-				b = (float) Math.pow(Math.pow((double) b, (ModOptions.gamma * 5F)), DEFAULT_GAMMA_INV);
+			if (getCalcGamma() != DEFAULT_GAMMA_D) {
+				b = (float) Math.pow(Math.pow((double) b, getCalcGamma()), DEFAULT_GAMMA_INV);
 			}
 
 			if (this.anaglyph3d) {
