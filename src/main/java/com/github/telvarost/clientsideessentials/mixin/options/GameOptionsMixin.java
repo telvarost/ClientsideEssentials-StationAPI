@@ -116,15 +116,19 @@ public abstract class GameOptionsMixin {
         TranslationStorage translations = TranslationStorage.getInstance();
 
         if (option == ModOptions.gammaOption) {
-            float value = ModOptions.getGamma();
-            if (value == 0.0f) {
-                cir.setReturnValue("Gamma: Dark");
-            } else if (value == 0.5f) {
-                cir.setReturnValue("Gamma: Normal");
-            } else if (value == 1.0f) {
-                cir.setReturnValue("Gamma: Bright");
+            if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
+                float value = ModOptions.getGamma();
+                if (value == 0.0f) {
+                    cir.setReturnValue("Gamma: Dark");
+                } else if (value == 0.5f) {
+                    cir.setReturnValue("Gamma: Normal");
+                } else if (value == 1.0f) {
+                    cir.setReturnValue("Gamma: Bright");
+                } else {
+                    cir.setReturnValue("Gamma: " + (value * 2F) + "x");
+                }
             } else {
-                cir.setReturnValue("Gamma: " + (value * 2F) + "x");
+                cir.setReturnValue("DISABLED");
             }
         }
 
