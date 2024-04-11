@@ -7,14 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.options.GameOptions;
 
 public class PostProcess {
-	public static final float DEFAULT_BRIGHTNESS = 2.2F;
-	public static final double DEFAULT_BRIGHTNESS_D = (double)DEFAULT_BRIGHTNESS;
+	public static final double DEFAULT_BRIGHTNESS_D = 2.2D;
 	public static final double DEFAULT_BRIGHTNESS_INV = 1.0D / DEFAULT_BRIGHTNESS_D;
-	public static final float MAX_BRIGHTNESS = 3.4F;
-	public static final float MIN_BRIGHTNESS = 1.0F;
-	public static final float BRIGHTNESS_RANGE = MAX_BRIGHTNESS - MIN_BRIGHTNESS;
 	public boolean anaglyph3d = false;
-	private double gamma = DEFAULT_BRIGHTNESS_D;
 	public static PostProcess instance = new PostProcess();
 
 	public PostProcess() {
@@ -34,7 +29,6 @@ public class PostProcess {
 
 	public void set(GameOptions options) {
 		this.anaglyph3d = options.anaglyph3d;
-		//ModOptions.gamma = (double)ModOptions.gamma;
 	}
 
 	public void load(File optionsFile) {
