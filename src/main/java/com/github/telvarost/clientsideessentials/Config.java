@@ -25,14 +25,17 @@ public class Config {
         @ConfigName("Add Day Counter To F3 Overlay")
         public Boolean ADD_DAY_COUNTER = true;
 
-        @ConfigName("Disable ID Tags")
-        public Boolean DISABLE_ID_TAGS = true;
+        @ConfigName("Change Gamma Slider Range")
+        public GammaRangeEnum GAMMA_RANGE = GammaRangeEnum.SMALL;
 
         @ConfigName("Enable Gamma Slider")
         public Boolean ENABLE_GAMMA_SLIDER = true;
 
         @ConfigName("Enable Gamma Fog")
         public Boolean ENABLE_GAMMA_FOG = false;
+
+        @ConfigName("ENABLE ID Tags")
+        public Boolean ENABLE_ID_TAGS = false;
 
         @ConfigName("Fix Bow Models")
         public Boolean FIX_BOW_MODEL = true;

@@ -22,7 +22,13 @@ public class PostProcess {
 	}
 
 	private float getCalcGamma() {
-		return ((1.0F - ModOptions.gamma) * 2.4F) + 1.0F;
+		if (GammaRangeEnum.SMALL == Config.config.GRAPHICS_CONFIG.GAMMA_RANGE) {
+			return ((1.0F - ModOptions.gamma) * 1.2F) + 1.6F;
+		} else if (GammaRangeEnum.LARGE == Config.config.GRAPHICS_CONFIG.GAMMA_RANGE) {
+			return ((1.0F - ModOptions.gamma) * 5F);
+		} else {
+			return ((1.0F - ModOptions.gamma) * 2.4F) + 1.0F;
+		}
 		//return (ModOptions.gamma * 5F); // 0.0F and 5.0F currently
 	}
 

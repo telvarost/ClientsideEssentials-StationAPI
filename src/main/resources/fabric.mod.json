@@ -31,6 +31,12 @@
     ],
     "gcapi": [
       "com.github.telvarost.clientsideessentials.Config"
+    ],
+    "gcapi:factory_provider": [
+      "com.github.telvarost.clientsideessentials.GammaRangeEnumFactory"
+    ],
+    "gcapi:presave": [
+      "com.github.telvarost.clientsideessentials.events.ConfigListener"
     ]
   },
   "mixins": [
