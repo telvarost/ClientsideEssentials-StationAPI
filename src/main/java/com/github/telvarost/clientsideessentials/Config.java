@@ -34,6 +34,9 @@ public class Config {
         @ConfigName("Enable Gamma Fog")
         public Boolean ENABLE_GAMMA_FOG = false;
 
+        @ConfigName("Enable Gamma GUI")
+        public Boolean ENABLE_GAMMA_GUI = false;
+
         @ConfigName("ENABLE ID Tags")
         public Boolean ENABLE_ID_TAGS = false;
 

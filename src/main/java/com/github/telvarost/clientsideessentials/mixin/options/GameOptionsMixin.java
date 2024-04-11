@@ -1,5 +1,6 @@
 package com.github.telvarost.clientsideessentials.mixin.options;
 
+import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -48,8 +49,9 @@ public abstract class GameOptionsMixin {
             if (false == Mouse.isButtonDown(0)) {
                 this.minecraft.worldRenderer.method_1537();
                 this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
-
-                //this.minecraft.textureManager.reloadTexturesFromTexturePack();
+                if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_GUI) {
+                    this.minecraft.textureManager.reloadTexturesFromTexturePack();
+                }
             }
         }
 
