@@ -48,6 +48,7 @@ public abstract class GameOptionsMixin {
             if (false == Mouse.isButtonDown(0)) {
                 this.minecraft.worldRenderer.method_1537();
                 this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
+
                 //this.minecraft.textureManager.reloadTexturesFromTexturePack();
             }
         }
