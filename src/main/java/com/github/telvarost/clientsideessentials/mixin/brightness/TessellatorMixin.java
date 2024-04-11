@@ -1,4 +1,4 @@
-package com.github.telvarost.clientsideessentials.mixin.gamma;
+package com.github.telvarost.clientsideessentials.mixin.brightness;
 
 import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.PostProcess;
@@ -25,7 +25,7 @@ public class TessellatorMixin {
             cancellable = true
     )
     public void colour(int i, int j, int k, int l, CallbackInfo ci) {
-        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             if (this.disableColour) {
                 return;
             }

@@ -1,4 +1,4 @@
-package com.github.telvarost.clientsideessentials.mixin.gamma;
+package com.github.telvarost.clientsideessentials.mixin.brightness;
 
 import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.PostProcess;
@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.nio.FloatBuffer;
@@ -22,7 +21,7 @@ public class RenderHelperMixin {
             cancellable = true
     )
     private static void method_1929(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
-        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             if (i != 0) {
                 PostProcess pp = PostProcess.instance;
                 floatBuffer.clear();

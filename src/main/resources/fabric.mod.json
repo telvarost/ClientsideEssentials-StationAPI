@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "ClientsideEssentials",
-  "description": "Fixes some common graphical issues, adds some missing sounds, and adds a basic score mechanic. Special thanks to Dany for helping with many of the changes and fixes.",
+  "description": "Fixes some common graphical issues, adds some missing sounds, and adds a basic score mechanic. Special thanks to Dany and Birevan for helping with many of the changes and fixes.",
   "authors": [
     "Telvarost",
     "Dany"
@@ -33,7 +33,7 @@
       "com.github.telvarost.clientsideessentials.Config"
     ],
     "gcapi:factory_provider": [
-      "com.github.telvarost.clientsideessentials.GammaRangeEnumFactory"
+      "com.github.telvarost.clientsideessentials.BrightnessRangeEnumFactory"
     ],
     "gcapi:presave": [
       "com.github.telvarost.clientsideessentials.events.ConfigListener"

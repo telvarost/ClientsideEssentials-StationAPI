@@ -1,4 +1,4 @@
-package com.github.telvarost.clientsideessentials.mixin.gamma;
+package com.github.telvarost.clientsideessentials.mixin.brightness;
 
 import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.PostProcess;
@@ -19,22 +19,6 @@ public abstract class GL11Mixin {
     static void nglColor3f(float red, float green, float blue, long function_pointer) {
     }
 
-//    @Shadow static void nglClearColor(float red, float green, float blue, float alpha, long function_pointer) {
-//    }
-//
-//    @Redirect(
-//            method = "glClearColor",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lorg/lwjgl/opengl/GL11;nglClearColor(FFFFJ)V"
-//            ),
-//            remap = false
-//    )
-//    private static void glClearColor(float red, float green, float blue, float alpha, long l) {
-//        PostProcess pp = PostProcess.instance;
-//        nglClearColor(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), alpha, l);
-//    }
-
     @Redirect(
             method = "glColor3f",
             at = @At(
@@ -44,7 +28,7 @@ public abstract class GL11Mixin {
             remap = false
     )
     private static void glColor3f(float red, float green, float blue, long l) {
-        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             PostProcess pp = PostProcess.instance;
             nglColor3f(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), l);
         } else {
@@ -61,7 +45,7 @@ public abstract class GL11Mixin {
             remap = false
     )
     private static void glColor4f(float red, float green, float blue, float alpha, long l) {
-        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             PostProcess pp = PostProcess.instance;
             nglColor4f(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), alpha, l);
         } else {

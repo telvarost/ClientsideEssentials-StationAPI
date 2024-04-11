@@ -1,17 +1,17 @@
 package com.github.telvarost.clientsideessentials;
 
-public enum GammaRangeEnum {
-    SMALL("1.6F - 2.8F"),
-    MEDIUM("1.0F - 3.4F"),
-    LARGE("0.1F - 4.3F");
+public enum BrightnessRangeEnum {
+    SMALL("Small"),
+    LARGE("Large"),
+    EXTRA_LARGE("Extra Large");
 
     final String stringValue;
 
-    GammaRangeEnum() {
-        this.stringValue = "1.0F - 3.4F";
+    BrightnessRangeEnum() {
+        this.stringValue = "Small";
     }
 
-    GammaRangeEnum(String stringValue) {
+    BrightnessRangeEnum(String stringValue) {
         this.stringValue = stringValue;
     }
 

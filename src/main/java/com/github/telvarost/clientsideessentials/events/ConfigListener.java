@@ -20,7 +20,7 @@ public class ConfigListener implements PreConfigSavedListener {
             minecraft.worldRenderer.method_1537();
             minecraft.textRenderer = new TextRenderer(minecraft.options, "/font/default.png", minecraft.textureManager);
             //minecraft.textureManager.reloadTexturesFromTexturePack();
-            if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI) {
+            if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI) {
                 minecraft.textureManager.reloadTexturesFromTexturePack();
             }
         }

@@ -10,8 +10,8 @@ public class Config {
 
     public static class ConfigFields {
 
-        @ConfigCategory("Gamma Config")
-        public GammaConfig GAMMA_CONFIG = new GammaConfig();
+        @ConfigCategory("Brightness Config")
+        public GammaConfig BRIGHTNESS_CONFIG = new GammaConfig();
 
         @ConfigCategory("Graphics Config")
         public GraphicsConfig GRAPHICS_CONFIG = new GraphicsConfig();
@@ -25,17 +25,18 @@ public class Config {
 
     public static class GammaConfig {
 
-        @ConfigName("Change Gamma Slider Range")
-        public GammaRangeEnum GAMMA_RANGE = GammaRangeEnum.SMALL;
+        @ConfigName("Effective Brightness Slider Range")
+        public BrightnessRangeEnum BRIGHTNESS_RANGE = BrightnessRangeEnum.SMALL;
 
-        @ConfigName("Enable Gamma Slider")
-        public Boolean ENABLE_GAMMA_SLIDER = true;
+        @ConfigName("Enable Brightness Slider")
+        public Boolean ENABLE_BRIGHTNESS_SLIDER = true;
 
-        @ConfigName("Enable Gamma Fog")
-        public Boolean ENABLE_GAMMA_FOG = true;
+        @ConfigName("Slider Affects Fog And Clouds")
+        public Boolean ENABLE_BRIGHTNESS_FOG = true;
 
-        @ConfigName("Enable Gamma GUI")
-        public Boolean ENABLE_GAMMA_GUI = false;
+        @ConfigName("Slider Affects GUI Elements")
+        @Comment("Textures will reload on gamma change")
+        public Boolean ENABLE_BRIGHTNESS_GUI = false;
     }
 
     public static class GraphicsConfig {

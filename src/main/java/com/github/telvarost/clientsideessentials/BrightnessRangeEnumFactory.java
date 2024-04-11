@@ -13,29 +13,29 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.function.Function;
 
-public class GammaRangeEnumFactory implements ConfigFactoryProvider {
+public class BrightnessRangeEnumFactory implements ConfigFactoryProvider {
     @Override
     public void provideLoadFactories(ImmutableMap.Builder<Type, NonFunction<String, String, String, Field, Object, Boolean, Object, Object, MaxLength, ConfigEntry<?>>> immutableBuilder) {
-        immutableBuilder.put(GammaRangeEnum.class, ((id, name, description, parentField, parentObject, isMultiplayerSynced, enumOrOrdinal, defaultEnum, maxLength) ->
+        immutableBuilder.put(BrightnessRangeEnum.class, ((id, name, description, parentField, parentObject, isMultiplayerSynced, enumOrOrdinal, defaultEnum, maxLength) ->
         {
             int enumOrdinal;
             if(enumOrOrdinal instanceof Integer ordinal) {
                 enumOrdinal = ordinal;
             }
             else {
-                enumOrdinal = ((GammaRangeEnum) enumOrOrdinal).ordinal();
+                enumOrdinal = ((BrightnessRangeEnum) enumOrOrdinal).ordinal();
             }
-            return new EnumConfigEntry<GammaRangeEnum>(id, name, description, parentField, parentObject, isMultiplayerSynced, enumOrdinal, ((GammaRangeEnum) defaultEnum).ordinal(), GammaRangeEnum.class);
+            return new EnumConfigEntry<BrightnessRangeEnum>(id, name, description, parentField, parentObject, isMultiplayerSynced, enumOrdinal, ((BrightnessRangeEnum) defaultEnum).ordinal(), BrightnessRangeEnum.class);
         }));
     }
 
     @Override
     public void provideSaveFactories(ImmutableMap.Builder<Type, Function<Object, JsonElement>> immutableBuilder) {
-        immutableBuilder.put(GammaRangeEnum.class, enumEntry -> new JsonPrimitive(((GammaRangeEnum) enumEntry).ordinal()));
+        immutableBuilder.put(BrightnessRangeEnum.class, enumEntry -> new JsonPrimitive(((BrightnessRangeEnum) enumEntry).ordinal()));
     }
 
     @Override
     public void provideLoadTypeAdapterFactories(@SuppressWarnings("rawtypes") ImmutableMap.Builder<Type, Class> immutableBuilder) {
-        immutableBuilder.put(GammaRangeEnum.class, Integer.class);
+        immutableBuilder.put(BrightnessRangeEnum.class, Integer.class);
     }
 }

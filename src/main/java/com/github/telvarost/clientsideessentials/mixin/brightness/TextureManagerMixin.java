@@ -1,4 +1,4 @@
-package com.github.telvarost.clientsideessentials.mixin.gamma;
+package com.github.telvarost.clientsideessentials.mixin.brightness;
 
 import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.PostProcess;
@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.image.BufferedImage;
@@ -35,8 +34,8 @@ public abstract class TextureManagerMixin {
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(BufferedImage bufferedImage, int i, CallbackInfo ci) {
-        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
-           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI)
+        if (  (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER)
+           && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI)
         ) {
             int n;
             int n2;
@@ -119,12 +118,8 @@ public abstract class TextureManagerMixin {
                     GL11.glTexImage2D(3553, n8, 6408, n6, n5, 0, 6408, 5121, this.currentImageBuffer);
                 }
             }
-            //ci.cancel();
         }
     }
-
-//    @Unique
-//    public void reloadTextures() {
 
     @Inject(
             method = "bindImageToId([IIII)V",
@@ -132,8 +127,8 @@ public abstract class TextureManagerMixin {
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(int[] is, int i, int j, int k, CallbackInfo ci) {
-        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
-           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI)
+        if (  (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER)
+           && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI)
         ) {
             GL11.glBindTexture(3553, k);
             if (field_1245) {
@@ -186,7 +181,6 @@ public abstract class TextureManagerMixin {
             this.currentImageBuffer.put(byArray);
             this.currentImageBuffer.position(0).limit(byArray.length);
             GL11.glTexSubImage2D(3553, 0, 0, 0, i, j, 6408, 5121, this.currentImageBuffer);
-            //ci.cancel();
         }
     }
 }

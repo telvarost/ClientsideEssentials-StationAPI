@@ -7,14 +7,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.options.GameOptions;
 
 public class PostProcess {
-	public static final float DEFAULT_GAMMA = 2.2F;
-	public static final double DEFAULT_GAMMA_D = (double)DEFAULT_GAMMA;
-	public static final double DEFAULT_GAMMA_INV = 1.0D / DEFAULT_GAMMA_D;
-	public static final float MAX_GAMMA = 3.4F;
-	public static final float MIN_GAMMA = 1.0F;
-	public static final float GAMMA_RANGE = MAX_GAMMA - MIN_GAMMA;
+	public static final float DEFAULT_BRIGHTNESS = 2.2F;
+	public static final double DEFAULT_BRIGHTNESS_D = (double)DEFAULT_BRIGHTNESS;
+	public static final double DEFAULT_BRIGHTNESS_INV = 1.0D / DEFAULT_BRIGHTNESS_D;
+	public static final float MAX_BRIGHTNESS = 3.4F;
+	public static final float MIN_BRIGHTNESS = 1.0F;
+	public static final float BRIGHTNESS_RANGE = MAX_BRIGHTNESS - MIN_BRIGHTNESS;
 	public boolean anaglyph3d = false;
-	private double gamma = DEFAULT_GAMMA_D;
+	private double gamma = DEFAULT_BRIGHTNESS_D;
 	public static PostProcess instance = new PostProcess();
 
 	public PostProcess() {
@@ -22,9 +22,9 @@ public class PostProcess {
 	}
 
 	private float getCalcGamma() {
-		if (GammaRangeEnum.SMALL == Config.config.GAMMA_CONFIG.GAMMA_RANGE) {
+		if (BrightnessRangeEnum.SMALL == Config.config.BRIGHTNESS_CONFIG.BRIGHTNESS_RANGE) {
 			return ((1.0F - ModOptions.gamma) * 1.2F) + 1.6F;
-		} else if (GammaRangeEnum.LARGE == Config.config.GAMMA_CONFIG.GAMMA_RANGE) {
+		} else if (BrightnessRangeEnum.EXTRA_LARGE == Config.config.BRIGHTNESS_CONFIG.BRIGHTNESS_RANGE) {
 			return ((1.0F - ModOptions.gamma) * 4.2F) + 0.1F;
 		} else {
 			return ((1.0F - ModOptions.gamma) * 2.4F) + 1.0F;
@@ -74,8 +74,8 @@ public class PostProcess {
 	}
 
 	public int red(int r, int g, int b) {
-		if(getCalcGamma() != DEFAULT_GAMMA_D) {
-			r = (int)(Math.pow(Math.pow((double)r / 255.0D, getCalcGamma()), DEFAULT_GAMMA_INV) * 255.0D);
+		if(getCalcGamma() != DEFAULT_BRIGHTNESS_D) {
+			r = (int)(Math.pow(Math.pow((double)r / 255.0D, getCalcGamma()), DEFAULT_BRIGHTNESS_INV) * 255.0D);
 		}
 
 		if(this.anaglyph3d) {
@@ -86,8 +86,8 @@ public class PostProcess {
 	}
 
 	public int green(int r, int g, int b) {
-		if(getCalcGamma() != DEFAULT_GAMMA_D) {
-			g = (int)(Math.pow(Math.pow((double)g / 255.0D, getCalcGamma()), DEFAULT_GAMMA_INV) * 255.0D);
+		if(getCalcGamma() != DEFAULT_BRIGHTNESS_D) {
+			g = (int)(Math.pow(Math.pow((double)g / 255.0D, getCalcGamma()), DEFAULT_BRIGHTNESS_INV) * 255.0D);
 		}
 
 		if(this.anaglyph3d) {
@@ -98,8 +98,8 @@ public class PostProcess {
 	}
 
 	public int blue(int r, int g, int b) {
-		if(getCalcGamma() != DEFAULT_GAMMA_D) {
-			b = (int)(Math.pow(Math.pow((double)b / 255.0D, getCalcGamma()), DEFAULT_GAMMA_INV) * 255.0D);
+		if(getCalcGamma() != DEFAULT_BRIGHTNESS_D) {
+			b = (int)(Math.pow(Math.pow((double)b / 255.0D, getCalcGamma()), DEFAULT_BRIGHTNESS_INV) * 255.0D);
 		}
 
 		if(this.anaglyph3d) {
@@ -111,8 +111,8 @@ public class PostProcess {
 
 	public float red(float r, float g, float b) {
 		if (r != 0) {
-			if(getCalcGamma() != DEFAULT_GAMMA_D) {
-				r = (float)Math.pow(Math.pow((double)r, getCalcGamma()), DEFAULT_GAMMA_INV);
+			if(getCalcGamma() != DEFAULT_BRIGHTNESS_D) {
+				r = (float)Math.pow(Math.pow((double)r, getCalcGamma()), DEFAULT_BRIGHTNESS_INV);
 			}
 
 			if(this.anaglyph3d) {
@@ -125,8 +125,8 @@ public class PostProcess {
 
 	public float green(float r, float g, float b) {
 		if (g != 0) {
-			if (getCalcGamma() != DEFAULT_GAMMA_D) {
-				g = (float) Math.pow(Math.pow((double) g, getCalcGamma()), DEFAULT_GAMMA_INV);
+			if (getCalcGamma() != DEFAULT_BRIGHTNESS_D) {
+				g = (float) Math.pow(Math.pow((double) g, getCalcGamma()), DEFAULT_BRIGHTNESS_INV);
 			}
 
 			if (this.anaglyph3d) {
@@ -139,8 +139,8 @@ public class PostProcess {
 
 	public float blue(float r, float g, float b) {
 		if (b != 0) {
-			if (getCalcGamma() != DEFAULT_GAMMA_D) {
-				b = (float) Math.pow(Math.pow((double) b, getCalcGamma()), DEFAULT_GAMMA_INV);
+			if (getCalcGamma() != DEFAULT_BRIGHTNESS_D) {
+				b = (float) Math.pow(Math.pow((double) b, getCalcGamma()), DEFAULT_BRIGHTNESS_INV);
 			}
 
 			if (this.anaglyph3d) {

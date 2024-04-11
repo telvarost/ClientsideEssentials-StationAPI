@@ -12,7 +12,6 @@ import net.minecraft.client.resource.language.TranslationStorage;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -28,8 +27,6 @@ import java.io.PrintWriter;
 @Environment(EnvType.CLIENT)
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin {
-//    @Unique
-//    protected Float lastGamma;
 
     @Shadow
     protected abstract float parseFloat(String string);
@@ -40,16 +37,12 @@ public abstract class GameOptionsMixin {
     @Inject(method = "method_1228", at = @At(value = "HEAD"))
     public void clientsideEssentials_setFloat(Option option, float value, CallbackInfo ci) {
         if (option == ModOptions.gammaOption) {
-            //this.minecraft.textureManager.reloadTexturesFromTexturePack();
-//            if(this.minecraft.level != null) {
-//                this.minecraft.worldRenderer.method_1148();
-//            }
-            System.out.println("gamma: " + value);
             ModOptions.gamma = value;
+
             if (false == Mouse.isButtonDown(0)) {
                 this.minecraft.worldRenderer.method_1537();
                 this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
-                if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI) {
+                if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI) {
                     this.minecraft.textureManager.reloadTexturesFromTexturePack();
                 }
             }
@@ -116,16 +109,16 @@ public abstract class GameOptionsMixin {
         TranslationStorage translations = TranslationStorage.getInstance();
 
         if (option == ModOptions.gammaOption) {
-            if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
+            if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
                 float value = ModOptions.getGamma();
                 if (value == 0.0f) {
-                    cir.setReturnValue("Gamma: Dark");
+                    cir.setReturnValue("Brightness: Dark");
                 } else if (value == 0.5f) {
-                    cir.setReturnValue("Gamma: Normal");
+                    cir.setReturnValue("Brightness: Normal");
                 } else if (value == 1.0f) {
-                    cir.setReturnValue("Gamma: Bright");
+                    cir.setReturnValue("Brightness: Bright");
                 } else {
-                    cir.setReturnValue("Gamma: " + (value * 2F) + "x");
+                    cir.setReturnValue("Brightness: " + (value * 2F) + "x");
                 }
             } else {
                 cir.setReturnValue("DISABLED");
@@ -183,7 +176,6 @@ public abstract class GameOptionsMixin {
 
         if (stringArray[0].equals("gamma")) {
             ModOptions.gamma = this.parseFloat(stringArray[1]);
-            //lastGamma = ModOptions.gamma;
         }
 
         if (stringArray[0].equals("fov")) {
@@ -209,11 +201,6 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
-//        if (lastGamma != ModOptions.gamma) {
-//            lastGamma = ModOptions.gamma;
-//            this.minecraft.worldRenderer.method_1537();
-//            this.minecraft.textureManager.reloadTexturesFromTexturePack();
-//        }
         printWriter.println("gamma:" + ModOptions.gamma);
         printWriter.println("fov:" + ModOptions.fov);
         printWriter.println("fog_density:" + ModOptions.fogDensity);

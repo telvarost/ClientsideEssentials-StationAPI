@@ -37,9 +37,9 @@ public abstract class OptionMixin {
         ArrayList<Option> options = new ArrayList<Option>(Arrays.asList(field_1113));
         Option last = options.get(options.size() - 1);
 
-        Option GAMMA;
-        ModOptions.gammaOption = GAMMA = OptionMixin.newOption("GAMMA", last.ordinal(), "options.gamma", true, false);
-        options.add(GAMMA);
+        Option BRIGHTNESS;
+        ModOptions.gammaOption = BRIGHTNESS = OptionMixin.newOption("BRIGHTNESS", last.ordinal(), "options.gamma", true, false);
+        options.add(BRIGHTNESS);
 
         Option FOV;
         ModOptions.fovOption = FOV = OptionMixin.newOption("FOV", last.ordinal(), "options.fov", true, false);

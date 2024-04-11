@@ -9,14 +9,14 @@
   "server": [
   ],
   "client": [
+    "brightness.GL11Mixin",
+    "brightness.RenderHelperMixin",
+    "brightness.TessellatorMixin",
+    "brightness.TextureManagerMixin",
     "options.GameOptionsMixin",
     "options.OptionMixin",
     "options.OptionsScreenMixin",
     "options.VideoSettingsMixin",
-    "gamma.GL11Mixin",
-    "gamma.RenderHelperMixin",
-    "gamma.TessellatorMixin",
-    "gamma.TextureManagerMixin",
     "AbstractClientPlayerMixin",
     "BipedRendererMixin",
     "BowItemMixin",

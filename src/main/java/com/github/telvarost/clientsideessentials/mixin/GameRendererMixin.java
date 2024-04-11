@@ -139,8 +139,8 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void method_1852(float f, CallbackInfo ci) {
-        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
-           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_FOG)
+        if (  (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER)
+           && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_FOG)
         ) {
             Level level = this.minecraft.level;
             Living living = this.minecraft.viewEntity;
@@ -188,15 +188,14 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void clientsideEssentials_method_1839(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
-        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
-           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_FOG)
+        if (  (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER)
+           && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_FOG)
         ) {
             PostProcess pp = PostProcess.instance;
             this.field_2345.clear();
             this.field_2345.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
             this.field_2345.flip();
             cir.setReturnValue(this.field_2345);
-            //cir.cancel();
         }
     }
 }
