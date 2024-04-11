@@ -22,7 +22,7 @@ public class RenderHelperMixin {
             cancellable = true
     )
     private static void method_1929(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
-        if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
             if (i != 0) {
                 PostProcess pp = PostProcess.instance;
                 floatBuffer.clear();

@@ -22,9 +22,9 @@ public class PostProcess {
 	}
 
 	private float getCalcGamma() {
-		if (GammaRangeEnum.SMALL == Config.config.GRAPHICS_CONFIG.GAMMA_RANGE) {
+		if (GammaRangeEnum.SMALL == Config.config.GAMMA_CONFIG.GAMMA_RANGE) {
 			return ((1.0F - ModOptions.gamma) * 1.2F) + 1.6F;
-		} else if (GammaRangeEnum.LARGE == Config.config.GRAPHICS_CONFIG.GAMMA_RANGE) {
+		} else if (GammaRangeEnum.LARGE == Config.config.GAMMA_CONFIG.GAMMA_RANGE) {
 			return ((1.0F - ModOptions.gamma) * 4.2F) + 0.1F;
 		} else {
 			return ((1.0F - ModOptions.gamma) * 2.4F) + 1.0F;

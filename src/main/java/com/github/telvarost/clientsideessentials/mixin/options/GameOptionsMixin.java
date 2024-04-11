@@ -49,7 +49,7 @@ public abstract class GameOptionsMixin {
             if (false == Mouse.isButtonDown(0)) {
                 this.minecraft.worldRenderer.method_1537();
                 this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
-                if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_GUI) {
+                if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI) {
                     this.minecraft.textureManager.reloadTexturesFromTexturePack();
                 }
             }

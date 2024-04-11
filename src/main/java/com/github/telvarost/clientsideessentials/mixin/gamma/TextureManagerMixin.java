@@ -34,8 +34,8 @@ public abstract class TextureManagerMixin {
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(BufferedImage bufferedImage, int i, CallbackInfo ci) {
-        if (  (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER)
-           && (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_GUI)
+        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
+           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI)
         ) {
             int n;
             int n2;
@@ -131,8 +131,8 @@ public abstract class TextureManagerMixin {
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(int[] is, int i, int j, int k, CallbackInfo ci) {
-        if (  (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER)
-                && (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_GUI)
+        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
+           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI)
         ) {
             GL11.glBindTexture(3553, k);
             if (field_1245) {

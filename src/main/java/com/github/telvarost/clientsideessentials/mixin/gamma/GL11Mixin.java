@@ -44,7 +44,7 @@ public abstract class GL11Mixin {
             remap = false
     )
     private static void glColor3f(float red, float green, float blue, long l) {
-        if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
             PostProcess pp = PostProcess.instance;
             nglColor3f(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), l);
         } else {
@@ -61,7 +61,7 @@ public abstract class GL11Mixin {
             remap = false
     )
     private static void glColor4f(float red, float green, float blue, float alpha, long l) {
-        if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
             PostProcess pp = PostProcess.instance;
             nglColor4f(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), alpha, l);
         } else {

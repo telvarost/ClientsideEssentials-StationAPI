@@ -10,6 +10,9 @@ public class Config {
 
     public static class ConfigFields {
 
+        @ConfigCategory("Gamma Config")
+        public GammaConfig GAMMA_CONFIG = new GammaConfig();
+
         @ConfigCategory("Graphics Config")
         public GraphicsConfig GRAPHICS_CONFIG = new GraphicsConfig();
 
@@ -20,10 +23,7 @@ public class Config {
         public Boolean SHIFT_EXIT_VEHICLES = true;
     }
 
-    public static class GraphicsConfig {
-
-        @ConfigName("Add Day Counter To F3 Overlay")
-        public Boolean ADD_DAY_COUNTER = true;
+    public static class GammaConfig {
 
         @ConfigName("Change Gamma Slider Range")
         public GammaRangeEnum GAMMA_RANGE = GammaRangeEnum.SMALL;
@@ -32,13 +32,19 @@ public class Config {
         public Boolean ENABLE_GAMMA_SLIDER = true;
 
         @ConfigName("Enable Gamma Fog")
-        public Boolean ENABLE_GAMMA_FOG = false;
+        public Boolean ENABLE_GAMMA_FOG = true;
 
         @ConfigName("Enable Gamma GUI")
         public Boolean ENABLE_GAMMA_GUI = false;
+    }
 
-        @ConfigName("ENABLE ID Tags")
-        public Boolean ENABLE_ID_TAGS = false;
+    public static class GraphicsConfig {
+
+        @ConfigName("Add Day Counter To F3 Overlay")
+        public Boolean ADD_DAY_COUNTER = true;
+
+        @ConfigName("Disable ID Tags")
+        public Boolean DISABLE_ID_TAGS = true;
 
         @ConfigName("Fix Bow Models")
         public Boolean FIX_BOW_MODEL = true;

@@ -139,8 +139,8 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void method_1852(float f, CallbackInfo ci) {
-        if (  (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER)
-           && (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_FOG)
+        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
+           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_FOG)
         ) {
             Level level = this.minecraft.level;
             Living living = this.minecraft.viewEntity;
@@ -188,8 +188,8 @@ public abstract class GameRendererMixin {
             cancellable = true
     )
     private void clientsideEssentials_method_1839(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
-        if (  (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER)
-           && (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_FOG)
+        if (  (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER)
+           && (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_FOG)
         ) {
             PostProcess pp = PostProcess.instance;
             this.field_2345.clear();

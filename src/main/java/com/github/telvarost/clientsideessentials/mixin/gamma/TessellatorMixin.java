@@ -25,7 +25,7 @@ public class TessellatorMixin {
             cancellable = true
     )
     public void colour(int i, int j, int k, int l, CallbackInfo ci) {
-        if (Config.config.GRAPHICS_CONFIG.ENABLE_GAMMA_SLIDER) {
+        if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_SLIDER) {
             if (this.disableColour) {
                 return;
             }
