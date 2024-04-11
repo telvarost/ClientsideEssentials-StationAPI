@@ -43,10 +43,10 @@ public class ModOptions {
         return Math.round(70.0f + fov * 40.0f);
     }
 
-    // Gamma
+    // Brightness
     public static float brightness = 0.5F;
 
-    public static float getGamma() {
+    public static float getBrightness() {
         return (float) Math.round(brightness * 20) / 20;
     }
 

@@ -11,7 +11,7 @@ public class Config {
     public static class ConfigFields {
 
         @ConfigCategory("Brightness Config")
-        public GammaConfig BRIGHTNESS_CONFIG = new GammaConfig();
+        public BrightnessConfig BRIGHTNESS_CONFIG = new BrightnessConfig();
 
         @ConfigCategory("Graphics Config")
         public GraphicsConfig GRAPHICS_CONFIG = new GraphicsConfig();
@@ -23,7 +23,7 @@ public class Config {
         public Boolean SHIFT_EXIT_VEHICLES = true;
     }
 
-    public static class GammaConfig {
+    public static class BrightnessConfig {
 
         @ConfigName("Effective Brightness Slider Range")
         public BrightnessRangeEnum BRIGHTNESS_RANGE = BrightnessRangeEnum.SMALL;

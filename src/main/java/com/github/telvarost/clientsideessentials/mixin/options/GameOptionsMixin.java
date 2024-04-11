@@ -110,7 +110,7 @@ public abstract class GameOptionsMixin {
 
         if (option == ModOptions.brightnessOption) {
             if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
-                float value = ModOptions.getGamma();
+                float value = ModOptions.getBrightness();
                 if (value == 0.0f) {
                     cir.setReturnValue("Brightness: Dark");
                 } else if (value == 0.5f) {
