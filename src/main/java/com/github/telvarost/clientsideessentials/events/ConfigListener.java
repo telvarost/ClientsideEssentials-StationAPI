@@ -17,10 +17,21 @@ public class ConfigListener implements PreConfigSavedListener {
         /** - Update max stack size on config change */
         Minecraft minecraft = (Minecraft) FabricLoader.getInstance().getGameInstance();
         if (null != minecraft) {
+            boolean brightnessSettingOld = false;
+            boolean brightnessSettingNew = false;
+
             minecraft.worldRenderer.method_1537();
             minecraft.textRenderer = new TextRenderer(minecraft.options, "/font/default.png", minecraft.textureManager);
-            //minecraft.textureManager.reloadTexturesFromTexturePack();
-            if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI) {
+
+            if (null != jsonObject.getObject("BRIGHTNESS_CONFIG")) {
+                brightnessSettingOld = jsonObject.getObject("BRIGHTNESS_CONFIG").getBoolean("ENABLE_BRIGHTNESS_GUI", false);
+            }
+
+            if (null != jsonObject1.getObject("BRIGHTNESS_CONFIG")) {
+                brightnessSettingNew = jsonObject1.getObject("BRIGHTNESS_CONFIG").getBoolean("ENABLE_BRIGHTNESS_GUI", false);
+            }
+
+            if (brightnessSettingOld != brightnessSettingNew) {
                 minecraft.textureManager.reloadTexturesFromTexturePack();
             }
         }
