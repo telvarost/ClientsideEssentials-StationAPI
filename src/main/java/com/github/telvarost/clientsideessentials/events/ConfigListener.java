@@ -1,6 +1,7 @@
 package com.github.telvarost.clientsideessentials.events;
 
 import blue.endless.jankson.JsonObject;
+import com.github.telvarost.clientsideessentials.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.glasslauncher.mods.api.gcapi.api.PreConfigSavedListener;
 import net.mine_diver.unsafeevents.listener.EventListener;
@@ -19,6 +20,9 @@ public class ConfigListener implements PreConfigSavedListener {
             minecraft.worldRenderer.method_1537();
             minecraft.textRenderer = new TextRenderer(minecraft.options, "/font/default.png", minecraft.textureManager);
             //minecraft.textureManager.reloadTexturesFromTexturePack();
+            if (Config.config.GAMMA_CONFIG.ENABLE_GAMMA_GUI) {
+                minecraft.textureManager.reloadTexturesFromTexturePack();
+            }
         }
     }
 }

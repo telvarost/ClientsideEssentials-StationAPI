@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.image.BufferedImage;
@@ -30,7 +31,7 @@ public abstract class TextureManagerMixin {
 
     @Inject(
             method = "bindImageToId(Ljava/awt/image/BufferedImage;I)V",
-            at = @At("HEAD"),
+            at = @At("RETURN"),
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(BufferedImage bufferedImage, int i, CallbackInfo ci) {
@@ -118,7 +119,7 @@ public abstract class TextureManagerMixin {
                     GL11.glTexImage2D(3553, n8, 6408, n6, n5, 0, 6408, 5121, this.currentImageBuffer);
                 }
             }
-            ci.cancel();
+            //ci.cancel();
         }
     }
 
@@ -127,7 +128,7 @@ public abstract class TextureManagerMixin {
 
     @Inject(
             method = "bindImageToId([IIII)V",
-            at = @At("HEAD"),
+            at = @At("RETURN"),
             cancellable = true
     )
     public void clientsideEssentials_bindImageToId(int[] is, int i, int j, int k, CallbackInfo ci) {
@@ -185,7 +186,7 @@ public abstract class TextureManagerMixin {
             this.currentImageBuffer.put(byArray);
             this.currentImageBuffer.position(0).limit(byArray.length);
             GL11.glTexSubImage2D(3553, 0, 0, 0, i, j, 6408, 5121, this.currentImageBuffer);
-            ci.cancel();
+            //ci.cancel();
         }
     }
 }

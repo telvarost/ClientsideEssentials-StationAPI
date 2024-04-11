@@ -23,7 +23,10 @@ public class DeathScreenMixin extends ScreenBase {
 	public DeathScreenMixin() {
     }
 
-	@ModifyConstant(method = "render", constant = @Constant(stringValue = "Score: &e"))
+	@ModifyConstant(
+			method = "render",
+			constant = @Constant(stringValue = "Score: &e")
+	)
 	private String clientsideEssentials_renderDeathScore(String def) {
 		if (Config.config.GRAPHICS_CONFIG.FIX_DEATH_SCREEN_TEXT) {
 			return def.replace('&', Formatting.FORMATTING_CODE_PREFIX);
