@@ -22,7 +22,7 @@ public class PostProcess {
 	}
 
 	private float getCalcGamma() {
-		return (ModOptions.gamma * 5F);
+		return ((1.0F - ModOptions.gamma) * 2.4F) + 1.0F;
 		//return (ModOptions.gamma * 5F); // 0.0F and 5.0F currently
 	}
 
