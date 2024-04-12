@@ -103,7 +103,6 @@ public abstract class GameOptionsMixin {
         }
     }
 
-
     @Inject(method = "getTranslatedValue", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getTranslatedValue(Option option, CallbackInfoReturnable<String> cir) {
         TranslationStorage translations = TranslationStorage.getInstance();
@@ -139,11 +138,11 @@ public abstract class GameOptionsMixin {
         if (option == ModOptions.fogDensityOption) {
             float value = ModOptions.getFogDisplayValue();
             if (value == 0.0F) {
-                cir.setReturnValue("Fog : Disabled");
+                cir.setReturnValue("Fog: Disabled");
             } else if (value == 1.0F) {
-                cir.setReturnValue("Fog : Silent Hill");
+                cir.setReturnValue("Fog: Silent Hill");
             } else if (value == 0.5F) {
-                cir.setReturnValue("Fog : Normal");
+                cir.setReturnValue("Fog: Normal");
             } else {
                 cir.setReturnValue("Fog: " + ModOptions.getFogDisplayValue() * 2F + "x");
             }
@@ -160,7 +159,7 @@ public abstract class GameOptionsMixin {
 
         if (option == ModOptions.cloudHeightOption) {
             float value = ModOptions.cloudHeight;
-            String optionName = "Cloud Height : " + ModOptions.getCloudHeight();
+            String optionName = "Cloud Height: " + ModOptions.getCloudHeight();
             cir.setReturnValue(optionName);
         }
 
