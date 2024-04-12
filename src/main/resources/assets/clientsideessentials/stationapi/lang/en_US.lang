@@ -1,3 +1,6 @@
+options.brightness=Brightness
+options.fog=Fog
+options.cloud_height=Cloud Height
 options.clouds=Clouds
 options.fps_limit=FPS Limit
 options.fps_limit_max=Unlimited

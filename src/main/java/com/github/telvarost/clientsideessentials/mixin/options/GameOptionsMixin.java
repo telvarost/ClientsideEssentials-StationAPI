@@ -111,13 +111,13 @@ public abstract class GameOptionsMixin {
             if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
                 float value = ModOptions.getBrightness();
                 if (value == 0.0f) {
-                    cir.setReturnValue("Brightness: Dark");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": Dark");
                 } else if (value == 0.5f) {
-                    cir.setReturnValue("Brightness: Normal");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": Normal");
                 } else if (value == 1.0f) {
-                    cir.setReturnValue("Brightness: Bright");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": Bright");
                 } else {
-                    cir.setReturnValue("Brightness: " + (value * 2F) + "x");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + (value * 2F) + "x");
                 }
             } else {
                 cir.setReturnValue("DISABLED");
@@ -138,13 +138,13 @@ public abstract class GameOptionsMixin {
         if (option == ModOptions.fogDensityOption) {
             float value = ModOptions.getFogDisplayValue();
             if (value == 0.0F) {
-                cir.setReturnValue("Fog: Disabled");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": Disabled");
             } else if (value == 1.0F) {
-                cir.setReturnValue("Fog: Silent Hill");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": Silent Hill");
             } else if (value == 0.5F) {
-                cir.setReturnValue("Fog: Normal");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": Normal");
             } else {
-                cir.setReturnValue("Fog: " + ModOptions.getFogDisplayValue() * 2F + "x");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + ModOptions.getFogDisplayValue() * 2F + "x");
             }
         }
 
@@ -159,7 +159,7 @@ public abstract class GameOptionsMixin {
 
         if (option == ModOptions.cloudHeightOption) {
             float value = ModOptions.cloudHeight;
-            String optionName = "Cloud Height: " + ModOptions.getCloudHeight();
+            String optionName = translations.translate("options.clientsideessentials:cloud_height") + ": " + ModOptions.getCloudHeight();
             cir.setReturnValue(optionName);
         }
 
