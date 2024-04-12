@@ -33,6 +33,7 @@ Moved to new Scoring/Achievement mod below:
   - Number in parentheses is real world days
 - Ability to disable id tags in debug screen
   - Tags are disabled by default, re-enable using the mod's config
+- Ability to disable particles
 
 ## Sound Additions
 
