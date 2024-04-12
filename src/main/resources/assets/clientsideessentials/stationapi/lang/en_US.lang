@@ -1,6 +1,16 @@
 options.brightness=Brightness
-options.fog=Fog
+options.brightness_disabled=DISABLED
+options.brightness_max=Bright
+options.brightness_min=Dark
+options.brightness_normal=Normal
 options.cloud_height=Cloud Height
 options.clouds=Clouds
+options.fog=Fog
+options.fog_disabled=Disabled
+options.fog_max=Silent Hill
+options.fog_normal=Normal
+options.fov=FOV
+options.fov_max=Quake Pro
+options.fov_normal=Normal
 options.fps_limit=FPS Limit
 options.fps_limit_max=Unlimited

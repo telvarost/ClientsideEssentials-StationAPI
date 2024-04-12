@@ -111,38 +111,38 @@ public abstract class GameOptionsMixin {
             if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
                 float value = ModOptions.getBrightness();
                 if (value == 0.0f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": Dark");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_min"));
                 } else if (value == 0.5f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": Normal");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_normal"));
                 } else if (value == 1.0f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": Bright");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_max"));
                 } else {
                     cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + (value * 2F) + "x");
                 }
             } else {
-                cir.setReturnValue("DISABLED");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:brightness_disabled"));
             }
         }
 
         if (option == ModOptions.fovOption) {
             float value = ModOptions.fov;
             if (value == 0.0f) {
-                cir.setReturnValue("FOV: Normal");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + translations.translate("options.clientsideessentials:fov_normal"));
             } else if (value == 1.0f) {
-                cir.setReturnValue("FOV: Quake Pro");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + translations.translate("options.clientsideessentials:fov_max"));
             } else {
-                cir.setReturnValue("FOV: " + ModOptions.getFovInDegrees());
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + ModOptions.getFovInDegrees());
             }
         }
 
         if (option == ModOptions.fogDensityOption) {
             float value = ModOptions.getFogDisplayValue();
             if (value == 0.0F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": Disabled");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_disabled"));
             } else if (value == 1.0F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": Silent Hill");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_max"));
             } else if (value == 0.5F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": Normal");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_normal"));
             } else {
                 cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + ModOptions.getFogDisplayValue() * 2F + "x");
             }
