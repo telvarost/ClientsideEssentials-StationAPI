@@ -20,7 +20,7 @@ public class RenderHelperMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private static void method_1929(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
+    private static void clientsideEssentials_method_1929(float red, float green, float blue, float i, CallbackInfoReturnable<FloatBuffer> cir) {
         if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             if (i != 0) {
                 PostProcess pp = PostProcess.instance;

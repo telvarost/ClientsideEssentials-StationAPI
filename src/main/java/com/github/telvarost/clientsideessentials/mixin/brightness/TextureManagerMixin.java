@@ -33,7 +33,7 @@ public abstract class TextureManagerMixin {
             at = @At("RETURN"),
             cancellable = true
     )
-    public void clientsideEssentials_bindImageToId(BufferedImage bufferedImage, int i, CallbackInfo ci) {
+    public void clientsideEssentials_bindImageToIdBufferedImage(BufferedImage bufferedImage, int i, CallbackInfo ci) {
         if (  (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER)
            && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI)
         ) {

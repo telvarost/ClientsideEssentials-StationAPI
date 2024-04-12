@@ -49,10 +49,6 @@ public abstract class GameRendererMixin {
 
     @Shadow private boolean field_2330;
 
-    @Shadow private float field_2338;
-
-    @Shadow private float field_2339;
-
     @Inject(method = "method_1842", at = @At(value = "HEAD"))
     public void clientsideEssentials_overrideFogDensity(int f, float par2, CallbackInfo ci) {
         this.field_2350 = (256 >> this.minecraft.options.viewDistance) * ModOptions.getFogMultiplier();
@@ -138,7 +134,7 @@ public abstract class GameRendererMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void method_1852(float f, CallbackInfo ci) {
+    private void clientsideEssentials_method_1852(float f, CallbackInfo ci) {
         if (  (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER)
            && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_FOG)
         ) {

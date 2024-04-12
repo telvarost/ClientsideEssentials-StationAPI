@@ -24,7 +24,7 @@ public class TessellatorMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void colour(int i, int j, int k, int l, CallbackInfo ci) {
+    public void clientsideEssentials_colour(int i, int j, int k, int l, CallbackInfo ci) {
         if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             if (this.disableColour) {
                 return;

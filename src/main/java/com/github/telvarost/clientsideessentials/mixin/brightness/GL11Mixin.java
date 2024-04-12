@@ -27,7 +27,7 @@ public abstract class GL11Mixin {
             ),
             remap = false
     )
-    private static void glColor3f(float red, float green, float blue, long l) {
+    private static void clientsideEssentials_glColor3f(float red, float green, float blue, long l) {
         if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             PostProcess pp = PostProcess.instance;
             nglColor3f(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), l);
@@ -44,7 +44,7 @@ public abstract class GL11Mixin {
             ),
             remap = false
     )
-    private static void glColor4f(float red, float green, float blue, float alpha, long l) {
+    private static void clientsideEssentials_glColor4f(float red, float green, float blue, float alpha, long l) {
         if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
             PostProcess pp = PostProcess.instance;
             nglColor4f(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), alpha, l);
