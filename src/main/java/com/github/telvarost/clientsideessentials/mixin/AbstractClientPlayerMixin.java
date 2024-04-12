@@ -3,7 +3,6 @@ package com.github.telvarost.clientsideessentials.mixin;
 import com.github.telvarost.clientsideessentials.Config;
 
 import com.github.telvarost.clientsideessentials.events.init.KeyBindingListener;
-import com.github.telvarost.clientsideessentials.ModHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -12,7 +11,6 @@ import net.minecraft.client.util.Session;
 import net.minecraft.container.Chest;
 import net.minecraft.entity.player.AbstractClientPlayer;
 import net.minecraft.level.Level;
-import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

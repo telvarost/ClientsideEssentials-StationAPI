@@ -24,7 +24,6 @@ public class PlayerRendererMixin extends LivingEntityRendererMixin {
 
 	@Shadow
 	private Biped field_295; // Armor
-
 	@Shadow
 	private Biped field_296; // Legs
 

@@ -6,14 +6,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.entity.EntityBase;
-import net.minecraft.entity.Item;
 import net.minecraft.entity.Minecart;
-import net.minecraft.entity.projectile.Arrow;
 import net.minecraft.block.Rail;
-import net.minecraft.util.maths.Box;
 import net.minecraft.util.maths.MathHelper;
 
 @Mixin(Minecart.class)
