@@ -47,6 +47,9 @@ public class Config {
         @ConfigName("Disable ID Tags")
         public Boolean DISABLE_ID_TAGS = true;
 
+        @ConfigName("Disable Particles")
+        public Boolean DISABLE_PARTICLES = false;
+
         @ConfigName("Fix Bow Models")
         public Boolean FIX_BOW_MODEL = true;
 
