@@ -16,6 +16,7 @@ import net.minecraft.entity.Living;
 @Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin {
+
 	@Shadow
 	protected EntityModelBase field_909;
 	

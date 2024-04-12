@@ -10,6 +10,9 @@ public class Config {
 
     public static class ConfigFields {
 
+        @ConfigCategory("Brightness Config")
+        public BrightnessConfig BRIGHTNESS_CONFIG = new BrightnessConfig();
+
         @ConfigCategory("Graphics Config")
         public GraphicsConfig GRAPHICS_CONFIG = new GraphicsConfig();
 
@@ -18,6 +21,22 @@ public class Config {
 
         @ConfigName("Use Dismount Keybinding To Exit Vehicles")
         public Boolean SHIFT_EXIT_VEHICLES = true;
+    }
+
+    public static class BrightnessConfig {
+
+        @ConfigName("Effective Brightness Slider Range")
+        public BrightnessRangeEnum BRIGHTNESS_RANGE = BrightnessRangeEnum.SMALL;
+
+        @ConfigName("Enable Brightness Slider")
+        public Boolean ENABLE_BRIGHTNESS_SLIDER = true;
+
+        @ConfigName("Slider Affects Fog And Clouds")
+        public Boolean ENABLE_BRIGHTNESS_FOG = true;
+
+        @ConfigName("Slider Affects GUI Elements")
+        @Comment("Textures will reload on brightness change")
+        public Boolean ENABLE_BRIGHTNESS_GUI = false;
     }
 
     public static class GraphicsConfig {

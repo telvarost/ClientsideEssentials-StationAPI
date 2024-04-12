@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Environment(EnvType.CLIENT)
 @Mixin(Minecraft.class)
 public class MinecraftKeyBindingMixin {
+
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedHotbarSlot:I", opcode = Opcodes.PUTFIELD))
     public void cancelSelectSlot(PlayerInventory playerInventory, int selected){
         /** - Do Nothing */

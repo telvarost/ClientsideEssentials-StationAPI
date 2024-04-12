@@ -11,6 +11,7 @@ import net.minecraft.item.tool.Bow;
 
 @Mixin(Bow.class)
 public class BowItemMixin {
+
 	@Inject(method = "<init>(I)V", at = @At("TAIL"))
 	public void clientsideEssentials_initBow(int i, CallbackInfo ci) {
 		if(Config.config.GRAPHICS_CONFIG.FIX_BOW_MODEL) {

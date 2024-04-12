@@ -1,11 +1,15 @@
 package com.github.telvarost.clientsideessentials.mixin.options;
 
+import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
+import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.resource.language.TranslationStorage;
+import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,11 +27,27 @@ import java.io.PrintWriter;
 @Environment(EnvType.CLIENT)
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin {
+
     @Shadow
     protected abstract float parseFloat(String string);
 
+    @Shadow
+    protected Minecraft minecraft;
+
     @Inject(method = "method_1228", at = @At(value = "HEAD"))
     public void clientsideEssentials_setFloat(Option option, float value, CallbackInfo ci) {
+        if (option == ModOptions.brightnessOption) {
+            ModOptions.brightness = value;
+
+            if (false == Mouse.isButtonDown(0)) {
+                this.minecraft.worldRenderer.method_1537();
+                this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
+                if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI) {
+                    this.minecraft.textureManager.reloadTexturesFromTexturePack();
+                }
+            }
+        }
+
         if (option == ModOptions.fovOption) {
             ModOptions.fov = value;
         }
@@ -55,6 +75,10 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "getFloatValue", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getFloat(Option option, CallbackInfoReturnable<Float> cir) {
+        if (option == ModOptions.brightnessOption) {
+            cir.setReturnValue(ModOptions.brightness);
+        }
+
         if (option == ModOptions.fovOption) {
             cir.setReturnValue(ModOptions.fov);
         }
@@ -66,6 +90,10 @@ public abstract class GameOptionsMixin {
         if (option == ModOptions.cloudHeightOption) {
             cir.setReturnValue(ModOptions.cloudHeight);
         }
+
+        if (option == ModOptions.fpsLimitOption) {
+            cir.setReturnValue(ModOptions.fpsLimit);
+        }
     }
 
     @Inject(method = "getBooleanValue", at = @At(value = "HEAD"), cancellable = true)
@@ -75,32 +103,48 @@ public abstract class GameOptionsMixin {
         }
     }
 
-
     @Inject(method = "getTranslatedValue", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getTranslatedValue(Option option, CallbackInfoReturnable<String> cir) {
         TranslationStorage translations = TranslationStorage.getInstance();
 
+        if (option == ModOptions.brightnessOption) {
+            if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
+                float value = ModOptions.getBrightness();
+                if (value == 0.0f) {
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_min"));
+                } else if (value == 0.5f) {
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_normal"));
+                } else if (value == 1.0f) {
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_max"));
+                } else {
+                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + (value * 2F) + "x");
+                }
+            } else {
+                cir.setReturnValue(translations.translate("options.clientsideessentials:brightness_disabled"));
+            }
+        }
+
         if (option == ModOptions.fovOption) {
             float value = ModOptions.fov;
             if (value == 0.0f) {
-                cir.setReturnValue("FOV: Normal");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + translations.translate("options.clientsideessentials:fov_normal"));
             } else if (value == 1.0f) {
-                cir.setReturnValue("FOV: Quake Pro");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + translations.translate("options.clientsideessentials:fov_max"));
             } else {
-                cir.setReturnValue("FOV: " + ModOptions.getFovInDegrees());
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + ModOptions.getFovInDegrees());
             }
         }
 
         if (option == ModOptions.fogDensityOption) {
             float value = ModOptions.getFogDisplayValue();
             if (value == 0.0F) {
-                cir.setReturnValue("Fog : Disabled");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_disabled"));
             } else if (value == 1.0F) {
-                cir.setReturnValue("Fog : Silent Hill");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_max"));
             } else if (value == 0.5F) {
-                cir.setReturnValue("Fog : Normal");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_normal"));
             } else {
-                cir.setReturnValue("Fog: " + ModOptions.getFogDisplayValue() * 2F + "x");
+                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + ModOptions.getFogDisplayValue() * 2F + "x");
             }
         }
 
@@ -115,7 +159,7 @@ public abstract class GameOptionsMixin {
 
         if (option == ModOptions.cloudHeightOption) {
             float value = ModOptions.cloudHeight;
-            String optionName = "Cloud Height : " + ModOptions.getCloudHeight();
+            String optionName = translations.translate("options.clientsideessentials:cloud_height") + ": " + ModOptions.getCloudHeight();
             cir.setReturnValue(optionName);
         }
 
@@ -128,6 +172,10 @@ public abstract class GameOptionsMixin {
     @Inject(method = "load", at = @At(value = "INVOKE", target = "Ljava/lang/String;split(Ljava/lang/String;)[Ljava/lang/String;"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_load(CallbackInfo ci, BufferedReader bufferedReader, String string) {
         String[] stringArray = string.split(":");
+
+        if (stringArray[0].equals("brightness")) {
+            ModOptions.brightness = this.parseFloat(stringArray[1]);
+        }
 
         if (stringArray[0].equals("fov")) {
             ModOptions.fov = this.parseFloat(stringArray[1]);
@@ -152,6 +200,7 @@ public abstract class GameOptionsMixin {
 
     @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
+        printWriter.println("brightness:" + ModOptions.brightness);
         printWriter.println("fov:" + ModOptions.fov);
         printWriter.println("fog_density:" + ModOptions.fogDensity);
         printWriter.println("clouds:" + ModOptions.clouds);
