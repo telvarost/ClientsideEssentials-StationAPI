@@ -4,33 +4,21 @@ import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.particle.*;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.item.ItemBase;
-import net.minecraft.level.Level;
 import net.minecraft.level.dimension.Dimension;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** - All credit for the code in this class goes to Dany and his mod UniTweaks
- *  See: https://github.com/DanyGames2014/UniTweaks
- */
 @Environment(EnvType.CLIENT)
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 
-	@Shadow private Minecraft client;
-
-	@Shadow private Level level;
-
-	@Shadow private TextureManager textureManager;
-
+	/** - All credit for the cloud code in this class goes to Dany and his mod UniTweaks
+	 *  See: https://github.com/DanyGames2014/UniTweaks
+	 */
 	@Inject(method = "method_1552", at = @At("HEAD"), cancellable = true)
 	public void clientsideEssentials_cloudRenderer(float f, CallbackInfo ci) {
 		if(!ModOptions.clouds) {
@@ -51,49 +39,233 @@ public class WorldRendererMixin {
 
 	@Inject(method = "addParticle", at = @At("HEAD"), cancellable = true)
 	public void addParticle(String string, double d, double e, double f, double g, double h, double i, CallbackInfo ci) {
-		if (Config.config.GRAPHICS_CONFIG.DISABLE_PARTICLES) {
+		if (Config.config.PARTICLES_CONFIG.disableAllParticles) {
 			ci.cancel();
 		}
-//		if (this.client == null || this.client.viewEntity == null || this.client.particleManager == null) {
-//			return;
-//		}
-//		double d2 = this.client.viewEntity.x - d;
-//		double d3 = this.client.viewEntity.y - e;
-//		double d4 = this.client.viewEntity.z - f;
-//		double d5 = 16.0;
-//		if (d2 * d2 + d3 * d3 + d4 * d4 > d5 * d5) {
-//			return;
-//		}
-//		if (string.equals("bubble")) {
-//			this.client.particleManager.addParticle(new Bubble(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("smoke")) {
-//			this.client.particleManager.addParticle(new Smoke(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("note")) {
-//			this.client.particleManager.addParticle(new Note(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("portal")) {
-//			this.client.particleManager.addParticle(new Portal(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("explode")) {
-//			this.client.particleManager.addParticle(new Explosion(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("flame")) {
-//			this.client.particleManager.addParticle(new Fire(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("lava")) {
-//			this.client.particleManager.addParticle(new Lava(this.level, d, e, f));
-//		} else if (string.equals("footstep")) {
-//			this.client.particleManager.addParticle(new Footstep(this.textureManager, this.level, d, e, f));
-//		} else if (string.equals("splash")) {
-//			this.client.particleManager.addParticle(new Water(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("largesmoke")) {
-//			this.client.particleManager.addParticle(new Smoke(this.level, d, e, f, g, h, i, 2.5f));
-//		} else if (string.equals("reddust")) {
-//			this.client.particleManager.addParticle(new Redstone(this.level, d, e, f, (float)g, (float)h, (float)i));
-//		} else if (string.equals("snowballpoof")) {
-//			this.client.particleManager.addParticle(new Poof(this.level, d, e, f, ItemBase.snowball));
-//		} else if (string.equals("snowshovel")) {
-//			this.client.particleManager.addParticle(new SnowPuff(this.level, d, e, f, g, h, i));
-//		} else if (string.equals("slime")) {
-//			this.client.particleManager.addParticle(new Poof(this.level, d, e, f, ItemBase.slimeball));
-//		} else if (string.equals("heart")) {
-//			this.client.particleManager.addParticle(new Heart(this.level, d, e, f, g, h, i));
-//		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 0
+			),
+			cancellable = true
+	)
+	public void addParticle_WaterBubbleParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableWaterBubbleParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 1
+			),
+			cancellable = true
+	)
+	public void addParticle_FireSmokeParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableFireSmokeParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 2
+			),
+			cancellable = true
+	)
+	public void addParticle_NoteParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableNoteParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 3
+			),
+			cancellable = true
+	)
+	public void addParticle_PortalParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disablePortalParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 4
+			),
+			cancellable = true
+	)
+	public void addParticle_ExplosionParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableExplosionParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 5
+			),
+			cancellable = true
+	)
+	public void addParticle_FlameParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableFlameParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 6
+			),
+			cancellable = true
+	)
+	public void addParticle_LavaEmberParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableLavaEmberParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 7
+			),
+			cancellable = true
+	)
+	public void addParticle_FootstepParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableFootstepParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 8
+			),
+			cancellable = true
+	)
+	public void addParticle_WaterSplashParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableWaterSplashParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 9
+			),
+			cancellable = true
+	)
+	public void addParticle_LargeFireSmokeParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableLargeFireSmokeParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 10
+			),
+			cancellable = true
+	)
+	public void addParticle_RedDustParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableRedDustParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 11
+			),
+			cancellable = true
+	)
+	public void addParticle_SnowballParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableSnowballParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 12
+			),
+			cancellable = true
+	)
+	public void addParticle_SnowflakeParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableSnowShovelParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 13
+			),
+			cancellable = true
+	)
+	public void addParticle_SlimeParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableSlimeParticle) {
+			ci.cancel();
+		}
+	}
+
+	@Inject(
+			method = "addParticle",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					ordinal = 14
+			),
+			cancellable = true
+	)
+	public void addParticle_HeartParticle(String d, double e, double f, double g, double h, double i, double par7, CallbackInfo ci) {
+		if (Config.config.PARTICLES_CONFIG.disableHeartParticle) {
+			ci.cancel();
+		}
 	}
 }

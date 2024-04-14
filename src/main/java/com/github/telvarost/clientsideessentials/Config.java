@@ -16,6 +16,9 @@ public class Config {
         @ConfigCategory("Graphics Config")
         public GraphicsConfig GRAPHICS_CONFIG = new GraphicsConfig();
 
+        @ConfigCategory("Particles Config")
+        public ParticlesConfig PARTICLES_CONFIG = new ParticlesConfig();
+
         @ConfigCategory("Sound Config")
         public SoundConfig SOUND_CONFIG = new SoundConfig();
 
@@ -47,9 +50,6 @@ public class Config {
         @ConfigName("Disable ID Tags")
         public Boolean DISABLE_ID_TAGS = true;
 
-        @ConfigName("Disable Particles")
-        public Boolean DISABLE_PARTICLES = false;
-
         @ConfigName("Fix Bow Models")
         public Boolean FIX_BOW_MODEL = true;
 
@@ -67,6 +67,57 @@ public class Config {
 
         @ConfigName("Fix Screen Scaling")
         public Boolean FIX_SCREEN_SCALING = true;
+    }
+
+    public static class ParticlesConfig {
+
+        @ConfigName("Disable All Particles")
+        public Boolean disableAllParticles = false;
+
+        @ConfigName("Disable Water Bubble Particle")
+        public Boolean disableWaterBubbleParticle = false;
+
+        @ConfigName("Disable Smoke Particle")
+        public Boolean disableFireSmokeParticle = false;
+
+        @ConfigName("Disable Note Particle")
+        public Boolean disableNoteParticle = false;
+
+        @ConfigName("Disable Portal Particle")
+        public Boolean disablePortalParticle = false;
+
+        @ConfigName("Disable Explosion Particle")
+        public Boolean disableExplosionParticle = false;
+
+        @ConfigName("Disable Flame Particle")
+        public Boolean disableFlameParticle = false;
+
+        @ConfigName("Disable Lava Ember Particle")
+        public Boolean disableLavaEmberParticle = false;
+
+        @ConfigName("Disable Footstep Particle")
+        public Boolean disableFootstepParticle = false;
+
+        @ConfigName("Disable Water Splash Particle")
+        public Boolean disableWaterSplashParticle = false;
+
+        @ConfigName("Disable Large Smoke Particle")
+        public Boolean disableLargeFireSmokeParticle = false;
+
+        @ConfigName("Disable Redstone Dust Particle")
+        public Boolean disableRedDustParticle = false;
+
+        @ConfigName("Disable Snowball Particle")
+        public Boolean disableSnowballParticle = false;
+
+        @ConfigName("Disable Snow Shovel Particle")
+        public Boolean disableSnowShovelParticle = false;
+
+        @ConfigName("Disable Slime Particle")
+        public Boolean disableSlimeParticle = false;
+
+        @ConfigName("Disable Heart Particle")
+        public Boolean disableHeartParticle = false;
     }
 
     public static class SoundConfig {
