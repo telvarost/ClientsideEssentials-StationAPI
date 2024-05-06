@@ -168,13 +168,10 @@ public abstract class GameRendererMixin {
                 green = this.field_2347;
                 blue = this.field_2348;
             }
-            if (0.0F != ModOptions.fogDensity) {
-                red = this.field_2346;
-                green = this.field_2347;
-                blue = this.field_2348;
+            if (0.0F == ModOptions.fogDensity) {
+                GL11.glClearColor(red, green, blue, 0.0f);
+                ci.cancel();
             }
-            GL11.glClearColor(pp.red(red, green, blue), pp.green(red, green, blue), pp.blue(red, green, blue), 0.0f);
-            ci.cancel();
         }
     }
 

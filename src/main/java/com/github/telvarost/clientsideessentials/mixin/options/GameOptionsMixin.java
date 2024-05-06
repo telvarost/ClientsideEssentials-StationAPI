@@ -111,60 +111,60 @@ public abstract class GameOptionsMixin {
             if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
                 float value = ModOptions.getBrightness();
                 if (value == 0.0f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_min"));
+                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + translations.translate("options.clientsideessentials.brightness_min"));
                 } else if (value == 0.5f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_normal"));
+                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + translations.translate("options.clientsideessentials.brightness_normal"));
                 } else if (value == 1.0f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + translations.translate("options.clientsideessentials:brightness_max"));
+                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + translations.translate("options.clientsideessentials.brightness_max"));
                 } else {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials:brightness") + ": " + (value * 2F) + "x");
+                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + (value * 2F) + "x");
                 }
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:brightness_disabled"));
+                cir.setReturnValue(translations.translate("options.clientsideessentials.brightness_disabled"));
             }
         }
 
         if (option == ModOptions.fovOption) {
             float value = ModOptions.fov;
             if (value == 0.0f) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + translations.translate("options.clientsideessentials:fov_normal"));
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fov") + ": " + translations.translate("options.clientsideessentials.fov_normal"));
             } else if (value == 1.0f) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + translations.translate("options.clientsideessentials:fov_max"));
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fov") + ": " + translations.translate("options.clientsideessentials.fov_max"));
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fov") + ": " + ModOptions.getFovInDegrees());
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fov") + ": " + ModOptions.getFovInDegrees());
             }
         }
 
         if (option == ModOptions.fogDensityOption) {
             float value = ModOptions.getFogDisplayValue();
             if (value == 0.0F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_disabled"));
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + translations.translate("options.clientsideessentials.fog_disabled"));
             } else if (value == 1.0F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_max"));
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + translations.translate("options.clientsideessentials.fog_max"));
             } else if (value == 0.5F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + translations.translate("options.clientsideessentials:fog_normal"));
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + translations.translate("options.clientsideessentials.fog_normal"));
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fog") + ": " + ModOptions.getFogDisplayValue() * 2F + "x");
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + ModOptions.getFogDisplayValue() * 2F + "x");
             }
         }
 
         if (option == ModOptions.fpsLimitOption) {
             float value = ModOptions.getFpsLimitValue();
             if (value >= 300) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fps_limit") + ": " + translations.translate("options.clientsideessentials:fps_limit_max"));
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fps_limit") + ": " + translations.translate("options.clientsideessentials.fps_limit_max"));
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials:fps_limit") + ": " + value);
+                cir.setReturnValue(translations.translate("options.clientsideessentials.fps_limit") + ": " + value);
             }
         }
 
         if (option == ModOptions.cloudHeightOption) {
             float value = ModOptions.cloudHeight;
-            String optionName = translations.translate("options.clientsideessentials:cloud_height") + ": " + ModOptions.getCloudHeight();
+            String optionName = translations.translate("options.clientsideessentials.cloud_height") + ": " + ModOptions.getCloudHeight();
             cir.setReturnValue(optionName);
         }
 
         if (option == ModOptions.cloudsOption) {
-            String optionName = translations.translate("options.clientsideessentials:clouds") + ": " + (ModOptions.clouds ? translations.translate("options.on") : translations.translate("options.off"));
+            String optionName = translations.translate("options.clientsideessentials.clouds") + ": " + (ModOptions.clouds ? translations.translate("options.on") : translations.translate("options.off"));
             cir.setReturnValue(optionName);
         }
     }
