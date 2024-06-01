@@ -29,11 +29,14 @@ Moved to new Scoring/Achievement mod below:
 - Ability to change cloud height in options
 - Ability to show/hide clouds in options
 - Ability to change fog density in options
-- Add day counter in debug screen
-  - Number in parentheses is real world days
+- Ability to disable particles
 - Ability to disable id tags in debug screen
   - Tags are disabled by default, re-enable using the mod's config
-- Ability to disable particles
+- Add day counter to debug screen
+  - Number in parentheses is real world days
+- Add light level to debug screen
+  - Calculated at player's eye level
+- Add biome type to debug screen
 
 ## Sound Additions
 
