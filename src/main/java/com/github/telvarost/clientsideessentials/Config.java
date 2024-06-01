@@ -43,9 +43,15 @@ public class Config {
     }
 
     public static class GraphicsConfig {
+        @ConfigName("Add Biome To Debug Overlay")
+        public Boolean ADD_BIOME_TYPE = true;
 
-        @ConfigName("Add Day Counter To F3 Overlay")
+        @ConfigName("Add Day Counter To Debug Overlay")
         public Boolean ADD_DAY_COUNTER = true;
+
+        @ConfigName("Add Light Level To Debug Overlay")
+        @Comment("Calculated at player's eye level")
+        public Boolean ADD_LIGHT_LEVEL = true;
 
         @ConfigName("Disable ID Tags")
         public Boolean DISABLE_ID_TAGS = true;
