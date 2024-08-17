@@ -9,33 +9,7 @@
   "server": [
   ],
   "client": [
-    "brightness.GL11Mixin",
-    "brightness.RenderHelperMixin",
-    "brightness.TessellatorMixin",
-    "brightness.TextureManagerMixin",
-    "options.GameOptionsMixin",
-    "options.OptionMixin",
-    "options.OptionsScreenMixin",
-    "options.VideoSettingsMixin",
-    "AbstractClientPlayerMixin",
-    "BipedRendererMixin",
-    "BowItemMixin",
-    "ContainerScreenMixin",
-    "DeathScreenMixin",
-    "FoodBaseMixin",
-    "GameRendererMixin",
-    "ItemInstanceMixin",
-    "LivingEntityRendererMixin",
-    "MinecraftKeyBindingMixin",
-    "MinecartMixin",
-    "MinecraftSoundMixin",
-    "MinecraftMixin",
-    "OverlayMixin",
-    "PlayerRendererMixin",
-    "SheepMixin",
-    "SkeletonModelMixin",
-    "StoneSlabItemMixin",
-    "WorldRendererMixin"
+    "TextureManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
