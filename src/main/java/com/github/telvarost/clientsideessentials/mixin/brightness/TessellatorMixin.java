@@ -13,20 +13,20 @@ import java.nio.ByteOrder;
 
 @Mixin(Tessellator.class)
 public class TessellatorMixin {
-    @Shadow private boolean hasColour;
+    @Shadow private boolean hasColor;
 
-    @Shadow private int colour;
+    @Shadow private int color;
 
-    @Shadow private boolean disableColour;
+    @Shadow private boolean colorDisabled;
 
     @Inject(
-            method = "colour(IIII)V",
+            method = "color(IIII)V",
             at = @At("HEAD"),
             cancellable = true
     )
     public void clientsideEssentials_colour(int i, int j, int k, int l, CallbackInfo ci) {
         if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
-            if (this.disableColour) {
+            if (this.colorDisabled) {
                 return;
             }
             PostProcess pp = PostProcess.instance;
@@ -55,7 +55,7 @@ public class TessellatorMixin {
             if (l < 0) {
                 l = 0;
             }
-            this.hasColour = true;
+            this.hasColor = true;
             if (pp != null) {
                 int r = pp.red(i, j, k);
                 int g = pp.green(i, j, k);
@@ -64,7 +64,7 @@ public class TessellatorMixin {
                 j = g;
                 k = b;
             }
-            this.colour = ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN ? l << 24 | k << 16 | j << 8 | i : i << 24 | j << 16 | k << 8 | l;
+            this.color = ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN ? l << 24 | k << 16 | j << 8 | i : i << 24 | j << 16 | k << 8 | l;
             ci.cancel();
         }
     }

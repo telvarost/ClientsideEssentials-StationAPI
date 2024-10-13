@@ -1,6 +1,6 @@
 package com.github.telvarost.clientsideessentials;
 
-import net.minecraft.client.options.Option;
+import net.minecraft.client.option.Option;
 
 /** - All credit for the code in this class goes to Dany and his mod UniTweaks
  *  See: https://github.com/DanyGames2014/UniTweaks

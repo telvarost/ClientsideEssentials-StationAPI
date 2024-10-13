@@ -1,14 +1,12 @@
 package com.github.telvarost.clientsideessentials.events;
 
 import blue.endless.jankson.JsonObject;
-import com.github.telvarost.clientsideessentials.Config;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.glasslauncher.mods.api.gcapi.api.PreConfigSavedListener;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.TextRenderer;
-import org.lwjgl.input.Mouse;
+import net.minecraft.client.font.TextRenderer;
 
 @EventListener
 public class ConfigListener implements PreConfigSavedListener {
@@ -23,7 +21,7 @@ public class ConfigListener implements PreConfigSavedListener {
                 boolean brightnessSettingOld = false;
                 boolean brightnessSettingNew = false;
 
-                minecraft.worldRenderer.method_1537();
+                minecraft.worldRenderer.reload();
                 minecraft.textRenderer = new TextRenderer(minecraft.options, "/font/default.png", minecraft.textureManager);
 
                 if (null != jsonObject.getObject("BRIGHTNESS_CONFIG")) {
@@ -35,7 +33,7 @@ public class ConfigListener implements PreConfigSavedListener {
                 }
 
                 if (brightnessSettingOld != brightnessSettingNew) {
-                    minecraft.textureManager.reloadTexturesFromTexturePack();
+                    minecraft.textureManager.reload();
                 }
             }
         }

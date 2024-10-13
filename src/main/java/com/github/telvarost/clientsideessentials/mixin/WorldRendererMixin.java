@@ -5,7 +5,7 @@ import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.level.dimension.Dimension;
+import net.minecraft.world.dimension.Dimension;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,19 +19,19 @@ public class WorldRendererMixin {
 	/** - All credit for the cloud code in this class goes to Dany and his mod UniTweaks
 	 *  See: https://github.com/DanyGames2014/UniTweaks
 	 */
-	@Inject(method = "method_1552", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "renderClouds", at = @At("HEAD"), cancellable = true)
 	public void clientsideEssentials_cloudRenderer(float f, CallbackInfo ci) {
 		if(!ModOptions.clouds) {
 			ci.cancel();
 		}
 	}
 
-	@Redirect(method = "method_1552", at = @At(value = "INVOKE", target = "Lnet/minecraft/level/dimension/Dimension;getCloudHeight()F"))
+	@Redirect(method = "renderClouds", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/dimension/Dimension;getCloudHeight()F"))
 	public float clientsideEssentials_changeCloudHeight(Dimension dimension) {
 		return ModOptions.getCloudHeight();
 	}
 
-	@Redirect(method = "renderClouds", at = @At(value = "INVOKE", target = "Lnet/minecraft/level/dimension/Dimension;getCloudHeight()F"))
+	@Redirect(method = "renderFancyClouds", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/dimension/Dimension;getCloudHeight()F"))
 	public float clientsideEssentials_changeFancyCloudHeight(Dimension dimension) {
 		return ModOptions.getCloudHeight();
 	}
@@ -48,8 +48,8 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
-					ordinal = 0
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
+					ordinal = 1
 			),
 			cancellable = true
 	)
@@ -63,7 +63,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 1
 			),
 			cancellable = true
@@ -78,7 +78,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 2
 			),
 			cancellable = true
@@ -93,7 +93,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 3
 			),
 			cancellable = true
@@ -108,7 +108,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 4
 			),
 			cancellable = true
@@ -123,7 +123,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 5
 			),
 			cancellable = true
@@ -138,7 +138,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 6
 			),
 			cancellable = true
@@ -153,7 +153,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 7
 			),
 			cancellable = true
@@ -168,7 +168,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 8
 			),
 			cancellable = true
@@ -183,7 +183,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 9
 			),
 			cancellable = true
@@ -198,7 +198,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 10
 			),
 			cancellable = true
@@ -213,7 +213,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 11
 			),
 			cancellable = true
@@ -228,7 +228,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 12
 			),
 			cancellable = true
@@ -243,7 +243,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 13
 			),
 			cancellable = true
@@ -258,7 +258,7 @@ public class WorldRendererMixin {
 			method = "addParticle",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/entity/ParticleBase;)V",
+					target = "Lnet/minecraft/client/particle/ParticleManager;addParticle(Lnet/minecraft/client/particle/Particle;)V",
 					ordinal = 14
 			),
 			cancellable = true

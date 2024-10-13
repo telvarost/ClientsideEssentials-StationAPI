@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(Minecraft.class)
 public class MinecraftKeyBindingMixin {
 
-    @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedHotbarSlot:I", opcode = Opcodes.PUTFIELD))
+    @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", opcode = Opcodes.PUTFIELD))
     public void cancelSelectSlot(PlayerInventory playerInventory, int selected){
         /** - Do Nothing */
     }
@@ -24,36 +24,36 @@ public class MinecraftKeyBindingMixin {
     // F1
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 59))
     public int modifyHideHudKeybind(int constant){
-        return KeyBindingListener.hideHUD.key;
+        return KeyBindingListener.hideHUD.code;
     }
 
     // F2
-    @ModifyConstant(method = "checkTakingScreenshot", constant = @Constant(intValue = 60))
+    @ModifyConstant(method = "handleScreenshotKey", constant = @Constant(intValue = 60))
     public int modifyTakeScreenshotKeybind(int constant){
-        return KeyBindingListener.takeScreenshot.key;
+        return KeyBindingListener.takeScreenshot.code;
     }
 
     // F3
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 61))
     public int modifyDebugHudKeybind(int constant){
-        return KeyBindingListener.debugHud.key;
+        return KeyBindingListener.debugHud.code;
     }
 
     // F5
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 63))
     public int modifyThirdPersonKeybind(int constant){
-        return KeyBindingListener.thirdPerson.key;
+        return KeyBindingListener.thirdPerson.code;
     }
 
     // F6
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 66))
     public int modifyCinematicCameraKeybind(int constant){
-        return KeyBindingListener.cinematicCamera.key;
+        return KeyBindingListener.cinematicCamera.code;
     }
 
     // F11
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 87))
     public int modifyToggleFullscreenKeybind(int constant){
-        return KeyBindingListener.toggleFullscreen.key;
+        return KeyBindingListener.toggleFullscreen.code;
     }
 }

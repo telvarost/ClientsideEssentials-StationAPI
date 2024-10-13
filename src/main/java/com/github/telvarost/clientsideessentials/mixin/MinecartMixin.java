@@ -2,16 +2,15 @@ package com.github.telvarost.clientsideessentials.mixin;
 
 import com.github.telvarost.clientsideessentials.Config;
 import com.github.telvarost.clientsideessentials.ModHelper;
+import net.minecraft.block.RailBlock;
+import net.minecraft.entity.vehicle.MinecartEntity;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.entity.Minecart;
-import net.minecraft.block.Rail;
-import net.minecraft.util.maths.MathHelper;
-
-@Mixin(Minecart.class)
+@Mixin(MinecartEntity.class)
 public class MinecartMixin {
 
 	private static final double EXTRA_MINECART_XZ_SIZE = 0.4;
@@ -19,22 +18,22 @@ public class MinecartMixin {
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void clientsideEssentials_tick(CallbackInfo ci) {
-		Minecart minecart = (Minecart) (Object) this;
+		MinecartEntity minecart = (MinecartEntity) (Object) this;
 		int x = MathHelper.floor(minecart.x);
 		int y = MathHelper.floor(minecart.y);
 		int z = MathHelper.floor(minecart.z);
-		int tileId = minecart.level.getTileId(x, y, z);
-		if (Rail.isRail(tileId)) {
+		int tileId = minecart.world.getBlockId(x, y, z);
+		if (RailBlock.isRail(tileId)) {
 			float speed = MathHelper.sqrt(minecart.velocityX * minecart.velocityX + minecart.velocityZ * minecart.velocityZ);
 			float volume = 0;
 			float pitch = 0;
 			if (speed >= 0.01D) {
 				if (minecart.passenger != null && Config.config.GRAPHICS_CONFIG.FIX_MINECART_FLICKERING) {
-					minecart.boundingBox.method_99(minecart.boundingBox.minX - EXTRA_MINECART_XZ_SIZE, minecart.boundingBox.minY,
+					minecart.boundingBox.set(minecart.boundingBox.minX - EXTRA_MINECART_XZ_SIZE, minecart.boundingBox.minY,
 							minecart.boundingBox.minZ - EXTRA_MINECART_XZ_SIZE, minecart.boundingBox.maxX + EXTRA_MINECART_XZ_SIZE,
 							minecart.boundingBox.maxY + EXTRA_MINECART_Y_SIZE, minecart.boundingBox.maxZ + EXTRA_MINECART_XZ_SIZE);
 				}
-				++minecart.field_1645;
+				++minecart.age;
 				pitch = ModHelper.clamp(pitch + 0.0025F, 0.0F, 1.0F);
 				volume = ModHelper.lerp(ModHelper.clamp(speed, 0.0F, 0.5F), 0.0F, 0.7F);
 			} else {
@@ -43,8 +42,8 @@ public class MinecartMixin {
 			}
 
 			if (speed >= 0.01D && Config.config.SOUND_CONFIG.ADD_MINECART_ROLLING_SOUND) {
-				if (minecart.field_1645 % 33 == 1) {
-					minecart.level.playSound(x, y, z, "minecart.base", volume, pitch);
+				if (minecart.age % 33 == 1) {
+					minecart.world.playSound(x, y, z, "minecart.base", volume, pitch);
 				}
 			}
 		}

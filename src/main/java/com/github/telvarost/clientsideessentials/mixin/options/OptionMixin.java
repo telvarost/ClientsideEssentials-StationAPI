@@ -3,7 +3,7 @@ package com.github.telvarost.clientsideessentials.mixin.options;
 import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.options.Option;
+import net.minecraft.client.option.Option;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -32,7 +32,15 @@ public abstract class OptionMixin {
         throw new AssertionError();
     }
 
-    @Inject(method = "<clinit>", at = @At(value = "FIELD", opcode = 179, target = "Lnet/minecraft/client/options/Option;field_1113:[Lnet/minecraft/client/options/Option;", shift = At.Shift.AFTER))
+    @Inject(
+            method = "<clinit>",
+            at = @At(
+                    value = "FIELD",
+                    opcode = 179,
+                    target = "Lnet/minecraft/client/option/Option;field_1113:[Lnet/minecraft/client/option/Option;",
+                    shift = At.Shift.AFTER
+            )
+    )
     private static void clientsideEssentials_addOptions(CallbackInfo ci) {
         ArrayList<Option> options = new ArrayList<Option>(Arrays.asList(field_1113));
         Option last = options.get(options.size() - 1);

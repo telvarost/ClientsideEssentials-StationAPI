@@ -21,24 +21,24 @@ public class KeyPressedListener {
             if (Keyboard.getEventKeyState() && minecraft.currentScreen == null) {
                 // Hotbar Slots
                 if (minecraft.currentScreen == null) {
-                    if (Keyboard.isKeyDown(KeyBindingListener.hotbar1.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 0;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar2.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 1;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar3.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 2;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar4.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 3;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar5.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 4;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar6.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 5;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar7.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 6;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar8.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 7;
-                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar9.key)) {
-                        minecraft.player.inventory.selectedHotbarSlot = 8;
+                    if (Keyboard.isKeyDown(KeyBindingListener.hotbar1.code)) {
+                        minecraft.player.inventory.selectedSlot = 0;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar2.code)) {
+                        minecraft.player.inventory.selectedSlot = 1;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar3.code)) {
+                        minecraft.player.inventory.selectedSlot = 2;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar4.code)) {
+                        minecraft.player.inventory.selectedSlot = 3;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar5.code)) {
+                        minecraft.player.inventory.selectedSlot = 4;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar6.code)) {
+                        minecraft.player.inventory.selectedSlot = 5;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar7.code)) {
+                        minecraft.player.inventory.selectedSlot = 6;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar8.code)) {
+                        minecraft.player.inventory.selectedSlot = 7;
+                    } else if (Keyboard.isKeyDown(KeyBindingListener.hotbar9.code)) {
+                        minecraft.player.inventory.selectedSlot = 8;
                     }
                 }
             }

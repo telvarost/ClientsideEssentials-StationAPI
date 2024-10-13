@@ -5,9 +5,9 @@ import com.github.telvarost.clientsideessentials.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.options.Option;
-import net.minecraft.client.render.TextRenderer;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.Option;
 import net.minecraft.client.resource.language.TranslationStorage;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,16 +34,16 @@ public abstract class GameOptionsMixin {
     @Shadow
     protected Minecraft minecraft;
 
-    @Inject(method = "method_1228", at = @At(value = "HEAD"))
+    @Inject(method = "setFloat", at = @At(value = "HEAD"))
     public void clientsideEssentials_setFloat(Option option, float value, CallbackInfo ci) {
         if (option == ModOptions.brightnessOption) {
             ModOptions.brightness = value;
 
             if (false == Mouse.isButtonDown(0)) {
-                this.minecraft.worldRenderer.method_1537();
+                this.minecraft.worldRenderer.reload();
                 this.minecraft.textRenderer = new TextRenderer(this.minecraft.options, "/font/default.png", this.minecraft.textureManager);
                 if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_GUI) {
-                    this.minecraft.textureManager.reloadTexturesFromTexturePack();
+                    this.minecraft.textureManager.reload();
                 }
             }
         }
@@ -65,15 +65,15 @@ public abstract class GameOptionsMixin {
         }
     }
 
-    @Inject(method = "changeOption", at = @At(value = "HEAD"))
-    public void clientsideEssentials_setBoolean(Option option, int value, CallbackInfo ci) {
+    @Inject(method = "setInt", at = @At(value = "HEAD"))
+    public void clientsideEssentials_setInt(Option option, int value, CallbackInfo ci) {
         if (option == ModOptions.cloudsOption) {
             ModOptions.clouds = !ModOptions.clouds;
         }
     }
 
 
-    @Inject(method = "getFloatValue", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "getFloat", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getFloat(Option option, CallbackInfoReturnable<Float> cir) {
         if (option == ModOptions.brightnessOption) {
             cir.setReturnValue(ModOptions.brightness);
@@ -96,14 +96,14 @@ public abstract class GameOptionsMixin {
         }
     }
 
-    @Inject(method = "getBooleanValue", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "getBoolean", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getBoolean(Option option, CallbackInfoReturnable<Boolean> cir) {
         if (option == ModOptions.cloudsOption) {
             cir.setReturnValue(ModOptions.clouds);
         }
     }
 
-    @Inject(method = "getTranslatedValue", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "getString", at = @At(value = "HEAD"), cancellable = true)
     public void clientsideEssentials_getTranslatedValue(Option option, CallbackInfoReturnable<String> cir) {
         TranslationStorage translations = TranslationStorage.getInstance();
 
@@ -111,65 +111,72 @@ public abstract class GameOptionsMixin {
             if (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER) {
                 float value = ModOptions.getBrightness();
                 if (value == 0.0f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + translations.translate("options.clientsideessentials.brightness_min"));
+                    cir.setReturnValue(translations.get("options.clientsideessentials.brightness") + ": " + translations.get("options.clientsideessentials.brightness_min"));
                 } else if (value == 0.5f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + translations.translate("options.clientsideessentials.brightness_normal"));
+                    cir.setReturnValue(translations.get("options.clientsideessentials.brightness") + ": " + translations.get("options.clientsideessentials.brightness_normal"));
                 } else if (value == 1.0f) {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + translations.translate("options.clientsideessentials.brightness_max"));
+                    cir.setReturnValue(translations.get("options.clientsideessentials.brightness") + ": " + translations.get("options.clientsideessentials.brightness_max"));
                 } else {
-                    cir.setReturnValue(translations.translate("options.clientsideessentials.brightness") + ": " + (value * 2F) + "x");
+                    cir.setReturnValue(translations.get("options.clientsideessentials.brightness") + ": " + (value * 2F) + "x");
                 }
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.brightness_disabled"));
+                cir.setReturnValue(translations.get("options.clientsideessentials.brightness_disabled"));
             }
         }
 
         if (option == ModOptions.fovOption) {
             float value = ModOptions.fov;
             if (value == 0.0f) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fov") + ": " + translations.translate("options.clientsideessentials.fov_normal"));
+                cir.setReturnValue(translations.get("options.clientsideessentials.fov") + ": " + translations.get("options.clientsideessentials.fov_normal"));
             } else if (value == 1.0f) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fov") + ": " + translations.translate("options.clientsideessentials.fov_max"));
+                cir.setReturnValue(translations.get("options.clientsideessentials.fov") + ": " + translations.get("options.clientsideessentials.fov_max"));
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fov") + ": " + ModOptions.getFovInDegrees());
+                cir.setReturnValue(translations.get("options.clientsideessentials.fov") + ": " + ModOptions.getFovInDegrees());
             }
         }
 
         if (option == ModOptions.fogDensityOption) {
             float value = ModOptions.getFogDisplayValue();
             if (value == 0.0F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + translations.translate("options.clientsideessentials.fog_disabled"));
+                cir.setReturnValue(translations.get("options.clientsideessentials.fog") + ": " + translations.get("options.clientsideessentials.fog_disabled"));
             } else if (value == 1.0F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + translations.translate("options.clientsideessentials.fog_max"));
+                cir.setReturnValue(translations.get("options.clientsideessentials.fog") + ": " + translations.get("options.clientsideessentials.fog_max"));
             } else if (value == 0.5F) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + translations.translate("options.clientsideessentials.fog_normal"));
+                cir.setReturnValue(translations.get("options.clientsideessentials.fog") + ": " + translations.get("options.clientsideessentials.fog_normal"));
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fog") + ": " + ModOptions.getFogDisplayValue() * 2F + "x");
+                cir.setReturnValue(translations.get("options.clientsideessentials.fog") + ": " + ModOptions.getFogDisplayValue() * 2F + "x");
             }
         }
 
         if (option == ModOptions.fpsLimitOption) {
             float value = ModOptions.getFpsLimitValue();
             if (value >= 300) {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fps_limit") + ": " + translations.translate("options.clientsideessentials.fps_limit_max"));
+                cir.setReturnValue(translations.get("options.clientsideessentials.fps_limit") + ": " + translations.get("options.clientsideessentials.fps_limit_max"));
             } else {
-                cir.setReturnValue(translations.translate("options.clientsideessentials.fps_limit") + ": " + value);
+                cir.setReturnValue(translations.get("options.clientsideessentials.fps_limit") + ": " + value);
             }
         }
 
         if (option == ModOptions.cloudHeightOption) {
             float value = ModOptions.cloudHeight;
-            String optionName = translations.translate("options.clientsideessentials.cloud_height") + ": " + ModOptions.getCloudHeight();
+            String optionName = translations.get("options.clientsideessentials.cloud_height") + ": " + ModOptions.getCloudHeight();
             cir.setReturnValue(optionName);
         }
 
         if (option == ModOptions.cloudsOption) {
-            String optionName = translations.translate("options.clientsideessentials.clouds") + ": " + (ModOptions.clouds ? translations.translate("options.on") : translations.translate("options.off"));
+            String optionName = translations.get("options.clientsideessentials.clouds") + ": " + (ModOptions.clouds ? translations.get("options.on") : translations.get("options.off"));
             cir.setReturnValue(optionName);
         }
     }
 
-    @Inject(method = "load", at = @At(value = "INVOKE", target = "Ljava/lang/String;split(Ljava/lang/String;)[Ljava/lang/String;"), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(
+            method = "load",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/lang/String;split(Ljava/lang/String;)[Ljava/lang/String;"
+            ),
+            locals = LocalCapture.CAPTURE_FAILHARD
+    )
     private void clientsideEssentials_load(CallbackInfo ci, BufferedReader bufferedReader, String string) {
         String[] stringArray = string.split(":");
 
@@ -198,7 +205,7 @@ public abstract class GameOptionsMixin {
         }
     }
 
-    @Inject(method = "saveOptions", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "save", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
         printWriter.println("brightness:" + ModOptions.brightness);
         printWriter.println("fov:" + ModOptions.fov);

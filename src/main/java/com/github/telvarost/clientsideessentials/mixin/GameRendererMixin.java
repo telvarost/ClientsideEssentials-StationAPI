@@ -9,11 +9,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.entity.Living;
-import net.minecraft.level.Level;
-import net.minecraft.sortme.GameRenderer;
-import net.minecraft.util.maths.Vec3f;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
@@ -35,28 +35,28 @@ import java.nio.FloatBuffer;
 public abstract class GameRendererMixin {
 
     @Shadow
-    private float field_2350;
+    private float viewDistance;
 
-    @Shadow private Minecraft minecraft;
+    @Shadow private Minecraft client;
 
-    @Shadow private FloatBuffer field_2345;
+    @Shadow private FloatBuffer fogColorBuffer;
 
-    @Shadow private float field_2346;
+    @Shadow private float fogRed;
 
-    @Shadow private float field_2347;
+    @Shadow private float fogGreen;
 
-    @Shadow private float field_2348;
+    @Shadow private float fogBlue;
 
-    @Shadow private boolean field_2330;
+    @Shadow private boolean renderFog;
 
-    @Inject(method = "method_1842", at = @At(value = "HEAD"))
+    @Inject(method = "applyFog", at = @At(value = "HEAD"))
     public void clientsideEssentials_overrideFogDensity(int f, float par2, CallbackInfo ci) {
-        this.field_2350 = (256 >> this.minecraft.options.viewDistance) * ModOptions.getFogMultiplier();
+        this.viewDistance = (256 >> this.client.options.viewDistance) * ModOptions.getFogMultiplier();
     }
 
     @Unique
     public float clientsideEssentials_getFovMultiplier(float f, boolean isHand) {
-        Living entity = this.minecraft.viewEntity;
+        LivingEntity entity = this.client.camera;
         float fov = ModOptions.getFovInDegrees();
 
         if (isHand) {
@@ -68,23 +68,23 @@ public abstract class GameRendererMixin {
         }
 
         if (ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED) {
-            if (Keyboard.isKeyDown(KeyBindingListener.zoom.key)) {
+            if (Keyboard.isKeyDown(KeyBindingListener.zoom.code)) {
                 fov /= 4F;
-                minecraft.options.cinematicMode = true;
+                client.options.cinematicMode = true;
             } else {
-                minecraft.options.cinematicMode = false;
+                client.options.cinematicMode = false;
             }
         } else {
             if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 fov /= 4F;
-                minecraft.options.cinematicMode = true;
+                client.options.cinematicMode = true;
             } else {
-                minecraft.options.cinematicMode = false;
+                client.options.cinematicMode = false;
             }
         }
 
         if (entity.health <= 0) {
-            float deathTimeFov = (float) entity.deathTime + f;
+            float deathTimeFov = (float) entity.deathTicks + f;
             fov /= (1.0F - 500F / (deathTimeFov + 500F)) * 2.0F + 1.0F;
         }
 
@@ -96,41 +96,41 @@ public abstract class GameRendererMixin {
         return clientsideEssentials_getFovMultiplier(f, false);
     }
 
-    @Redirect(method = "method_1840", at = @At(value = "INVOKE", target = "Lnet/minecraft/sortme/GameRenderer;method_1848(F)F"))
+    @Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(F)F"))
     public float clientsideEssentials_redirectToCustomFov(GameRenderer instance, float value) {
         return clientsideEssentials_getFovMultiplier(value);
     }
 
-    @Inject(method = "method_1845", at = @At(value = "HEAD"))
+    @Inject(method = "renderFirstPersonHand", at = @At(value = "HEAD"))
     public void clientsideEssentials_adjustHandFov(float f, int i, CallbackInfo ci) {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GLU.gluPerspective(clientsideEssentials_getFovMultiplier(f, true), (float) minecraft.actualWidth / (float) minecraft.actualHeight, 0.05F, field_2350 * 2.0F);
+        GLU.gluPerspective(clientsideEssentials_getFovMultiplier(f, true), (float) client.displayWidth / (float) client.displayHeight, 0.05F, viewDistance * 2.0F);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
     }
 
-    @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 200))
+    @ModifyConstant(method = "onFrameUpdate", constant = @Constant(intValue = 200))
     public int clientsideEssentials_modifyPerformanceTargetFps(int constant){
         return ModOptions.getFpsLimitValue();
     }
 
-    @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 120))
+    @ModifyConstant(method = "onFrameUpdate", constant = @Constant(intValue = 120))
     public int clientsideEssentials_modifyBalancedTargetFps(int constant){
         return ModOptions.getFpsLimitValue();
     }
 
-    @ModifyConstant(method = "method_1844", constant = @Constant(intValue = 40))
+    @ModifyConstant(method = "onFrameUpdate", constant = @Constant(intValue = 40))
     public int clientsideEssentials_modifyPowerSaverTargetFps(int constant){
         return ModOptions.getFpsLimitValue();
     }
 
-    @Redirect(method = "method_1844", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/client/options/GameOptions;fpsLimit:I"))
+    @Redirect(method = "onFrameUpdate", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/client/option/GameOptions;fpsLimit:I"))
     public int clientsideEssentials_overridePerformanceLevel(GameOptions instance){
         return ModOptions.getPerformanceLevel();
     }
 
     @Inject(
-            method = "method_1852",
+            method = "updateSkyAndFogColors",
             at = @At("HEAD"),
             cancellable = true
     )
@@ -138,35 +138,35 @@ public abstract class GameRendererMixin {
         if (  (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_SLIDER)
            && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_FOG)
         ) {
-            Level level = this.minecraft.level;
-            Living living = this.minecraft.viewEntity;
+            World level = this.client.world;
+            LivingEntity living = this.client.camera;
             PostProcess pp = PostProcess.instance;
-            Vec3f vec3f = level.method_279(this.minecraft.viewEntity, f);
+            Vec3d vec3f = level.getSkyColor(this.client.camera, f);
             float red = (float) vec3f.x;
             float green = (float) vec3f.y;
             float blue = (float) vec3f.z;
-            if (this.field_2330) {
-                Vec3f vec3f3 = level.method_282(f);
-                this.field_2346 = (float) vec3f3.x;
-                this.field_2347 = (float) vec3f3.y;
-                this.field_2348 = (float) vec3f3.z;
-                red = this.field_2346;
-                green = this.field_2347;
-                blue = this.field_2348;
+            if (this.renderFog) {
+                Vec3d vec3f3 = level.getCloudColor(f);
+                this.fogRed = (float) vec3f3.x;
+                this.fogGreen = (float) vec3f3.y;
+                this.fogBlue = (float) vec3f3.z;
+                red = this.fogRed;
+                green = this.fogGreen;
+                blue = this.fogBlue;
             } else if (living.isInFluid(Material.WATER)) {
-                this.field_2346 = 0.02f;
-                this.field_2347 = 0.02f;
-                this.field_2348 = 0.2f;
-                red = this.field_2346;
-                green = this.field_2347;
-                blue = this.field_2348;
+                this.fogRed = 0.02f;
+                this.fogGreen = 0.02f;
+                this.fogBlue = 0.2f;
+                red = this.fogRed;
+                green = this.fogGreen;
+                blue = this.fogBlue;
             } else if (living.isInFluid(Material.LAVA)) {
-                this.field_2346 = 0.6f;
-                this.field_2347 = 0.1f;
-                this.field_2348 = 0.0f;
-                red = this.field_2346;
-                green = this.field_2347;
-                blue = this.field_2348;
+                this.fogRed = 0.6f;
+                this.fogGreen = 0.1f;
+                this.fogBlue = 0.0f;
+                red = this.fogRed;
+                green = this.fogGreen;
+                blue = this.fogBlue;
             }
             if (0.0F == ModOptions.fogDensity) {
                 GL11.glClearColor(red, green, blue, 0.0f);
@@ -176,7 +176,7 @@ public abstract class GameRendererMixin {
     }
 
     @Inject(
-            method = "method_1839",
+            method = "updateFogColorBuffer",
             at = @At("HEAD"),
             cancellable = true
     )
@@ -185,10 +185,10 @@ public abstract class GameRendererMixin {
            && (Config.config.BRIGHTNESS_CONFIG.ENABLE_BRIGHTNESS_FOG)
         ) {
             PostProcess pp = PostProcess.instance;
-            this.field_2345.clear();
-            this.field_2345.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
-            this.field_2345.flip();
-            cir.setReturnValue(this.field_2345);
+            this.fogColorBuffer.clear();
+            this.fogColorBuffer.put(pp.red(red, green, blue)).put(pp.green(red, green, blue)).put(pp.blue(red, green, blue)).put(i);
+            this.fogColorBuffer.flip();
+            cir.setReturnValue(this.fogColorBuffer);
         }
     }
 }
