@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.lang.String;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
@@ -205,7 +206,14 @@ public abstract class GameOptionsMixin {
         }
     }
 
-    @Inject(method = "save", at = @At(value = "INVOKE", target = "Ljava/io/PrintWriter;close()V"), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(
+            method = "save",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/io/PrintWriter;close()V"
+            ),
+            locals = LocalCapture.CAPTURE_FAILHARD
+    )
     private void clientsideEssentials_saveOptions(CallbackInfo ci, PrintWriter printWriter) {
         printWriter.println("brightness:" + ModOptions.brightness);
         printWriter.println("fov:" + ModOptions.fov);

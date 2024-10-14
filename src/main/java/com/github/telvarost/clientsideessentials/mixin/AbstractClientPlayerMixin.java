@@ -46,7 +46,7 @@ public class AbstractClientPlayerMixin extends PlayerEntity {
 		}
     }
 
-    @Inject(method = "openDoubleChestScreen", at = @At("TAIL"))
+    @Inject(method = "openChestScreen", at = @At("TAIL"))
 	public void clientsideEssentials_openChestScreen(Inventory arg, CallbackInfo ci) {
 		this.minecraft.setScreen(new DoubleChestScreen(this.inventory, arg));
 
