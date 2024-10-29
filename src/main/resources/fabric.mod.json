@@ -29,13 +29,13 @@
     ],
     "stationapi:event_bus_server": [
     ],
-    "gcapi": [
+    "gcapi3": [
       "com.github.telvarost.clientsideessentials.Config"
     ],
-    "gcapi:factory_provider": [
+    "gcapi3:factory_provider": [
       "com.github.telvarost.clientsideessentials.BrightnessRangeEnumFactory"
     ],
-    "gcapi:presave": [
+    "gcapi3:presave": [
       "com.github.telvarost.clientsideessentials.events.ConfigListener"
     ]
   },
@@ -49,7 +49,7 @@
 
   "recommends": {
     "stationapi": "*",
-    "gcapi": "*",
+    "gcapi3": ">=3.0.1",
     "modmenu": "*"
   },
 

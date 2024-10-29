@@ -84,7 +84,7 @@ public abstract class GameRendererMixin {
         }
 
         if (entity.health <= 0) {
-            float deathTimeFov = (float) entity.deathTicks + f;
+            float deathTimeFov = (float) entity.deathTime + f;
             fov /= (1.0F - 500F / (deathTimeFov + 500F)) * 2.0F + 1.0F;
         }
 

@@ -1,9 +1,9 @@
 package com.github.telvarost.clientsideessentials.events;
 
-import blue.endless.jankson.JsonObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.glasslauncher.mods.api.gcapi.api.PreConfigSavedListener;
+import net.glasslauncher.mods.gcapi3.api.PreConfigSavedListener;
+import net.glasslauncher.mods.gcapi3.impl.GlassYamlFile;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.font.TextRenderer;
@@ -12,7 +12,8 @@ import net.minecraft.client.font.TextRenderer;
 public class ConfigListener implements PreConfigSavedListener {
 
     @Override
-    public void onPreConfigSaved(int var1, JsonObject jsonObject, JsonObject jsonObject1) {
+    public void onPreConfigSaved(int source, GlassYamlFile oldValues, GlassYamlFile newValues)
+    {
         if (  (null != FabricLoader.getInstance())
            && (EnvType.CLIENT == FabricLoader.getInstance().getEnvironmentType())
         ) {
@@ -24,12 +25,13 @@ public class ConfigListener implements PreConfigSavedListener {
                 minecraft.worldRenderer.reload();
                 minecraft.textRenderer = new TextRenderer(minecraft.options, "/font/default.png", minecraft.textureManager);
 
-                if (null != jsonObject.getObject("BRIGHTNESS_CONFIG")) {
-                    brightnessSettingOld = jsonObject.getObject("BRIGHTNESS_CONFIG").getBoolean("ENABLE_BRIGHTNESS_GUI", false);
+                // GCAPI3 is broken right now and not populating oldValues, so the textureManager reload never fires
+                if (null != oldValues.getConfigurationSection("BRIGHTNESS_CONFIG")) {
+                    brightnessSettingOld = oldValues.getConfigurationSection("BRIGHTNESS_CONFIG").getBoolean("ENABLE_BRIGHTNESS_GUI", false);
                 }
 
-                if (null != jsonObject1.getObject("BRIGHTNESS_CONFIG")) {
-                    brightnessSettingNew = jsonObject1.getObject("BRIGHTNESS_CONFIG").getBoolean("ENABLE_BRIGHTNESS_GUI", false);
+                if (null != newValues.getConfigurationSection("BRIGHTNESS_CONFIG")) {
+                    brightnessSettingNew = newValues.getConfigurationSection("BRIGHTNESS_CONFIG").getBoolean("ENABLE_BRIGHTNESS_GUI", false);
                 }
 
                 if (brightnessSettingOld != brightnessSettingNew) {
