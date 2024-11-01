@@ -25,7 +25,6 @@ public class ConfigListener implements PreConfigSavedListener {
                 minecraft.worldRenderer.reload();
                 minecraft.textRenderer = new TextRenderer(minecraft.options, "/font/default.png", minecraft.textureManager);
 
-                // GCAPI3 is broken right now and not populating oldValues, so the textureManager reload never fires
                 if (null != oldValues.getConfigurationSection("BRIGHTNESS_CONFIG")) {
                     brightnessSettingOld = oldValues.getConfigurationSection("BRIGHTNESS_CONFIG").getBoolean("ENABLE_BRIGHTNESS_GUI", false);
                 }
