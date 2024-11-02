@@ -50,6 +50,9 @@ public class Config {
         @ConfigEntry(name = "Add Day Counter To Debug Overlay")
         public Boolean ADD_DAY_COUNTER = true;
 
+        @ConfigEntry(name = "Add Hours Played To Debug Overlay")
+        public Boolean ADD_TOTAL_PLAY_TIME = true;
+
         @ConfigEntry(
                 name = "Add Light Level To Debug Overlay",
                 description = "Calculated at player's eye level"

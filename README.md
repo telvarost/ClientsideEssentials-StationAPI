@@ -32,11 +32,11 @@ Moved to new Scoring/Achievement mod below:
 - Ability to disable particles
 - Ability to disable id tags in debug screen
   - Tags are disabled by default, re-enable using the mod's config
-- Add day counter to debug screen
-  - Number in parentheses is real world days
+- Add total hours of play time to debug screen
 - Add light level to debug screen
   - Calculated at player's eye level
 - Add biome type to debug screen
+- Add day count to debug screen
 
 ## Sound Additions
 

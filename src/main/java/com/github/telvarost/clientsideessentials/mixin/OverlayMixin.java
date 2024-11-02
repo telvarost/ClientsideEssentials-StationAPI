@@ -28,27 +28,6 @@ public class OverlayMixin extends DrawContext {
 	@Shadow
 	private Minecraft minecraft;
 
-	@Redirect(
-		method = "render",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Ljava/lang/String;III)V"
-		)
-	)
-	public void clientsideEssentials_render(TextRenderer instance, String string, int i, int j, int k)  {
-		if (instance != null) {
-			if (Config.config.GRAPHICS_CONFIG.ADD_DAY_COUNTER) {
-				instance.drawWithShadow(string, i, j, k);
-				long realDaysPlayed = Duration.ofSeconds(minecraft.stats.get(Stats.PLAY_ONE_MINUTE) / 20).toDays();
-				long gameDaysPlayed = Duration.ofSeconds(minecraft.stats.get(Stats.PLAY_ONE_MINUTE) / 20).toMinutes() / 20;
-				instance.drawWithShadow("Days Played: " + gameDaysPlayed + " (" + realDaysPlayed + ")", 2, 96, 14737632);
-			} else {
-				instance.drawWithShadow(string, i, j, k);
-			}
-		}
-	}
-
-
 	@Inject(
 			method = "render",
 			at = @At(
@@ -58,16 +37,24 @@ public class OverlayMixin extends DrawContext {
 	)
 	public void clientsideEssentials_render(float bl, boolean i, int j, int par4, CallbackInfo ci)  {
 		TextRenderer var8 = this.minecraft.textRenderer;
-		if (Config.config.GRAPHICS_CONFIG.ADD_DAY_COUNTER) {
-			long realDaysPlayed = Duration.ofSeconds(minecraft.stats.get(Stats.PLAY_ONE_MINUTE) / 20).toDays();
-			long gameDaysPlayed = Duration.ofSeconds(minecraft.stats.get(Stats.PLAY_ONE_MINUTE) / 20).toMinutes() / 20;
-			var8.drawWithShadow("Days Played: " + gameDaysPlayed + " (" + realDaysPlayed + ")", 2, 96, 14737632);
+
+		if (Config.config.GRAPHICS_CONFIG.ADD_TOTAL_PLAY_TIME) {
+			long realHoursPlayed = Duration.ofSeconds(minecraft.stats.get(Stats.PLAY_ONE_MINUTE) / 20).toHours();
+			if (1 == realHoursPlayed) {
+				var8.drawWithShadow("Play Time: " + realHoursPlayed + " hour", 2, 96, 14737632);
+			} else {
+				var8.drawWithShadow("Play Time: " + realHoursPlayed + " hours", 2, 96, 14737632);
+			}
 		}
 
-		if (Config.config.GRAPHICS_CONFIG.ADD_LIGHT_LEVEL || Config.config.GRAPHICS_CONFIG.ADD_BIOME_TYPE) {
+		if (  Config.config.GRAPHICS_CONFIG.ADD_LIGHT_LEVEL
+		   || Config.config.GRAPHICS_CONFIG.ADD_BIOME_TYPE
+		   || Config.config.GRAPHICS_CONFIG.ADD_DAY_COUNTER
+		) {
 			PlayerEntity player = PlayerHelper.getPlayerFromGame();
 			int lightLevel = 0;
 			String biomeName = "Unknown";
+			long dayCount = 0;
 
 			if (null != player) {
 				float light = player.getBrightnessAtEyes(1.0F);
@@ -106,10 +93,16 @@ public class OverlayMixin extends DrawContext {
 					lightLevel = 15;
 				}
 
-				if (null != player.world && null != player.world.method_1781()) {
-					Biome biome = player.world.method_1781().getBiome((int)Math.floor(player.x), (int)Math.floor(player.z));
-					if (null != biome) {
-						biomeName = biome.name;
+				if (null != player.world) {
+					if (null != player.world.getProperties()) {
+						dayCount = (int) Math.floor(player.world.getProperties().getTime() / 24000);
+					}
+
+					if (null != player.world.method_1781()) {
+						Biome biome = player.world.method_1781().getBiome((int)Math.floor(player.x), (int)Math.floor(player.z));
+						if (null != biome) {
+							biomeName = biome.name;
+						}
 					}
 				}
 			}
@@ -120,6 +113,10 @@ public class OverlayMixin extends DrawContext {
 
 			if (Config.config.GRAPHICS_CONFIG.ADD_BIOME_TYPE) {
 				var8.drawWithShadow("Biome: " + biomeName, 2, 120, 14737632);
+			}
+
+			if (Config.config.GRAPHICS_CONFIG.ADD_DAY_COUNTER) {
+				var8.drawWithShadow("Day: " + dayCount, 2, 128, 14737632);
 			}
 		}
 	}
