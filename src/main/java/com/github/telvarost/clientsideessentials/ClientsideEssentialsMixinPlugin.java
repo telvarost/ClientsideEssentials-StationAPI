@@ -25,6 +25,8 @@ public final class ClientsideEssentialsMixinPlugin implements IMixinConfigPlugin
             return ModHelper.ModHelperFields.IS_MOJANGFIX_LOADED;
         } else if (mixinClassName.equals("com.github.telvarost.clientsideessentials.mixin.MinecraftMixin")) {
             return !FabricLoader.getInstance().isModLoaded("gambac");
+        } else if (mixinClassName.equals("com.github.telvarost.clientsideessentials.mixin.FogGameRendererMixin")) {
+            return !FabricLoader.getInstance().isModLoaded("ambientoverride");
         } else {
             return true;
         }

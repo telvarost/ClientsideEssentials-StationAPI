@@ -28,7 +28,14 @@ public class ContainerScreenMixin extends Screen {
 	
 	private static ItemRenderer itemRenderer = new ItemRenderer();
 
-	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreen;drawForeground()V", shift = Shift.AFTER))
+	@Inject(
+			method = "render",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreen;drawForeground()V",
+					shift = Shift.AFTER
+			)
+	)
 	public void clientsideEssentials_onRender(int i, int j, float f, CallbackInfo ci) {
 		if (!Config.config.GRAPHICS_CONFIG.FIX_CONTAINER_LABEL_RENDERING)
 		{
