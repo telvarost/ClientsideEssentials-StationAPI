@@ -27,9 +27,6 @@ import java.nio.FloatBuffer;
 @Mixin(GameRenderer.class)
 public abstract class FogGameRendererMixin {
 
-    @Shadow
-    private float viewDistance;
-
     @Shadow private Minecraft client;
 
     @Shadow private FloatBuffer fogColorBuffer;
@@ -41,11 +38,6 @@ public abstract class FogGameRendererMixin {
     @Shadow private float fogBlue;
 
     @Shadow private boolean renderFog;
-
-    @Inject(method = "applyFog", at = @At(value = "HEAD"))
-    public void clientsideEssentials_overrideFogDensity(int f, float par2, CallbackInfo ci) {
-        this.viewDistance = (256 >> this.client.options.viewDistance) * ModOptions.getFogMultiplier();
-    }
 
     @Inject(
             method = "updateSkyAndFogColors",

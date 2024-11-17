@@ -30,7 +30,21 @@ public abstract class GameRendererMixin {
     @Shadow
     private float viewDistance;
 
-    @Shadow private Minecraft client;
+    @Shadow
+    private Minecraft client;
+
+    @Inject(
+            method = "renderWorld",
+            at = @At(
+                    value = "FIELD",
+                    opcode = Opcodes.PUTFIELD,
+                    target = "Lnet/minecraft/client/render/GameRenderer;viewDistance:F",
+                    shift = At.Shift.AFTER
+            )
+    )
+    public void clientsideEssentials_overrideFogDensity(float tickDelta, int eye, CallbackInfo ci) {
+        this.viewDistance = (256 >> this.client.options.viewDistance) * ModOptions.getFogMultiplier();
+    }
 
     @Unique
     public float clientsideEssentials_getFovMultiplier(float f, boolean isHand) {
