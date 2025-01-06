@@ -4,7 +4,9 @@ import com.github.telvarost.clientsideessentials.Config;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
 import net.modificationstation.stationapi.api.entity.player.PlayerHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -55,6 +57,7 @@ public class OverlayMixin extends DrawContext {
 			int lightLevel = 0;
 			String biomeName = "Unknown";
 			long dayCount = 0;
+			boolean isSlimeChunk = false;
 
 			if (null != player) {
 				float light = player.getBrightnessAtEyes(1.0F);
@@ -94,6 +97,9 @@ public class OverlayMixin extends DrawContext {
 				}
 
 				if (null != player.world) {
+					Chunk chunk = player.world.getChunkFromPos(MathHelper.floor(player.x), MathHelper.floor(player.z));
+					isSlimeChunk = (chunk.getSlimeRandom(987234911L).nextInt(10) == 0);
+
 					if (null != player.world.getProperties()) {
 						dayCount = (int) Math.floor(player.world.getProperties().getTime() / 24000);
 					}
@@ -117,6 +123,10 @@ public class OverlayMixin extends DrawContext {
 
 			if (Config.config.GRAPHICS_CONFIG.ADD_DAY_COUNTER) {
 				var8.drawWithShadow("Day: " + dayCount, 2, 128, 14737632);
+			}
+
+			if (Config.config.GRAPHICS_CONFIG.ADD_SLIME_CHUNK) {
+				var8.drawWithShadow("Slime Chunk: " + isSlimeChunk, 2, 136, 14737632);
 			}
 		}
 	}

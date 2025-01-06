@@ -59,6 +59,9 @@ public class Config {
         )
         public Boolean ADD_LIGHT_LEVEL = true;
 
+        @ConfigEntry(name = "Add Slime Chunk To Debug Overlay")
+        public Boolean ADD_SLIME_CHUNK = true;
+
         @ConfigEntry(name = "Disable ID Tags")
         public Boolean DISABLE_ID_TAGS = true;
 
