@@ -37,6 +37,7 @@ Moved to new Scoring/Achievement mod below:
   - Calculated at player's eye level
 - Add biome type to debug screen
 - Add day count to debug screen
+- Add slime chunk to debug screen
 
 ## Sound Additions
 
