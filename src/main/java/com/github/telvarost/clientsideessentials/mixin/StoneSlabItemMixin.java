@@ -15,7 +15,7 @@ public class StoneSlabItemMixin {
 
     @Inject(method = "getTranslationKey", at = @At("HEAD"), cancellable = true)
     public void preventCrash(ItemStack stack, CallbackInfoReturnable<String> cir){
-        if(stack.getDamage() > net.minecraft.block.SlabBlock.names.length){
+        if(stack.getDamage() >= net.minecraft.block.SlabBlock.names.length){
             cir.setReturnValue(null);
         }
     }
